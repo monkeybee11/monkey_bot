@@ -130,6 +130,10 @@ async def weather(ctx):
         await ctx.send(":thunder_cloud_rain:")
     elif weather_check == "Partly Cloudy":
         await ctx.send(":white_sun_small_cloud:")
+    elif weather_check == "Light Rain and Snow":
+        await ctx.send(":cloud_snow: :cloud_rain:")
+    elif weather_check == "Snow":
+        await ctx.send(":cloud_snow:")
     else:
         await ctx.send(weather_check)#posts name of weather to discord if not above
 
@@ -291,7 +295,7 @@ async def topb(ctx,x = 10):
 ############################################
 
 @oimate.command(help = "when its snowing over the wildwestcarni u can scoop up some snowballs")
-@commands.cooldown(1,30,commands.BucketType.user)
+@commands.cooldown(1,120,commands.BucketType.user)
 async def scoop(ctx):
 
     #declare the client. format defults to the metric system(C, km/h, ect)
@@ -303,10 +307,11 @@ async def scoop(ctx):
     snow = random.randint(1,3)
 
     check_weather = weather.current.sky_text
+    snow_weather = "Light Snow" , "Snow" , "Light Rain and Snow"
 
-    if check_weather == "Light Snow" and snow == 1:
+    if check_weather == "Snow" and snow == 1:
 
-        await ctx.send(f"{ctx.author} gathered a snowball")
+        await ctx.send(f"{ctx.author.name} gathered a snowball")
 
         await open_account(ctx.author)
         users = await get_ticket_data()
@@ -315,9 +320,9 @@ async def scoop(ctx):
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
 
-    elif check_weather == "Light Snow" and snow == 2:
+    elif check_weather == "Snow" or check_weather == "Light Rain and Snow" and snow == 2:
 
-        await ctx.send(f"{ctx.author} was gathering snowballs when they stumbled apon someones hidden stash")
+        await ctx.send(f"{ctx.author.name} was gathering snowballs when they stumbled apon someones hidden stash")
 
         stash = random.randint(1,5)
 
@@ -328,11 +333,11 @@ async def scoop(ctx):
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
 
-    elif check_weather == "Light Snow" and snow == 3:
+    elif check_weather == "Snow" or check_weather == "Light Rain and Snow" and snow == 3:
 
-        await ctx.send(f"{ctx.author} was a bout to scoop up some snow when they heard some one yelling ***next time dont wear yellow tinted goggles***")
+        await ctx.send(f"{ctx.author.name} was a bout to scoop up some snow when they heard some one yelling ***next time dont wear yellow tinted goggles***")
 
-    elif check_weather != "Light Snow":
+    elif check_weather != "Snow" and check_weather != "light Rain and Snow":
 
         await ctx.send("there is no snow on the ground")
 
@@ -343,6 +348,7 @@ async def scoop(ctx):
 async def shoke(ctx,member:discord.Member):
     
     aim = random.randint(1,100)
+    print("aim",aim)
     
     await open_account(ctx.author)
     users = await get_ticket_data()
@@ -358,39 +364,49 @@ async def shoke(ctx,member:discord.Member):
         await ctx.send(embed=no_snow)
 
 
-    elif users[str(user.id)]["snowball"] > 0 and aim <= 59:
+    elif users[str(user.id)]["snowball"] >= 1 and aim <= 59:
         
         users[str(user.id)]["snowball"] -=1
-        
-        with open("ticketbank.json","w") as f:
-            json.dump(users,f)
-        
         snow_hit =discord.Embed(title = "snowball fight")
         snow_hit.set_author(name = (ctx.author.name))
         snow_hit.set_thumbnail(url="https://cdn.discordapp.com/emojis/914587417355386950.gif?size=96&quality=lossless")
         snow_hit.add_field(name = f"{ctx.author.name} throws a snowball at" , value = "<:laughtingmonkey:894525186655780864>", inline = True)
         snow_hit.add_field(name = f"{member.name} is now a snowman", value = "<:2021_Snowsgiving_Emojis_001_Snum:917929344997937162>" , inline = True)
         await ctx.send(embed=snow_hit)
-        
-    elif users[str(user.id)]["snowball"] >1 and aim >= 60:
-        
-        users[str(user.id)]["snowball"] -= 1
+
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
         
-        snow_miss = discord.embed(title = "snowball fight")
+    elif users[str(user.id)]["snowball"] >= 1 and aim >= 60:
+        print(1)
+        
+        users[str(user.id)]["snowball"] -=1
+        print(2)
+
+        snow_miss = discord.Embed(title = "snowball fight")
+        print(3)
         snow_miss.set_author(name = (ctx.author.name))
+        print(4)
         snow_miss.set_thumbnail(url="https://cdn.discordapp.com/emojis/914587417355386950.gif?size=96&quality=lossless")
+        print(5)
         snow_miss.add_field(name = f"{ctx.author.name} throws a snowball at" , value = "<:mnkyDKS:780614148068605983>", inline = True)
-        snow_miss.add_field(name = f"{member.name} but it misses", value = "come up with something better later", inline = True)
+        print(6)
+        snow_miss.add_field(name = f"{member.name} but it misses", value = "<:mnkyDKS:780614148068605983>", inline = True)
+        print(7)
         await ctx.send(embed=snow_miss)
+        print(8)
+        
+        with open("ticketbank.json","w") as f:
+            print(9)
+            json.dump(users,f)
+            print(10)
         
 ############################################
 ##   banana game for DKS server           ##
 ############################################
 
 @oimate.command(help ="shake the banana tree")
-@commands.cooldown(1,60,commands.BucketType.user)
+@commands.cooldown(1,3600,commands.BucketType.user)
 async def shake(ctx):
 
     tree_shake = random.randint(1,3)
@@ -554,7 +570,7 @@ async def shake(ctx):
 ############################################
 
 @oimate.command(help = "try your luck come win a prize")
-@commands.cooldown(1,60,commands.BucketType.user) #1 time , 60seccon cooldown , per user
+@commands.cooldown(1,3600,commands.BucketType.user) #1 time , 60seccon cooldown , per user
 async def target(ctx):
 
     #declare the client. format defults to the metric system(C, km/h, ect)
@@ -564,7 +580,7 @@ async def target(ctx):
     weather = await client.find("Boston")
     weather_check = weather.current.sky_text
     target_chance = ["1", "5", "0", "-1", "lilly"] #we make a list of the random options
-    randomList = random.choices( target_chance, weights=(48, 2, 25, 25, 0.01), k=1) # weighted the random chances so some options happen more then others , k=howmeny options form the list we want
+    randomList = random.choices( target_chance, weights=(48, 2, 25, 25, 1), k=1) # weighted the random chances so some options happen more then others , k=howmeny options form the list we want
 
 
     if weather_check == "Light Rain" or weather_check == "Rain":
