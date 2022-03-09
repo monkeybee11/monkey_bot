@@ -16,9 +16,6 @@ token = getenv("monkey_bot")
 
 # to do list
 # banana game
-# weather
-# update hug
-# add gun commarnd to squrt other ppl
 # come up with more games
 
 
@@ -41,7 +38,29 @@ async def on_command_error(ctx, error):
 
 #saving this emoji id for later
     # <a:TargetAnim:927671875834875974>
+    
+#######################################
+##         random stuff              ##
+#######################################
 
+@oimate.command(help = "nailed it")
+async def nailedit(ctx):
+    nail = random.randint(1,2)
+    if nail == 1:
+        await ctx.send("<:NailedItDan:887162185166516256>")
+    elif nail == 2:
+        await ctx.send("<:mnkyNailedIt:739908983833362433>")
+        
+        
+@oimate.command(help = "#dadjoke")
+async def dadjoke(ctx):
+    joke = random.randint(1,2)
+    if joke == 1:
+        await ctx.send("<:DadJokeDan:887164212261056574>")
+    elif joke == 2:
+        await ctx.send(" <:mnkyDadJoke:704518638706753588>")
+        
+        
 @oimate.command(help = "rolls a d20")
 async def d20(ctx):
     roll_time = random.randint(1,10)
@@ -109,10 +128,14 @@ async def weather(ctx):
         await ctx.send(":cloud:")
     elif weather_check == "Thunderstorm":
         await ctx.send(":thunder_cloud_rain:")
+    elif weather_check == "Partly Cloudy":
+        await ctx.send(":white_sun_small_cloud:")
     else:
         await ctx.send(weather_check)#posts name of weather to discord if not above
 
     await client.close() #we dont need weather api anymore close it
+
+
 
 ###########################################
 ##            ticket crunecy             ##
@@ -229,6 +252,40 @@ async def top10(ctx,x = 10):
             index += 1
 
     await ctx.send(embed = em)
+    
+    
+@oimate.command(help = "shows the top10 banana holders")
+async def topb(ctx,x = 10):
+
+    users = await get_ticket_data()
+
+    top10 = {}
+    total = []
+
+    for user in users:
+        name = int(user)
+        total_amt = users[user]["banana"]
+        top10[total_amt] = name
+        total.append(total_amt)
+
+    total = sorted(total,reverse=True)
+
+    em = discord.Embed(title=f"top banana")
+
+    index = 1
+    for amt in total:
+        id_ = top10[amt]
+        member = await oimate.fetch_user(id_)
+        name = member.name
+        em.add_field(name = f"{index}. {name}" , value = f"{amt} <:mnkyThrow:704518598764527687>", inline = False)
+
+        if index == x:
+            break
+        else:
+            index += 1
+
+    await ctx.send(embed = em)
+
 ############################################
 ##              snow game                 ##
 ############################################
@@ -254,7 +311,7 @@ async def scoop(ctx):
         await open_account(ctx.author)
         users = await get_ticket_data()
         user = ctx.author
-        users[str(user.id)]["banana"] += 1
+        users[str(user.id)]["snowball"] += 1
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
 
@@ -267,7 +324,7 @@ async def scoop(ctx):
         await open_account(ctx.author)
         users = await get_ticket_data()
         user = ctx.author
-        users[str(user.id)]["banana"] += stash
+        users[str(user.id)]["snowball"] += stash
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
 
@@ -282,8 +339,52 @@ async def scoop(ctx):
     await client.close()
 
 
+@oimate.command(help = "throws a snowball at someone")
+async def shoke(ctx,member:discord.Member):
+    
+    aim = random.randint(1,100)
+    
+    await open_account(ctx.author)
+    users = await get_ticket_data()
+    user = ctx.author
+    
+    if users[str(user.id)]["snowball"] == 0:
+        
+        no_snow=discord.Embed(title = "snowball fight")
+        no_snow.set_author(name = (ctx.author.name))
+        no_snow.set_thumbnail(url="https://cdn.discordapp.com/emojis/914587417355386950.gif?size=96&quality=lossless")
+        no_snow.add_field(name = f"you have no snowballs....did they melt? and" , value = "<:puppy_eye_monkey:894525128807940096>", inline = True)
+        no_snow.add_field(name = f"{member.name} is proberly anoyed at the ping", value = "<:blob_fail:777073048389419009>" , inline = True)
+        await ctx.send(embed=no_snow)
 
 
+    elif users[str(user.id)]["snowball"] > 0 and aim <= 59:
+        
+        users[str(user.id)]["snowball"] -=1
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+        
+        snow_hit =discord.Embed(title = "snowball fight")
+        snow_hit.set_author(name = (ctx.author.name))
+        snow_hit.set_thumbnail(url="https://cdn.discordapp.com/emojis/914587417355386950.gif?size=96&quality=lossless")
+        snow_hit.add_field(name = f"{ctx.author.name} throws a snowball at" , value = "<:laughtingmonkey:894525186655780864>", inline = True)
+        snow_hit.add_field(name = f"{member.name} is now a snowman", value = "<:2021_Snowsgiving_Emojis_001_Snum:917929344997937162>" , inline = True)
+        await ctx.send(embed=snow_hit)
+        
+    elif users[str(user.id)]["snowball"] >1 and aim >= 60:
+        
+        users[str(user.id)]["snowball"] -= 1
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+        
+        snow_miss = discord.embed(title = "snowball fight")
+        snow_miss.set_author(name = (ctx.author.name))
+        snow_miss.set_thumbnail(url="https://cdn.discordapp.com/emojis/914587417355386950.gif?size=96&quality=lossless")
+        snow_miss.add_field(name = f"{ctx.author.name} throws a snowball at" , value = "<:mnkyDKS:780614148068605983>", inline = True)
+        snow_miss.add_field(name = f"{member.name} but it misses", value = "come up with something better later", inline = True)
+        await ctx.send(embed=snow_miss)
+        
 ############################################
 ##   banana game for DKS server           ##
 ############################################
