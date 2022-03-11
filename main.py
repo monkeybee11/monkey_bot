@@ -28,6 +28,10 @@ sausage = egg.strftime("%I:%M %p")  # strftime format to put time in to a string
 pocketwatch = clock.utcnow()
 oimate = commands.Bot(command_prefix = "!") # set hte prefix
 fishNchips = Controller()
+
+# these are veriables im using for banana game
+# the targets they get set to the user and target for banana game so
+# only they can intaract and no random person jumps in
 thrower = "b"
 splater = "a"
 
@@ -415,15 +419,20 @@ async def shoke(ctx,member:discord.Member):
 async def shake(ctx):
 
     tree_shake = random.randint(1,3)
-    failed_shake = random.randint(1,4)
 
 
     if tree_shake == 1:
-        await ctx.send(f"{ctx.author.name} shook the banana tree and gained 1 <:mnkyThrow:704518598764527687>  ")
-
+        
         await open_account(ctx.author)
         users = await get_ticket_data()
         user = ctx.author
+        banana_amount = users[str(user.id)]["banana"]
+        
+        shakebed=discord.Embed(title= "BANANA GAME")
+        shakebed.set_author(name = (ctx.author.name))
+        shakebed.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+        shakebed.add_field(name= f"{ctx.author.name} shook the banana tree and gained 1 <:mnkyThrow:704518598764527687>", value = f"you now have {banana_amount}<:mnkyThrow:704518598764527687>" ,inline = True)
+        await ctx.send(embed = shakebed)
 
         users[str(user.id)]["banana"] += 1
 
@@ -431,12 +440,32 @@ async def shake(ctx):
             json.dump(users,f)
 
     elif tree_shake == 2:
+        
+        uhoh = [
+        "{ctx.author.name} shook the tree to hard and it fell over woops",
+        "{ctx.author.name} gave the banana tree a good shake BUT u upset a sleeping parrot who swooped down and attacked. you lost 1 <:mnkyThrow:704518598764527687>",
+        "{ctx.author.name} shook the banana tree and a disco ball fell down and went SMASH",
+        "{ctx.author.name} shook the banana tree and angered a monkey you now have monkey poop on your head and no banans",
+        ]
+        
+        ohno = len(uhoh)
+        
+        await open_account(ctx.author)
+        users = await get_ticket_data()
+        user = ctx.author
 
-        if failed_shake == 1:
-            await ctx.send(f"{ctx.author.name} shook the tree to hard and it fell over woops")
+        banana_amount = users[str(user.id)]["banana"]
 
-        elif failed_shake == 2:
-            await ctx.send(f"{ctx.author.name} gave the banana tree a good shake BUT u upset a sleeping parrot who swooped down and attacked. you lost 1 <:mnkyThrow:704518598764527687>")
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+        
+        shakebed=discord.Embed(title= "BANANA GAME")
+        shakebed.set_author(name = (ctx.author.name))
+        shakebed.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+        shakebed.add_field(name =f(ohno) , value =f"you now have {banana_amount} <:mnkyThrow:704518598764527687>", inline = True)
+        await ctx.send(embed=shakebed)
+
+        if ohno == 2:
 
             await open_account(ctx.author)
             users = await get_ticket_data()
@@ -449,12 +478,8 @@ async def shake(ctx):
             with open("ticketbank.json","w") as f:
                 json.dump(users,f)
 
-        elif failed_shake == 3:
-            await ctx.send(f"{ctx.author.name} shook the banana tree and a disco ball fell down and went SMASH")
-
-        elif failed_shake == 4:
-            await ctx.send(f"{ctx.author.name} shook the banana tree and angered a monkey you now have monkey poop on your head and no banans")
-
+        elif ohno == 4:
+            
             await open_account(ctx.author)
             users = await get_ticket_data()
             user = ctx.author
@@ -465,11 +490,17 @@ async def shake(ctx):
                 json.dump(users,f)
 
     elif tree_shake == 3:
-        await ctx.send(f"{ctx.author.name} shook the tree AND OH WOW 2 <:mnkyThrow:704518598764527687>  fell from the tree")
-
+        
         await open_account(ctx.author)
         users = await get_ticket_data()
         user = ctx.author
+        banana_amount = users[str(user.id)]["banana"]
+        
+        shakebed=discord.Embed(title= "BANANA GAME")
+        shakebed.set_author(name = (ctx.author.name))
+        shakebed.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+        shakebed.add_field(name= f"{ctx.author.name} shook the tree AND OH WOW 2 <:mnkyThrow:704518598764527687>  fell from the tree", value = f"you now have {banana_amount}<:mnkyThrow:704518598764527687>" ,inline = True)
+        await ctx.send(embed = shakebed)
 
         users[str(user.id)]["banana"] += 2
 
@@ -596,10 +627,19 @@ async def block(ctx):
         
     elif ctx.author.id == splater and block_chance <= 30:
         
+        await open_account(ctx.author)
+        users = await get_ticket_data()
+        user = ctx.author
+        bb = users[str(user.id)]["banana"]
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+        
+        
         be = discord.Embed(title = "BANANA GAMES")
         be.set_author(name = (ctx.author.name))
         be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
-        be.add_field(name = f"{ctx.author.name} blocks the banana. Whew, that was close!", value = "(monkey needs to find how to keep value blank)", inline = True)
+        be.add_field(name = f"{ctx.author.name} blocks the banana. Whew, that was close!", value = f"<@{ctx.user.id}> has {bb} bananas", inline = True)
         await ctx.send(embed = be)
         
         splater = "a"
