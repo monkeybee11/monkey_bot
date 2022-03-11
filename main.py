@@ -1,3 +1,6 @@
+############################################################################################################################################################################
+## if you are reading this on github and your not monkey 99.9% of the comments are for me 4 weeks later from typing the code so sry if theres to much comments for you XD ##
+############################################################################################################################################################################
 from datetime import datetime as clock
 import discord, asyncio, time, os, json, random, requests, python_weather
 from discord.ext import commands, tasks
@@ -25,6 +28,8 @@ sausage = egg.strftime("%I:%M %p")  # strftime format to put time in to a string
 pocketwatch = clock.utcnow()
 oimate = commands.Bot(command_prefix = "!") # set hte prefix
 fishNchips = Controller()
+thrower = "b"
+splater = "a"
 
 @oimate.event
 async def on_ready(): #this is where the bot brain starts to work
@@ -38,6 +43,16 @@ async def on_command_error(ctx, error):
 
 #saving this emoji id for later
     # <a:TargetAnim:927671875834875974>
+    
+    
+#######################################
+##          testing ground           ##
+#######################################
+
+#if this block of code is empty im not testing anything
+#this is just so im able to find it in like 4 weeks time
+# and me proberly forgotten how to use python :P
+
     
 #######################################
 ##         random stuff              ##
@@ -128,7 +143,7 @@ async def weather(ctx):
         await ctx.send(":cloud:")
     elif weather_check == "Thunderstorm":
         await ctx.send(":thunder_cloud_rain:")
-    elif weather_check == "Partly Cloudy":
+    elif weather_check == "Partly Cloudy" or weather_check == "Mostly Sunny":
         await ctx.send(":white_sun_small_cloud:")
     elif weather_check == "Light Rain and Snow":
         await ctx.send(":cloud_snow: :cloud_rain:")
@@ -225,7 +240,7 @@ async def shop(ctx):
 ###########################################
 
 
-@oimate.command(help = "shows the top10 ticket holders(broken)")
+@oimate.command(help = "shows the top10 ticket holders")
 async def top10(ctx,x = 10):
 
     users = await get_ticket_data()
@@ -348,7 +363,7 @@ async def scoop(ctx):
 async def shoke(ctx,member:discord.Member):
     
     aim = random.randint(1,100)
-    print("aim",aim)
+    #print("aim",aim)  #this is for debugging comment out when not debugging
     
     await open_account(ctx.author)
     users = await get_ticket_data()
@@ -378,28 +393,18 @@ async def shoke(ctx,member:discord.Member):
             json.dump(users,f)
         
     elif users[str(user.id)]["snowball"] >= 1 and aim >= 60:
-        print(1)
         
         users[str(user.id)]["snowball"] -=1
-        print(2)
 
         snow_miss = discord.Embed(title = "snowball fight")
-        print(3)
         snow_miss.set_author(name = (ctx.author.name))
-        print(4)
         snow_miss.set_thumbnail(url="https://cdn.discordapp.com/emojis/914587417355386950.gif?size=96&quality=lossless")
-        print(5)
         snow_miss.add_field(name = f"{ctx.author.name} throws a snowball at" , value = "<:mnkyDKS:780614148068605983>", inline = True)
-        print(6)
         snow_miss.add_field(name = f"{member.name} but it misses", value = "<:mnkyDKS:780614148068605983>", inline = True)
-        print(7)
         await ctx.send(embed=snow_miss)
-        print(8)
         
         with open("ticketbank.json","w") as f:
-            print(9)
             json.dump(users,f)
-            print(10)
         
 ############################################
 ##   banana game for DKS server           ##
@@ -474,6 +479,255 @@ async def shake(ctx):
 #######################
 ## catch throw block ##
 #######################
+
+@commands.cooldown(3,3600,commands.BucketType.user)
+@oimate.command(help = "throw banana at someone")
+async def throw(ctx, member:discord.Member):
+    global thrower
+    global splater
+    
+    await open_account(ctx.author)
+    users = await get_ticket_data()
+    user = ctx.author
+    bb = users[str(user.id)]["banana"]
+        
+    with open("ticketbank.json","w") as f:
+        json.dump(users,f)
+
+    
+    if splater == "a" and bb >= 1:
+        
+        await open_account(ctx.author)
+        users = await get_ticket_data()
+        user = ctx.author
+        me = member
+        bb = users[str(user.id)]["banana"]
+        cc = users[str(me.id)]["banana"]
+        
+        users[str(user.id)]["banana"] -= 1
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+            
+        be = discord.Embed(title = "BANANA GAMES")
+        be.set_author(name = (ctx.author.name))
+        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+        be.add_field(name= f"{ctx.author.name} has thrown a <:mnkyThrow:704518598764527687> at" , value = f"{bb}", inline = True)
+        be.add_field(name= f"{member.name} has to respond with !dodge !block !catch" , value = f"{cc}", inline = True)
+        await ctx.send(embed = be)
+        await ctx.send("if no one responce in like 1hr or something >.> ping monkey to return your banana, code for \"if no one respocnes with in x amount of time reset\" is coming soonTM")
+        thrower = (ctx.author.id)
+        splater = (member.id)
+        
+    elif splater != "a":
+        
+        be = discord.Embed(title = "BANANA GAMES")
+        be.set_author(name = (ctx.author.name))
+        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+        be.add_field(name = "theres allready a banana flying throu the air at the moment", value = "we dont want bananas to hit mid air", inline = True)
+        await ctx.send(embed = be)
+        
+    elif bb <= 0:
+        
+        await ctx.send("you donthave any bananas to throw")
+        
+@oimate.command(help = "dodges the banana")
+async def dodge(ctx):
+    global thrower
+    global splater
+    dodge_chance = random.randint(1,100)
+    
+    if ctx.author.id != splater:
+        await ctx.send("no one is throwing a banana at you y are you dodgeing?")
+        
+    elif ctx.author.id == splater and dodge_chance <= 49:
+        
+        await open_account(ctx.author)
+        users = await get_ticket_data()
+        user = ctx.author
+        bb = users[str(user.id)]["banana"]
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+        
+        be = discord.Embed(title = "BANANA GAMES")
+        be.set_author(name = (ctx.author.name))
+        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+        be.add_field(name = f"{ctx.author.name} dodges the banana with monkey like reflexes!!!!!!", value = f"your have {bb} <:mnkyThrow:704518598764527687> ", inline = True)
+        await ctx.send(embed = be)
+        
+        splater = "a"
+        thrower = "b"
+    
+    elif ctx.author.id == splater and dodge_chance >= 50:
+        
+        banana_lost = random.randint(2,4)
+        
+        await open_account(ctx.author)
+        users = await get_ticket_data()
+        user = ctx.author
+        me = member
+        bb = users[str(user.id)]["banana"]
+        cc = users[str(me.id)]["banana"]
+        
+        users[str(user.id)]["banana"] -= banana_lost
+        if users[str(user.id)]["banana"] < 0:
+            users[str(user.id)]["banana"] = 0
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+        
+        be = discord.Embed(title = "BANANA GAMES")
+        be.set_author(name = (ctx.author.name))
+        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+        be.add_field(name = f"{ctx.author.name} dodges but the banana was TOO quick!", value = f"{ctx.author.name} gets smacked in the face and drops {banana_lost}<:mnkyThrow:704518598764527687>", inline = True)
+        be.add_field(name = f"{ctx.author.name} now has" , value = f"<:mnkyThrow:704518598764527687>{bb}", inline = True)
+        await ctx.send(embed = be)
+        
+        splater = "a"
+        thrower = "b"
+        
+@oimate.command(help = "blocks the banana")
+async def block(ctx):
+    global thrower
+    global splater
+    block_chance = random.randint(1,100)
+    
+    if ctx.author.id != splater:
+        await ctx.send("no one is throwing a banana at you y are u blocking?")
+        
+    elif ctx.author.id == splater and block_chance <= 30:
+        
+        be = discord.Embed(title = "BANANA GAMES")
+        be.set_author(name = (ctx.author.name))
+        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+        be.add_field(name = f"{ctx.author.name} blocks the banana. Whew, that was close!", value = "(monkey needs to find how to keep value blank)", inline = True)
+        await ctx.send(embed = be)
+        
+        splater = "a"
+        thrower = "b"
+        
+    elif ctx.author.id == splater and block_chance >= 31:
+        
+        banana_lost = random.randint(3,7)
+        
+        await open_account(ctx.author)
+        users = await get_ticket_data()
+        user = ctx.author
+        bb = users[str(user.id)]["banana"]
+        
+        users[str(user.id)]["banana"] -= banana_lost
+        if users[str(user.id)]["banana"] < 0:
+            users[str(user.id)]["banana"] = 0
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+        
+        be = discord.Embed(title = "BANANA GAMES")
+        be.set_author(name = (ctx.author.name))
+        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+        be.add_field(name = f"{ctx.author.name} trys to block the banana but", value = f"it slips through and smacks {ctx.author.name} right in the face and they drop {banana_lost} more <:mnkyThrow:704518598764527687>", inline = True)
+        be.add_field(name = f"{ctx.author.name} now has" , value = f"<:mnkyThrow:704518598764527687>{bb}", inline = True)
+        await ctx.send(embed = be)
+        
+        splater = "a"
+        thrower = "b"
+        
+@oimate.command(help = "catches the banana")
+async def catch(ctx):
+    global thrower
+    global splater
+    catch_chance = random.randint(1,100)
+    
+    if ctx.author.id != splater:
+        await ctx.send("no one is throwing a banana at you...what are u trying to catch?")
+    
+    elif ctx.author.id == splater and catch_chance <= 15:
+        
+        banana_get = random.randint(5,15)
+        
+        await open_account(ctx.author)
+        users = await get_ticket_data()
+        user = ctx.author
+        bb = users[str(user.id)]["banana"]
+        
+        users[str(user.id)]["banana"] += banana_get
+
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+        
+        bbb = users[str(user.id)]["banana"]
+        be = discord.Embed(title = "BANANA GAMES")
+        be.set_author(name = (ctx.author.name))
+        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+        be.add_field(name = f"DISPLAYING amazing reflezes {ctx.author.name} catches the banana", value = f"backs into the banana tree and catches {banana_get} more <:mnkyThrow:704518598764527687> ", inline = True)
+        be.add_field(name = f"{ctx.author.name} now has", value = f"{bbb} <:mnkyThrow:704518598764527687>" , inline = True)
+        await ctx.send(embed = be)
+        
+        splater = "a"
+        thrower = "b"
+    elif ctx.author.id == splater and catch_chance >=16:
+        
+        banana_lost = random.randint(6,12)
+        
+        await open_account(ctx.author)
+        users = await get_ticket_data()
+        user = ctx.author
+        bb = users[str(user.id)]["banana"]
+        
+        users[str(user.id)]["banana"] -= banana_lost
+        if users[str(user.id)]["banana"] < 0:
+            users[str(user.id)]["banana"] = 0
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+        
+        be = discord.Embed(title = "BANANA GAMES")
+        be.set_author(name = (ctx.author.name))
+        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+        be.add_field(name = f"{ctx.author.name} trys to catch the banana gets hit in the face", value = f"slips on a banana peel and drops {banana_lost} more <:mnkyThrow:704518598764527687>", inline = True)
+        be.add_field(name = f"{ctx.author.name} now has" , value = f"<:mnkyThrow:704518598764527687>{bb}", inline = True)
+        await ctx.send(embed = be)
+        
+        splater = "a"
+        thrower = "b"
+        
+        
+
+@oimate.command(help = "used for checking !throw worked properly")
+async def check_throw(ctx): #check what the thrower and splater values are in case the game buged out
+    global splater
+    global thrower
+    
+    await ctx.send(f"thrower = {thrower} , splater = {splater}")
+    
+        
+@oimate.command(help = "only monkey and monkeydks can use this command")
+async def refund_banana(ctx, member:discord.Member):
+    global splater
+    global thrower
+    
+    if ctx.author.id == 113051316225368064 or ctx.author.id == 119791596681166848:
+        if splater == "a":
+            await ctx.send("nobody need a refund")
+            
+        elif splater != "a":
+            
+            
+            await open_account(ctx.author)
+            users = await get_ticket_data()
+            user = member
+            bb = users[str(user.id)]["banana"]
+            
+            await ctx.send(f"{splater} has {bb} refunding....")
+            users[str(user.id)]["banana"] += 1
+            bb = users[str(user.id)]["banana"]
+            await ctx.send(f" {splater} now has {bb}")
+            with open("ticketbank.json","w") as f:
+                json.dump(users,f)
+            
+            splater = "a"
+            thrower = "b"
+            
+            await ctx.send(f"spalter and thrower has been reset to {splater} {thrower}")
+            
+            
 
 
 
@@ -570,7 +824,7 @@ async def shake(ctx):
 ############################################
 
 @oimate.command(help = "try your luck come win a prize")
-@commands.cooldown(1,3600,commands.BucketType.user) #1 time , 60seccon cooldown , per user
+@commands.cooldown(1,3600,commands.BucketType.user) #1 time , 1hr cooldown , per user
 async def target(ctx):
 
     #declare the client. format defults to the metric system(C, km/h, ect)
