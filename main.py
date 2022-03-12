@@ -122,7 +122,88 @@ async def pew(ctx,member:discord.Member):
         await ctx.send("<a:TargetAnim:927671875834875974>")
         await ctx.send(f"{ctx.author.name} may want to pratice there aim at the target game")
 
+##########################################
+##             dad jokes                ##
+##########################################
 
+@commands.cooldown(1,1200,commands.BucketType.user)
+@oimate.command(help = "tells a joke")
+async def joke(ctx):
+
+    jokeimg = " "
+    
+    dadjoke = random.randint(1,3)
+    if dadjoke == 1:
+        jokeimg = "https://cdn.discordapp.com/emojis/887164212261056574.webp?size=96&quality=lossless"
+    elif dadjoke == 2:
+        jokeimg ="https://cdn.discordapp.com/emojis/704518638706753588.webp?size=96&quality=lossless"
+    elif dadjoke ==3:
+        jokeimg = "https://cdn.discordapp.com/emojis/894525186655780864.webp?size=44&quality=lossless"
+    
+    joke = [
+            "why coudnt the pony sing a lullaby? ||she was a little horse||",
+            "what do u call a boomerang that wont come back? ||a stick||",
+            "what does a cloud wear under his raincoat? ||thunderwear||",
+            "two pickles fell out of a jar onto the floor what did one say to the other? ||dill with it||",
+            "what time is it when the clock strikes 13? ||time to get a new clock||",
+            "how dose acucumber become a pickle? || it goes through a jarring experience||",
+            "what did one toilet say to the other? ||you look a bit flushed||",
+            "what do u think of that new diner on the moon? ||food was good but there really wasnt much atmosphre||",
+            "why did the dinosaur cross the road?||because the chicken wasnt born yet||",
+            "why cant elsa from frozen have a baloon?||because she will \"let it go\"||",
+            "what musical instrument is found in the bathroom?||a tuba toothpaste||",
+            "why did the kid bring a ladder to school?||because he wanted to go to high school||",
+            "what do you call a dog magician?||a labracadabrador||",
+            "where woud you find an elephant?||the same place you lost her||",
+            "how do you get a squirrel to like you?||act like a nut||",
+            "what do you call two birds in love?||tweethearts||",
+            "how dose a scientist freshen her breath?||with experi-mints||",
+            "how are false teeth like stars?||they come out at night||",
+            "what building in your town has the most stories?||the public library||",
+            "whats a computers favrout snack?||computer chips||",
+            "what did one vocano say to the other?||i lava you||",
+            "how do we know that the ocean is frendly?||it waves||",
+            "what is a tornados favrout game to play?||twister||",
+            "how dose the moon cut his hair?||eclipes it||",
+            "how do you talk to a giant?||use BIG words||",
+            "what animal is allways at the baseball game?||a bat||",
+            "what falls in winter but never gets hurt?||snow||",
+            "what did the dalmatian say after lunch?||that hit the spot||",
+            "why did the kid cross the playground?||to get to the other side||",
+            "what do you call a droid that takes the long way around?||R2 detour||",
+            "why did the cookie go to the hospital?||because he felt crummy||",
+            "why was the baby strawberry crying?||because her mum and dad was in a jam||",
+            "what did the little corn say to the mama corn?||wheres is pop corn?||",
+            "how do you make a lemon drop?||just let it fall||",
+            "what did the limestone say to the geologist?||dont take me for granite||",
+            "why dose a seagul fly over the sea?||because if they flew over the bay it woud be a baygull||",
+            "what kind of water cant freeze?||hot water||",
+            "what kind of tree fits in your hand?||a palm tree||",
+            "what do you call a dinosaur that is a sleep?||a dino-snore||",
+            "whats fast loud and crunchy?||a rocket chip||",
+            "why did the teddybear say no to desserts?||he was stuffed||",
+            "what has ears but cant hear?||a corn field||",
+            "what did the left eye say to the right eye?||between us something smells||",
+            "what did one plate say to the other plate?||dinner is on me||",
+            "why did the student eat his homework?||the teacher told him it was a piece of cake||",
+            "when you look for something why is it allways in the last place you look?||because when u find it you stop looking||",
+            "what is brown hairy and wears sunglasses?||a coconut on vacation||",
+            "what do you say to a rabbit on his birthday?||hoppy birthday||",
+            "whats the one thing u get every year on your birthday guaranteed?||one year older||",
+            "why do candles allways go on top of the cake?||because its hard to light them form the bottom||",
+            "what do cakes and baseball teams have in common?||they both need a good batter||",
+            "two monkeys are in a bath one says oo ahh ahh eeeeeek||the other said turn the cold tap on then||",
+
+    ]
+    haha = len(joke)
+    hoho = random.randrange(haha)
+    JOKE = joke[hoho]
+    
+    jokebed=discord.Embed(title= "DAD JOKE")
+    jokebed.set_author(name =(ctx.author.name))
+    jokebed.set_thumbnail(url=(jokeimg))
+    jokebed.add_field(name = f"{JOKE}" , value = "<:laughtingmonkey:894525186655780864>", inline = True)
+    await ctx.send(embed=jokebed)
 
 ##########################################
 ##               weather                ##
@@ -426,46 +507,44 @@ async def shake(ctx):
         await open_account(ctx.author)
         users = await get_ticket_data()
         user = ctx.author
-        banana_amount = users[str(user.id)]["banana"]
         
+        users[str(user.id)]["banana"] += 1
+        
+        banana_amount = users[str(user.id)]["banana"]
         shakebed=discord.Embed(title= "BANANA GAME")
         shakebed.set_author(name = (ctx.author.name))
         shakebed.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
         shakebed.add_field(name= f"{ctx.author.name} shook the banana tree and gained 1 <:mnkyThrow:704518598764527687>", value = f"you now have {banana_amount}<:mnkyThrow:704518598764527687>" ,inline = True)
         await ctx.send(embed = shakebed)
 
-        users[str(user.id)]["banana"] += 1
-
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
 
     elif tree_shake == 2:
         
+        #monkey remember REMEMBER this list starts from 0 not 1
         uhoh = [
-        "{ctx.author.name} shook the tree to hard and it fell over woops",
-        "{ctx.author.name} gave the banana tree a good shake BUT u upset a sleeping parrot who swooped down and attacked. you lost 1 <:mnkyThrow:704518598764527687>",
-        "{ctx.author.name} shook the banana tree and a disco ball fell down and went SMASH",
-        "{ctx.author.name} shook the banana tree and angered a monkey you now have monkey poop on your head and no banans",
+        f"{ctx.author.name} shook the tree to hard and it fell over woops",
+        f"{ctx.author.name} gave the banana tree a good shake BUT u upset a sleeping parrot who swooped down and attacked. you lost 1 <:mnkyThrow:704518598764527687>",
+        f"{ctx.author.name} shook the banana tree and a disco ball fell down and went SMASH",
+        f"{ctx.author.name} shook the banana tree and angered a monkey you now have monkey poop on your head and no banans",
+        f"{ctx.author.name} gave the banana tree a good few shakes but nothing droped down",
+        f"{ctx.author.name} shoot the banana tree and a coconut droped in there head OWCH.....how did that get in a banana tree anyway?"
         ]
         
         ohno = len(uhoh)
+        quack = random.randrange(ohno)
+        RUN = uhoh[quack]
         
         await open_account(ctx.author)
         users = await get_ticket_data()
         user = ctx.author
 
-        banana_amount = users[str(user.id)]["banana"]
 
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
-        
-        shakebed=discord.Embed(title= "BANANA GAME")
-        shakebed.set_author(name = (ctx.author.name))
-        shakebed.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
-        shakebed.add_field(name =f(ohno) , value =f"you now have {banana_amount} <:mnkyThrow:704518598764527687>", inline = True)
-        await ctx.send(embed=shakebed)
 
-        if ohno == 2:
+        if quack == 1:
 
             await open_account(ctx.author)
             users = await get_ticket_data()
@@ -478,7 +557,7 @@ async def shake(ctx):
             with open("ticketbank.json","w") as f:
                 json.dump(users,f)
 
-        elif ohno == 4:
+        elif quack == 3:
             
             await open_account(ctx.author)
             users = await get_ticket_data()
@@ -488,21 +567,28 @@ async def shake(ctx):
 
             with open("ticketbank.json","w") as f:
                 json.dump(users,f)
+                
+        banana_amount = users[str(user.id)]["banana"]
+        shakebed=discord.Embed(title= "BANANA GAME")
+        shakebed.set_author(name = (ctx.author.name))
+        shakebed.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+        shakebed.add_field(name =f"{RUN}" , value =f"you now have {banana_amount} <:mnkyThrow:704518598764527687>", inline = True)
+        await ctx.send(embed=shakebed)
 
     elif tree_shake == 3:
         
         await open_account(ctx.author)
         users = await get_ticket_data()
         user = ctx.author
-        banana_amount = users[str(user.id)]["banana"]
         
+        users[str(user.id)]["banana"] += 2
+        
+        banana_amount = users[str(user.id)]["banana"]
         shakebed=discord.Embed(title= "BANANA GAME")
         shakebed.set_author(name = (ctx.author.name))
         shakebed.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
         shakebed.add_field(name= f"{ctx.author.name} shook the tree AND OH WOW 2 <:mnkyThrow:704518598764527687>  fell from the tree", value = f"you now have {banana_amount}<:mnkyThrow:704518598764527687>" ,inline = True)
         await ctx.send(embed = shakebed)
-
-        users[str(user.id)]["banana"] += 2
 
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
