@@ -28,6 +28,7 @@ sausage = egg.strftime("%I:%M %p")  # strftime format to put time in to a string
 pocketwatch = clock.utcnow()
 oimate = commands.Bot(command_prefix = "!") # set hte prefix
 fishNchips = Controller()
+snowdict = {}
 
 # these are veriables im using for banana game
 # the targets they get set to the user and target for banana game so
@@ -409,7 +410,7 @@ async def scoop(ctx):
     check_weather = weather.current.sky_text
     snow_weather = "Light Snow" , "Snow" , "Light Rain and Snow"
 
-    if check_weather == "Snow" and snow == 1:
+    if check_weather in ["Snow", "Light Rain and Snow" , "light Snow"] and snow == 1:
 
         await ctx.send(f"{ctx.author.name} gathered a snowball")
 
@@ -420,7 +421,7 @@ async def scoop(ctx):
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
 
-    elif check_weather == "Snow" or check_weather == "Light Rain and Snow" and snow == 2:
+    elif check_weather in ["Snow", "Light Rain and Snow" , "light Snow"] and snow == 2:
 
         await ctx.send(f"{ctx.author.name} was gathering snowballs when they stumbled apon someones hidden stash")
 
@@ -433,12 +434,11 @@ async def scoop(ctx):
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
 
-    elif check_weather == "Snow" or check_weather == "Light Rain and Snow" and snow == 3:
+    elif check_weather in ["Snow", "Light Rain and Snow" , "light Snow"] and snow == 3:
 
         await ctx.send(f"{ctx.author.name} was a bout to scoop up some snow when they heard some one yelling ***next time dont wear yellow tinted goggles***")
 
-    elif check_weather != "Snow" and check_weather != "light Rain and Snow":
-
+    else:
         await ctx.send("there is no snow on the ground")
 
     await client.close()
@@ -446,6 +446,8 @@ async def scoop(ctx):
 
 @oimate.command(help = "throws a snowball at someone")
 async def shoke(ctx,member:discord.Member):
+    
+    global snowdict
     
     aim = random.randint(1,100)
     #print("aim",aim)  #this is for debugging comment out when not debugging
@@ -473,6 +475,8 @@ async def shoke(ctx,member:discord.Member):
         snow_hit.add_field(name = f"{ctx.author.name} throws a snowball at" , value = "<:laughtingmonkey:894525186655780864>", inline = True)
         snow_hit.add_field(name = f"{member.name} is now a snowman", value = "<:2021_Snowsgiving_Emojis_001_Snum:917929344997937162>" , inline = True)
         await ctx.send(embed=snow_hit)
+        
+        snowdict.update({(member.id): 10})
 
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
@@ -490,6 +494,20 @@ async def shoke(ctx,member:discord.Member):
         
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
+            
+@oimate.event 
+async def on_message(message):
+    global snowdict
+    
+    if message.author.id in snowdict.keys():
+        await message.add_reaction("⛄")
+        snowdict[(message.author.id)] -= 1
+        melt_value = 0
+        for key, value in snowdict.items():
+            if value == melt_value:
+                del snowdict[key]
+                break
+    await oimate.process_commands(message)
         
 ############################################
 ##   banana game for DKS server           ##
@@ -852,97 +870,6 @@ async def refund_banana(ctx, member:discord.Member):
             thrower = "b"
             
             await ctx.send(f"spalter and thrower has been reset to {splater} {thrower}")
-            
-            
-
-
-
-## Defines a custom select containing the options
-## that the user can chose, the callback function
-##of this class is called when the user changes there choice
-#class Dropdown(discord.ui.select):
-#    def __init__(self):
-#
-#
-##        #set the options that will be presented inside the dropdown
-#        options = [
-#            discord.SelectOption(label="DODGE",description="dodge the banana 50%"),
-#            discord.SelectOption(label="BLOCK",description="block the banana 30%"),
-#            discord.SelectOption(label="CATCH",description="catch the banana 15%"),
-#            ]
-#
-##        #the placeholder is whatwill be shown when no option is chosen
-##        #the min max value indicates we can only pick 1 of the 3 options
-##        #the options parameter defines the dropdown option. we defined this above
-#        super().__init__(
-#            placeholder="click here to dodge block catch",
-#            min_values =1,
-#            max_values=1,
-#            options=options,
-#        )
-#
-#    async def callback(self, interaction: discord.Interaction):
-##        #user the interaction object to send a responce message containing
-##        # the users answer the self object refers to the
-##        #select object, and the values attribute gets a list of the users
-##        #selected options we only want the 1st one
-#        await interaction.response.send_message("if u see this monkey forgot to remove this...or u picked {self.values[0]}")
-#
-#        if self.value == [1]:
-#
-#            await ctx.send(f"{member.name} has tryed to dodge")
-#            doge = random.randint(0,100)
-#            if doge <=49 :
-#                await ctx.send(f"{ctx.author} dodges the banana with monkey-like reflexes!")
-#
-#            elif doge >= 50:
-#                await ctx.send(f"{ctx.author} dodges but the banana was TOO quick {ctx.author} gets smacked in the face and drops some bananas")
-#                l = random.randint(2,4)
-#                await update_pocket(member, - l)
-#
-#                with open("ticketbank.json","w") as f:
-#                    json.dump(users,f)
-#
-#        elif self.value == [2]:
-#            await ctx.send(f"{ctx.author} has tryed to block")
-#            block = random.randint(0,100)
-#            if block <= 25 :
-#                await ctx.send(f"{ctx.author} blocks the banana Whew that was close!")
-#
-#            elif block >= 26:
-#                b = random.randint(3,7)
-#                await ctx.send(f"{ctx.author} trys to block the banana but it slips through and smacks {ctx.author} right in the face and they drop {b} more bananas!")
-#                await update_pocket(member, - b)
-#
-#                with open("ticketbank.json","w") as f:
-#                    json.dump(users,f)
-#
-#        elif self.value == [3]:
-#            await ctx.send(f"{ctx.author} is trying to catch")
-#            catch = random.randint(0,100)
-#            if catch <= 15:
-#                cw = random.randint(5,15)
-#                await ctx.send(f"displaying amazing reflexes {ctx.author} catches the banana backs into the banana tree and catches {cw} more bananas")
-#                await update_pocket(member, + cw)
-#
-#                with open("ticketbank.json","w") as f:
-#                    json.dump(users,f)
-#
-#
-#class DropdownView(discord.ui.View):
-#    def __init__(self):
-#        super().__init__()
-#
-##        # adds the dropdown to our view object
-#        self.add_item(Dropdown())
-#
-#@oimate.command(help = "throw a banana at someone else (broken)")
-#async def throw(ctx, member:discord.Member):
-#
-#
-#    view = DropDownView()
-#
-#    await ctx.send(f"{ctx.author.name} picked", view=view)
 
 
 ############################################
@@ -1068,7 +995,6 @@ async def target(ctx):
 ##monkeys attempted at gameing for discord##
 ############################################
 
-##the stuff in this area exsplains it self no need for comments
 
 @oimate.command(help = "only monkey can use this to start discordplays gamein VC")
 async def gamestart(ctx):
