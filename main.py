@@ -503,10 +503,8 @@ async def on_message(message):
         await message.add_reaction("⛄")
         snowdict[(message.author.id)] -= 1
         melt_value = 0
-        for key, value in snowdict.items():
-            if value == melt_value:
-                del snowdict[key]
-                break
+        if snowdict[(message.author.id)] == melt_value:
+            del snowdict[(message.author.id)]
     await oimate.process_commands(message)
         
 ############################################
