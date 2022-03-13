@@ -58,7 +58,104 @@ async def on_command_error(ctx, error):
 #this is just so im able to find it in like 4 weeks time
 # and me proberly forgotten how to use python :P
 
+
+###########################################
+##         your pocket                   ##
+###########################################
+
+
+   # await ctx.send(f"{ticket} <:DanTix:919966342797463552>")
+
+@oimate.command(help = "shows u whats in your pocket")
+async def pocket(ctx):
+
+    await open_account(ctx.author)
+    user = ctx.author
+    users = await get_ticket_data()
+
+
+    # note if any new items are added to this list manualy add them to the ticketbank.json file
+    ticket_amt = users[str(user.id)]["ticket"]
+    banana_amt = users[str(user.id)]["banana"]
+    snow_amt = users[str(user.id)]["snowball"]
+
+    em = discord.Embed(title = f"inside {ctx.author.name}'s pocket is", color = discord.Color.red())
+    em.add_field(name = "<:DanTix:919966342797463552>", value = ticket_amt, inline = True)
+    em.add_field(name = "<:mnkyThrow:704518598764527687>", value = banana_amt, inline = True)
+    em.add_field(name = "<:2021_Snowsgiving_Emojis_001_Snow:917929344914030642>",value = snow_amt, inline = True)
+    await ctx.send(embed = em)
+
+async def open_account(user):
+
+    users = await get_ticket_data()
+
+
+    if str(user.id) in users:
+        return False
+    else:
+        #this is where we set the names for the database in the json file
+        users[str(user.id)] = {}
+        users[str(user.id)]["ticket"] = 0
+        users[str(user.id)]["banana"] = 0
+        users[str(user.id)]["snowball"] = 0
+
+    with open("ticketbank.json","w") as f:
+        json.dump(users,f)
+    return True
+
+async def get_ticket_data():
+    with open ("ticketbank.json","r") as f:
+        users = json.load(f)
+    return users
+
+async def update_pocket(user,change = 0,mode = "ticket"):
+    users = await get_ticket_data()
+    users[str(user.id)][mode] += change
+
+    with open("ticketbank.json","w") as f:
+        json.dump(users,f)
+
+    bal = [user[str(user.id)]["ticket"]]
+    return bal
+
+#######################################
+##          statis immunitys         ##
+#######################################
+
+@oimate.command(help = "looks at your immunity card to see what your immune to")
+async def immunty_card(ctx):
+    await check_immunty(ctx.author)
+    suser = ctx.author
+    susers = await get_immunty_data()
     
+    snow_imune = susers[str(suser.id)]["snow_immune"]
+    
+    em = discord.Embed(title = f"{ctx.author.name}")
+    em.add_field(name = "snowman statis", value = f"{snow_imune}", inline = True)
+    await ctx.send(embed = em)
+    
+    
+async def check_immunty(user):
+
+    users = await get_immunty_data()
+        
+    if str(user.id) in users:
+        return False
+    else:
+        users[str(user.id)] = {}
+        users[str(user.id)]["snow_immune"] = 0
+        
+    with open("immunityCARD.json","w") as f:
+        json.dump(users,f)
+            
+    return True
+        
+async def get_immunty_data():
+    with open("immunityCARD.json","r") as f:
+        users = json.load(f)
+        
+    return users
+
 #######################################
 ##         random stuff              ##
 #######################################
@@ -242,66 +339,6 @@ async def weather(ctx):
 
 
 
-###########################################
-##            ticket crunecy             ##
-###########################################
-
-
-   # await ctx.send(f"{ticket} <:DanTix:919966342797463552>")
-
-@oimate.command(help = "shows u whats in your pocket")
-async def pocket(ctx):
-
-    await open_account(ctx.author)
-    user = ctx.author
-    users = await get_ticket_data()
-
-
-    # note if any new items are added to this list manualy add them to the ticketbank.json file
-    ticket_amt = users[str(user.id)]["ticket"]
-    banana_amt = users[str(user.id)]["banana"]
-    snow_amt = users[str(user.id)]["snowball"]
-
-    em = discord.Embed(title = f"inside {ctx.author.name}'s pocket is", color = discord.Color.red())
-    em.add_field(name = "<:DanTix:919966342797463552>", value = ticket_amt, inline = True)
-    em.add_field(name = "<:mnkyThrow:704518598764527687>", value = banana_amt, inline = True)
-    em.add_field(name = "<:2021_Snowsgiving_Emojis_001_Snow:917929344914030642>",value = snow_amt, inline = True)
-    await ctx.send(embed = em)
-
-async def open_account(user):
-
-    users = await get_ticket_data()
-
-
-    if str(user.id) in users:
-        return False
-    else:
-        #this is where we set the names for the database in the json file
-        users[str(user.id)] = {}
-        users[str(user.id)]["ticket"] = 0
-        users[str(user.id)]["banana"] = 0
-        users[str(user.id)]["snowball"] = 0
-
-    with open("ticketbank.json","w") as f:
-        json.dump(users,f)
-    return True
-
-async def get_ticket_data():
-    with open ("ticketbank.json","r") as f:
-        users = json.load(f)
-    return users
-
-async def update_pocket(user,change = 0,mode = "ticket"):
-    users = await get_ticket_data()
-    users[str(user.id)][mode] += change
-
-    with open("ticketbank.json","w") as f:
-        json.dump(users,f)
-
-    bal = [user[str(user.id)]["ticket"]]
-    return bal
-
-
 ############################################
 ##            ticket shop                 ##
 ############################################
@@ -395,6 +432,33 @@ async def topb(ctx,x = 10):
 ##              snow game                 ##
 ############################################
 
+@oimate.command(help ="makes you immune to snowman statis")
+async def snowman_immunty(ctx):
+    
+    await check_immunty(ctx.author)
+    users = await get_immunty_data()
+    user = ctx.author
+    users[str(user.id)]["snow_immune"] = 1
+    with open("immunityCARD.json","w") as f:
+        json.dump(users,f)
+        
+    await ctx.send(f"{ctx.author} is now immune to snowman_statis use \"remove_snow_immunty\" to undo this")
+    
+@oimate.command(help ="makes u errr...mmune? to the snowman statis")
+async def remove_snow_immunty(ctx):
+    
+    await check_immunty(ctx.author)
+    users = await get_immunty_data()
+    user = ctx.author
+    users[str(user.id)]["snow_immune"] = 0
+    with open("immunityCARD.json","w") as f:
+        json.dump(users,f)
+        
+    await ctx.send(f"{ctx.author} has undone the immunity to snowman_statis")
+    
+    
+
+
 @oimate.command(help = "when its snowing over the wildwestcarni u can scoop up some snowballs")
 @commands.cooldown(1,120,commands.BucketType.user)
 async def scoop(ctx):
@@ -412,18 +476,18 @@ async def scoop(ctx):
 
     if check_weather in ["Snow", "Light Rain and Snow" , "light Snow"] and snow == 1:
 
-        await ctx.send(f"{ctx.author.name} gathered a snowball")
-
         await open_account(ctx.author)
         users = await get_ticket_data()
         user = ctx.author
         users[str(user.id)]["snowball"] += 1
+        snow_get = users[str(user.id)]["snowball"]
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
+            
+        await ctx.send(f"{ctx.author.name} gathered a snowball \n you now have {snow_get}")
+
 
     elif check_weather in ["Snow", "Light Rain and Snow" , "light Snow"] and snow == 2:
-
-        await ctx.send(f"{ctx.author.name} was gathering snowballs when they stumbled apon someones hidden stash")
 
         stash = random.randint(1,5)
 
@@ -431,8 +495,11 @@ async def scoop(ctx):
         users = await get_ticket_data()
         user = ctx.author
         users[str(user.id)]["snowball"] += stash
+        snow_get = users[str(user.id)]["snowball"]
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
+
+        await ctx.send(f"{ctx.author.name} was gathering snowballs when they stumbled apon someones hidden stash \n you now have {snow_get}")
 
     elif check_weather in ["Snow", "Light Rain and Snow" , "light Snow"] and snow == 3:
 
@@ -455,6 +522,11 @@ async def shoke(ctx,member:discord.Member):
     await open_account(ctx.author)
     users = await get_ticket_data()
     user = ctx.author
+
+    await check_immunty(ctx.author)
+    susers = await get_immunty_data()
+    suser = ctx.author
+    smem = member
     
     if users[str(user.id)]["snowball"] == 0:
         
@@ -469,15 +541,22 @@ async def shoke(ctx,member:discord.Member):
     elif users[str(user.id)]["snowball"] >= 1 and aim <= 59:
         
         users[str(user.id)]["snowball"] -=1
+        balls_left = users[str(user.id)]["snowball"]
         snow_hit =discord.Embed(title = "snowball fight")
         snow_hit.set_author(name = (ctx.author.name))
         snow_hit.set_thumbnail(url="https://cdn.discordapp.com/emojis/914587417355386950.gif?size=96&quality=lossless")
-        snow_hit.add_field(name = f"{ctx.author.name} throws a snowball at" , value = "<:laughtingmonkey:894525186655780864>", inline = True)
+        snow_hit.add_field(name = f"{ctx.author.name} throws a snowball at" , value = f"<:laughtingmonkey:894525186655780864> you have {balls_left} remaining", inline = True)
         snow_hit.add_field(name = f"{member.name} is now a snowman", value = "<:2021_Snowsgiving_Emojis_001_Snum:917929344997937162>" , inline = True)
         await ctx.send(embed=snow_hit)
         
-        snowdict.update({(member.id): 10})
-
+        if susers[str(smem.id)]["snow_immune"] == 0:
+        
+            snowdict.update({(member.id): 10})
+            
+        else:
+            
+            await ctx.send(f"{member.name} is immune to the snowman curse")
+        
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
         
@@ -506,6 +585,7 @@ async def on_message(message):
         if snowdict[(message.author.id)] == melt_value:
             del snowdict[(message.author.id)]
     await oimate.process_commands(message)
+    
         
 ############################################
 ##   banana game for DKS server           ##
