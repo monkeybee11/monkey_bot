@@ -20,7 +20,6 @@ token = getenv("monkey_bot")
 # to do list
 # come up with more games
 # pets
-# dunk tank
 # shop
 
 
@@ -126,37 +125,145 @@ async def update_pocket(user,change = 0,mode = "ticket"):
 
 @oimate.command(help = "looks at your immunity card to see what your immune to")
 async def immunty_card(ctx):
+    print("a")
     await check_immunty(ctx.author)
+    print("b")
     suser = ctx.author
+    print("c")
     susers = await get_immunty_data()
+    print("d")
     
     snow_imune = susers[str(suser.id)]["snow_immune"]
+    print("e")
     
     em = discord.Embed(title = f"{ctx.author.name}")
+    print("f")
     em.add_field(name = "snowman statis", value = f"{snow_imune}", inline = True)
+    print("g")
     await ctx.send(embed = em)
+    print("h")
     
     
 async def check_immunty(user):
+    print("i")
 
     users = await get_immunty_data()
+    print("j")
         
     if str(user.id) in users:
+        print("k")
         return False
     else:
+        print("l")
         users[str(user.id)] = {}
+        print("m")
         users[str(user.id)]["snow_immune"] = 0
+        print("n")
         
     with open("immunityCARD.json","w") as f:
+        print("o")
         json.dump(users,f)
+        print("p")
             
     return True
         
 async def get_immunty_data():
+    print("q")
     with open("immunityCARD.json","r") as f:
+        print("r")
         users = json.load(f)
+        print("s")
         
     return users
+
+
+#######################################
+##          pet pocket               ##
+#######################################
+
+@oimate.command(help = "looks at your pet related things")
+async def pet_pocket(ctx):
+    print(1)
+    await check_pet_pocket(ctx.author)
+    print(2)
+    puser = ctx.author
+    print(3)
+    pusers = await get_petPocket_data()
+    print(4)
+    
+    fish = pusers[str(puser.id)]["fish"]
+    print(5)
+    monkey = pusers[str(puser.id)]["monkey"]
+    print(6)
+    snowman = pusers[str(puser.id)]["snowman"]
+    print(7)
+    petfood = pusers[str(puser.id)]["petfood"]
+    print(8)
+    petmed = pusers[str(puser.id)]["petmed"]
+    print(9)
+    petreminder = pusers[str(puser.id)]["petreminder"]
+    print(10)
+    
+    
+    em = discord.Embed(title = f"{ctx.author.name}")
+    print(11)
+    em.add_field(name = "🐟", value = f"{fish}", inline = True)
+    print(12)
+    em.add_field(name = "🐒" , value = f"{monkey}",inline = True)
+    print(13)
+    em.add_field(name = "⛄" , value = f"{snowman}",inline = True)
+    print(14)
+    em.add_field(name = "🥫", value = f"{petfood}", inline = True)
+    print(15)
+    em.add_field(name = "💊", value = f"{petmed}", inline = True)
+    print(16)
+    em.add_field(name = "⏰", value = f"{petreminder}", inline = True)
+    print(17)
+    await ctx.send(embed = em)
+    print(18)
+    
+    
+async def check_pet_pocket(user):
+    print(19)
+
+    users = await get_petPocket_data()
+    print(20)
+        
+    if str(user.id) in users:
+        print(21)
+        return False
+    else:
+        print(22)
+        users[str(user.id)] = {}
+        print(23)
+        users[str(user.id)]["fish"] = 0
+        print(24)
+        users[str(user.id)]["monkey"] = 0
+        print(25)
+        users[str(user.id)]["snowman"] = 0
+        print(26)
+        users[str(user.id)]["petfood"] = 0
+        print(27)
+        users[str(user.id)]["petmed"] = 0
+        print(28)
+        users[str(user.id)]["petreminder"] = 0
+        print(29)
+        
+    with open("petPocket.json","w") as f:
+        print(30)
+        json.dump(users,f)
+        print(31)
+            
+    return True
+        
+async def get_petPocket_data():
+    print(32)
+    with open ("petPocket.json","r") as f:
+        print(33)
+        users = json.load(f)
+        print(34)
+    return users
+
 
 #######################################
 ##         random stuff              ##
@@ -351,7 +458,7 @@ shopshelf = [
     {"name":"reminder","price":10,"desc":"⏰ a alarm clock (monkeybot will DM if your pet needs you)"}
     ]
 
-@oimate.command(help = "see what u can extange tickets for(useless atm)")
+@oimate.command(help = "see what u can extange tickets for")
 async def shop(ctx):
     shopbed = discord.Embed(title = "ticket booth")
 
@@ -362,6 +469,77 @@ async def shop(ctx):
         shopbed.add_field(name = name, value = f"{price} | {desc}")
 
     await ctx.send(embed = shopbed)
+    
+    
+@oimate.command(help = "buy items from the shop")
+async def buy(ctx,itme = None):
+    print(1)
+    
+    await open_account(ctx.author)
+    await check_pet_pocket(ctx.author)
+    pocket = await get_ticket_data()
+    pet = await get_petPocket_data()
+    user = ctx.author
+    ticket = pocket[str(user.id)]["ticket"]
+    
+    with open("ticketbank.json","w") as f:
+        json.dump(pocket,f)
+            
+    with open("petPocket.json","w") as f:
+        json.dump(pet,f)
+    
+    if item == "pet food" and ticket < 2:
+        print(2)
+        
+        ctx.send("you dont have the tickets for this item")
+    
+    elif item == "pet food" and ticket >=2:
+        print(3)
+        pocket[str(user.id)]["ticket"] - 2
+        pet[str(user.id)]["petfood"] + 1
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(pocket,f)
+            
+        with open("petPocket.json","w") as f:
+            json.dump(pet,f)
+        return
+        
+    if  item == "pet meds" and ticket < 5:
+        print(3)
+        
+        ctx.send("you dont have the tickets for this item")
+        
+    elif item == "pet meds" and ticket >= 5:
+        print(4)
+        
+        pocket[str(user.id)]["ticket"] - 5
+        pet[str(user.id)]["petmed"] + 1
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(pocket,f)
+            
+        with open("petPocket.json","w") as f:
+            json.dump(pet,f)
+        return
+        
+    if item == "reminder" and ticket < 10:
+        print(5)
+        
+        ctx.send("you dont have the tickets for this item")
+        
+    elif item == "reminder" and ticket >= 10:
+        print(6)
+        
+        pocket[str(user.id)]["ticket"] - 10
+        pet[str(user.id)]["petreminder"] + 1
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(pocket,f)
+            
+        with open("petPocket.json","w") as f:
+            json.dump(pet,f)
+        return
 ###########################################
 ##               top 10                  ##
 ###########################################
