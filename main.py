@@ -18,8 +18,10 @@ token = getenv("monkey_bot")
 
 
 # to do list
-# banana game
 # come up with more games
+# pets
+# dunk tank
+# shop
 
 
 password = False
@@ -79,7 +81,7 @@ async def pocket(ctx):
     banana_amt = users[str(user.id)]["banana"]
     snow_amt = users[str(user.id)]["snowball"]
 
-    em = discord.Embed(title = f"inside {ctx.author.name}'s pocket is", color = discord.Color.red())
+    em = discord.Embed(title = f"inside {ctx.author.name}'s pocket is", colour = discord.Colour.red())
     em.add_field(name = "<:DanTix:919966342797463552>", value = ticket_amt, inline = True)
     em.add_field(name = "<:mnkyThrow:704518598764527687>", value = banana_amt, inline = True)
     em.add_field(name = "<:2021_Snowsgiving_Emojis_001_Snow:917929344914030642>",value = snow_amt, inline = True)
@@ -115,7 +117,7 @@ async def update_pocket(user,change = 0,mode = "ticket"):
     with open("ticketbank.json","w") as f:
         json.dump(users,f)
 
-    bal = [user[str(user.id)]["ticket"]]
+    bal = [user[str(user.id)]["ticket"]],users[str(user.id)]["banana"],users[str(user.id)]["snowball"]
     return bal
 
 #######################################
@@ -344,7 +346,9 @@ async def weather(ctx):
 ############################################
 
 shopshelf = [
-    {"name":"banana","price":2,"desc":"<:mnkyThrow:704518598764527687>"}
+    {"name":"pet food","price":2,"desc":"🥫 magical pet food all pets love"},
+    {"name":"pet meds","price":5,"desc":"💊 magic medicen to cure pet sickness"},
+    {"name":"reminder","price":10,"desc":"⏰ a alarm clock (monkeybot will DM if your pet needs you)"}
     ]
 
 @oimate.command(help = "see what u can extange tickets for(useless atm)")
@@ -442,7 +446,7 @@ async def snowman_immunty(ctx):
     with open("immunityCARD.json","w") as f:
         json.dump(users,f)
         
-    await ctx.send(f"{ctx.author} is now immune to snowman_statis use \"remove_snow_immunty\" to undo this")
+    await ctx.send(f"{ctx.author.name} is now immune to snowman_statis use \"remove_snow_immunty\" to undo this")
     
 @oimate.command(help ="makes u errr...mmune? to the snowman statis")
 async def remove_snow_immunty(ctx):
@@ -454,7 +458,7 @@ async def remove_snow_immunty(ctx):
     with open("immunityCARD.json","w") as f:
         json.dump(users,f)
         
-    await ctx.send(f"{ctx.author} has undone the immunity to snowman_statis")
+    await ctx.send(f"{ctx.author.name} has undone the immunity to snowman_statis")
     
     
 
@@ -986,7 +990,7 @@ async def target(ctx):
             json.dump(users,f)
 
         new_amt = users[str(user.id)]["ticket"]
-        em=discord.Embed(title = "target game")
+        em=discord.Embed(title = "target game", colour = discord.Colour.purple())
         em.set_author(name = (ctx.author.name))
         em.set_thumbnail(url="https://cdn.discordapp.com/emojis/887076837392527400.webp?size=44&quality=lossless")
         em.add_field(name = "<:DanWater1:919977398127165440><:DanWater2:919977398357868564><:DanWater3:919977398118776864><:DanWater4:919977398013919274><:DanWater5:919977398164914227>", value = "WOOO BOY you won ya self a ticket partner <:DanTix:919966342797463552>", inline = True)
@@ -1006,7 +1010,7 @@ async def target(ctx):
             json.dump(users,f)
 
         new_amt = users[str(user.id)]["ticket"]
-        em=discord.Embed(title = "target game")
+        em=discord.Embed(title = "target game", colour = discord.Colour.purple())
         em.set_author(name = (ctx.author.name))
         em.set_thumbnail(url="https://cdn.discordapp.com/emojis/887076837392527400.webp?size=44&quality=lossless")
         em.add_field(name = "<:DanWater1:919977398127165440><:DanWater2:919977398357868564><:DanWater3:919977398118776864><:DanWater4:919977398013919274><:CactusDan:884518308404162590>", value = "ABB BUW BA BA hey now partner ya soaked my new jacket won 5 <:DanTix:919966342797463552> <:DanTix:919966342797463552> <:DanTix:919966342797463552> <:DanTix:919966342797463552> <:DanTix:919966342797463552>", inline = True)
@@ -1015,7 +1019,7 @@ async def target(ctx):
 
     elif randomList == ["0"]: # miss
 
-        em=discord.Embed(title = "target game")
+        em=discord.Embed(title = "target game", colour = discord.Colour.purple())
         em.set_author(name = (ctx.author.name))
         em.set_thumbnail(url="https://cdn.discordapp.com/emojis/887076837392527400.webp?size=44&quality=lossless")
         em.add_field(name = "<:DanWater1:919977398127165440><:DanWater2:919977398357868564><:DanWater3:919977398118776864><:DanWater4:919977398013919274><:Target:887076837392527400>", value = "well well welly well well looks like ya missed the target you get nothing")
@@ -1036,7 +1040,7 @@ async def target(ctx):
             json.dump(users,f)
 
         new_amt = users[str(user.id)]["ticket"]
-        em=discord.Embed(title = "target game")
+        em=discord.Embed(title = "target game", colour = discord.Colour.purple())
         em.set_author(name = (ctx.author.name))
         em.set_thumbnail(url="https://cdn.discordapp.com/emojis/887076837392527400.webp?size=44&quality=lossless")
         em.add_field(name ="<:DanWater1:919977398127165440><:DanWater2:919977398357868564><:DanWater3:919977398118776864><:DanWater4:919977398013919274><:SplashDan:887167642417373246>", value = "how in tar nashens did u mannage to soak your self? ***you droped a ticket***")
@@ -1059,7 +1063,7 @@ async def target(ctx):
             json.dump(users,f)
 
         new_amt = users[str(user.id)]["ticket"]
-        em=discord.Embed(title = "target game")
+        em=discord.Embed(title = "target game", colour = discord.Colour.purple())
         em.set_author(name = (ctx.author.name))
         em.set_thumbnail(url="https://cdn.discordapp.com/emojis/887076837392527400.webp?size=44&quality=lossless")
         em.add_field(name = "<:DanWater1:919977398127165440><:DanWater2:919977398357868564><:DanWater3:919977398118776864><:DanWater4:919977398013919274><:DanCat:704518407822901339>", value = "WO WO WOOOOOOO now you just gona soaked lilly ill be taking 10 tickets to dry her fur")
@@ -1067,6 +1071,73 @@ async def target(ctx):
         await ctx.send(embed = em)
 
     await client.close()
+    
+##################
+##  dunk tank   ##
+##################
+
+@oimate.command(help = "put your friend in the dunk tank and bet (2+) tickets ")
+@commands.cooldown(1,3600,commands.BucketType.user) #1 time , 1hr cooldown , per user
+async def dunk_tank(ctx,member:discord.Member,amount = None ):
+    
+    dunk_aim = random.randint(1,100)
+    
+    await open_account(ctx.author)
+    await open_account(member)
+    
+    
+    amount = int(amount)
+    if amount == None:
+        await ctx.send("you need to place a bet")
+
+    elif amount >= 2 and dunk_aim >= 50:
+        
+        await open_account(ctx.author)
+        users = await get_ticket_data()
+        user = ctx.author
+        mem = member
+        
+        users[str(user.id)]["ticket"] += amount
+        users[str(user.id)]["ticket"] -= amount
+        
+        ubal = users[str(user.id)]["ticket"]
+        mbal = users[str(mem.id)]["ticket"]
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+        
+        dunkbed = discord.Embed(name= "DUNK TANK",colour = discord.Colour.purple())
+        dunkbed.set_author(name = (ctx.author.name))
+        dunkbed.set_thumbnail(url="https://cdn.discordapp.com/emojis/887167642417373246.webp?size=96&quality=lossless")
+        dunkbed.add_field(name =f"{ctx.author.name} threw a ball and hit the <:Target:887076837392527400>", value = f"you now have {ubal}", inline = True)
+        dunkbed.add_field(name =f"{member.name} fell in to the tank and lost the bet", value = f"they now have {mbal}",inline = True)
+        await ctx.send(embed = dunkbed)
+        
+        await ctx.send("https://tenor.com/view/fell-into-the-water-mark-chernesky-konas2002-fall-dunk-tank-gif-17968100")
+        
+    elif amount >= 2 and dunk_aim <= 49:
+        
+        await open_account(ctx.author)
+        users = await get_ticket_data()
+        user = ctx.author
+        mem = member
+        
+        users[str(user.id)]["ticket"] += amount
+        users[str(user.id)]["ticket"] -= amount
+        
+        ubal = users[str(user.id)]["ticket"]
+        mbal = users[str(mem.id)]["ticket"]
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+        
+        dunkbed = discord.Embed(name= "DUNK TANK",colour = discord.Colour.purple())
+        dunkbed.set_author(name = (ctx.author.name))
+        dunkbed.set_thumbnail(url ="https://cdn.discordapp.com/emojis/887167642417373246.webp?size=96&quality=lossless")
+        dunkbed.add_field(name =f"{ctx.author.name} threw a ball but missed the <:Target:887076837392527400>", value = f"you now have {ubal}", inline = True)
+        dunkbed.add_field(name =f"{member.name} won the bet and is dry", value = f"they now have {mbal}",inline = True)
+        await ctx.send(embed = dunkbed)
+        
 
 
 ############################################
