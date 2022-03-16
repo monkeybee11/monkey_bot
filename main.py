@@ -25,8 +25,6 @@ token = getenv("monkey_bot")
 
 
 password = False
-egg = clock.now()
-sausage = egg.strftime("%I:%M %p")  # strftime format to put time in to a string
 pocketwatch = clock.utcnow()
 oimate = commands.Bot(command_prefix = "!") # set hte prefix
 fishNchips = Controller()
@@ -59,14 +57,6 @@ async def on_command_error(ctx, error):
 #if this block of code is empty im not testing anything
 #this is just so im able to find it in like 4 weeks time
 # and me proberly forgotten how to use python :P
-
-@oimate.command()
-async def thing(ctx):
-    
-    users = open("ticketbank.json","r")
-    
-    print(sorted(users.items(), key=lambda item: item[1], reverse=True)[:10])
-    await ctx.send(sorted(users.items(), key=lambda item: item[1], reverse=True)[:10])
 
 ###########################################
 ##         your pocket                   ##
@@ -209,6 +199,39 @@ async def get_petPocket_data():
     return users
 
 #######################################
+##           fish cooler             ##
+#######################################
+
+@oimate.command(help = "looks at your pet related things")
+async def fish_cooler(ctx):
+    await check_fish_cooler(ctx.author)
+    user = ctx.author
+    users = await get_fishcooler_data()
+    
+    await ctx.send("cant look in your fish cooler yet (monkey dosnt know how to do that)")   
+    
+async def check_fish_cooler(user):
+
+    users = await get_fishcooler_data()
+        
+    if str(user.id) in users:
+        return False
+    else:
+        users[str(user.id)] = {}
+        #users[str(user.id)]["fish"] = []
+        
+    with open("fishCooler.json","w") as f:
+        json.dump(users,f)
+            
+    return True
+        
+async def get_fishcooler_data():
+    
+    with open ("fishCooler.json","r") as f:
+        users = json.load(f)
+    return users
+
+#######################################
 ##         random stuff              ##
 #######################################
 
@@ -343,6 +366,7 @@ async def joke(ctx):
             "why do candles allways go on top of the cake?||because its hard to light them form the bottom||",
             "what do cakes and baseball teams have in common?||they both need a good batter||",
             "two monkeys are in a bath one says oo ahh ahh eeeeeek||the other said turn the cold tap on then||",
+            "FUN FACT!! \"sugar\" is the only word in the english language where \"su-\" makes a \"sh\" sound .... || at leace im pritty sure thats correct||"
 
     ]
     haha = len(joke)
@@ -623,7 +647,6 @@ async def scoop(ctx):
     snow = random.randint(1,3)
 
     check_weather = weather.current.sky_text
-    snow_weather = "Light Snow" , "Snow" , "Light Rain and Snow"
 
     if check_weather in ["Snow", "Light Rain and Snow" , "light Snow"] and snow == 1:
 
@@ -758,10 +781,16 @@ async def on_message(message):
 @oimate.command(help ="shake the banana tree")
 @commands.cooldown(1,3600,commands.BucketType.user)
 async def shake(ctx):
+    
+    
+    client = python_weather.Client(format=python_weather.IMPERIAL)
+    weather = await client.find("Boston")
+    weather_check = weather.current.sky_text
 
     #tree_shake = random.randint(1,3)
     tree_chance = ["1_banana", "bad_shake", "2_banana", "pet"] #we make a list of the random options
     randomList = random.choices( tree_chance, weights=(50, 50, 50, 1), k=1) # weighted the random chances so some options happen more then others , k=howmeny options form the list we want
+    
 
 
     if randomList == ["1_banana"]:
@@ -793,6 +822,16 @@ async def shake(ctx):
         f"{ctx.author.name} shoot the banana tree and a coconut droped in there head OWCH.....how did that get in a banana tree anyway?"
         ]
         
+        if weather_check == "Light Rain" or weather_check == "Rain":
+            
+            muddy = [
+            f" the rain at the jungleparty has made the ground muddy {ctx.author.name} sliiped in the mud befor getting to a tree",
+            f" with all the rain in the jungle party latly the tree was to slippery and {ctx.author.name} coudnt get a grip",
+            f" {ctx.author.name} saw a really nice rain puddle and got distracting jumping in it",
+            f" {ctx.author.name} shock the tree but all that did was make the rain water it was holding drop on your head",
+            ]
+        
+            ohno.extend(muddy)
         ohno = len(uhoh)
         quack = random.randrange(ohno)
         RUN = uhoh[quack]
@@ -886,6 +925,8 @@ async def shake(ctx):
             
         with open("petPocket.json","w") as f:
             json.dump(pet,f)
+        
+        await client.close()
 
 #######################
 ## catch throw block ##
@@ -1156,12 +1197,10 @@ async def refund_banana(ctx, member:discord.Member):
 @commands.cooldown(1,3600,commands.BucketType.user) #1 time , 1hr cooldown , per user
 async def target(ctx):
 
-    #declare the client. format defults to the metric system(C, km/h, ect)
     client = python_weather.Client(format=python_weather.IMPERIAL)
-
-    #fetch a weather forcast from a city
     weather = await client.find("Boston")
     weather_check = weather.current.sky_text
+    
     target_chance = ["1", "5", "0", "-1", "lilly"] #we make a list of the random options
     randomList = random.choices( target_chance, weights=(48, 2, 25, 25, 1), k=1) # weighted the random chances so some options happen more then others , k=howmeny options form the list we want
 
@@ -1169,6 +1208,8 @@ async def target(ctx):
     if weather_check == "Light Rain" or weather_check == "Rain":
 
         await ctx.send("the carni is shutdown becase of rain come back later")
+        
+    
 
 
     elif randomList == ["1"]: # 1 ticket
@@ -1274,15 +1315,32 @@ async def target(ctx):
 @commands.cooldown(2,3600,commands.BucketType.user) #1 time , 1hr cooldown , per user
 async def dunk_tank(ctx,member:discord.Member,amount = None ):
     
+    client = python_weather.Client(format=python_weather.IMPERIAL)
+    weather = await client.find("Boston")
+    weather_check = weather.current.sky_text
+    
     dunk_aim = random.randint(1,100)
     
     await open_account(ctx.author)
     await open_account(member)
-    
+    users = await get_ticket_data()
+    user = ctx.author
+    mem = member
     
     amount = int(amount)
     if amount == None:
         await ctx.send("you need to place a bet")
+        
+    elif amount > users[str(user.id)]["ticket"] or amount > users[str(mem.id)]["ticket"]:
+        await ctx.send("you cant bet more then you or your friend own")
+        
+    elif weather_check == "Light Rain" or weather_check == "Rain":
+        
+        await ctx.send("sorry partner with the rain going on its not as fun if you and your friend are allready wet")
+        
+    elif weather_check in ["Light Snow" , "Snow" , "Light Rain and Snow"]:
+        
+        await ctx.send("sorry partner the dunktank is frozen solid")
 
     elif amount >= 2 and dunk_aim >= 50:
         
@@ -1301,7 +1359,7 @@ async def dunk_tank(ctx,member:discord.Member,amount = None ):
         ubal = users[str(user.id)]["ticket"]
         mbal = users[str(mem.id)]["ticket"]
         
-        dunkbed = discord.Embed(name= "DUNK TANK",colour = discord.Colour.purple())
+        dunkbed = discord.Embed(title= "DUNK TANK",colour = discord.Colour.purple())
         dunkbed.set_author(name = (ctx.author.name))
         dunkbed.set_thumbnail(url="https://cdn.discordapp.com/emojis/887167642417373246.webp?size=96&quality=lossless")
         dunkbed.add_field(name =f"{ctx.author.name} threw a ball and hit the <:Target:887076837392527400>", value = f"you now have {ubal}", inline = True)
@@ -1327,7 +1385,7 @@ async def dunk_tank(ctx,member:discord.Member,amount = None ):
         ubal = users[str(user.id)]["ticket"]
         mbal = users[str(mem.id)]["ticket"]
         
-        dunkbed = discord.Embed(name= "DUNK TANK",colour = discord.Colour.purple())
+        dunkbed = discord.Embed(title= "DUNK TANK",colour = discord.Colour.purple())
         dunkbed.set_author(name = (ctx.author.name))
         dunkbed.set_thumbnail(url ="https://cdn.discordapp.com/emojis/887167642417373246.webp?size=96&quality=lossless")
         dunkbed.add_field(name =f"{ctx.author.name} threw a ball but missed the <:Target:887076837392527400>", value = f"you now have {ubal}", inline = True)
@@ -1342,31 +1400,93 @@ async def dunk_tank(ctx,member:discord.Member,amount = None ):
 @oimate.command(help = "fishing")
 async def fishing(ctx):
     
-    fish = random.randint(1,81)
-    await open_account(ctx.author)
-    await check_pet_pocket(ctx.author)
-    tickets = await get_ticket_data()
-    pet = await get_ticket_data()
-    user = ctx.author
-    fishtime = clock.now()
-    mounth = fishtime.strftime("%m")  # jan 0 - dec 11
-    cast = random.randint(5,60)
+    cast = random.randint(5,7)
+    print(cast)
+
+    fish_name = [
+        "cod",
+        "salamon",
+        "catfish",
+        "kitchen sink",
+        "shark",
+        "whale",
+        ":fish:",
+        ":wood:",
+        ":shark:",
+        "🕶️",
+        "BEAR-acuda",
+        "fish in a fish bowl",
+        "old boot",
+        "the other old boot",
+        "a new boot",
+        "a strange glowing book something about mending",
+        "a peanut butter and jelly fish",
+        "NEMO",
+        "frozen tuna",
+    ]
     
+    fishname = len(fish_name)
+    randomname = random.randrange(fishname)
+    named_fish = fish_name[randomname]
     
-    anchovy_size = random.randint(2,40) # CM
-    anchovy_weight = round(random.uniform(0.88,2.39)) # OZ
-    
-    if fishtime.hour >= 4:# and fishtime.hour <= 21:
+    fishsize = round(random.uniform(0.8,1500),2) #cm
+    fishweight = random.randint(8,42624) # OZ
+
+    if cast == 60:
         await ctx.send(f"{ctx.author.name} casts there line 🎣 ...")
         await asyncio.sleep(cast)
-        if cast == 60:
-            await ctx.send("not even a nibble...")
-        elif cast < 60:
-            await ctx.send(f"{ctx.author.name} caught a 🐟 anchovy {anchovy_size}CM and weights {anchovy_weight} OZ ")
-
-            
-    
-    
+        await ctx.send("...not even a nibble")
+        
+    elif cast < 60 and randomname != 11:
+        await ctx.send(f"{ctx.author.name} casts there line 🎣 ...")
+        await asyncio.sleep(cast)
+        
+        fishbed = discord.Embed(title=(named_fish),colour = discord.Colour.blue())
+        fishbed.set_author(name = (ctx.author.name))
+        fishbed.set_thumbnail(url="https://www.emoji.co.uk/files/twitter-emojis/activity-twitter/10839-fishing-pole-and-fish.png")
+        fishbed.add_field(name =f"{ctx.author.name}has fished up a {named_fish}", value = f"its {fishsize}cm and  weighs {fishweight} OZ", inline = True)
+        await ctx.send(embed = fishbed)
+        
+        await check_fish_cooler(ctx.author)
+        fish = await get_fishcooler_data()
+        user = ctx.author
+        
+        cooler_list = []
+        print(cooler_list)
+        
+        cooler_list = [(named_fish)]
+        print(cooler_list)
+        
+        
+        fish[user.id] = (cooler_list)
+        print("updated")
+        
+        with open("fishCooler.json","w") as f:
+            json.dump(fish,f)
+        
+        
+    elif cast < 60 and randomname == 11:
+        
+        await check_pet_pocket(ctx.author)
+        pet = await get_ticket_data()
+        user = ctx.author
+        
+        await ctx.send(f"{ctx.author.name} casts there line 🎣 ...")
+        await asyncio.sleep(cast)
+        
+        pet[str(user.id)]["fish"] += 1
+        
+        petfish = pet[str(user.id)]["fish"]
+        
+        petbed = discord.Embed(title = "PET EVENT!!", colour = discord.Colour.gold())
+        petbed.set_author(name = (ctx.author.name))
+        petbed.set_thumbnail(url="https://www.emoji.co.uk/files/twitter-emojis/animals-nature-twitter/10682-fish.png")
+        petbed.add_field(name = f"{ctx.author.name} has fished up a {named_fish} oooo looks like they have a new fishy pet friend" , value = f"they now have {petfish} :fish:" , inline = True)
+        await ctx.send(embed = petbed)
+        
+        with open("petPocket.json" ,"w") as f:
+            json.dump(pet,f)
+        
 ############################################
 ##monkeys attempted at gameing for discord##
 ############################################
@@ -1479,6 +1599,8 @@ async def reset(ctx):
 
 @oimate.command(help = "displays the local time for monkeybot")
 async def time(ctx): #say 8time in discord to have monkeybot say the time....this was added for testing resons
+    EGG = clock.now()
+    sausage = EGG.strftime("%I:%M %p")
     await ctx.send(sausage) #was hungery when typing out the veriables
 
 
