@@ -217,8 +217,7 @@ async def check_fish_cooler(user):
     if str(user.id) in users:
         return False
     else:
-        users[str(user.id)] = {}
-        #users[str(user.id)]["fish"] = []
+        users[str(user.id)] = []
         
     with open("fishCooler.json","w") as f:
         json.dump(users,f)
@@ -1398,6 +1397,7 @@ async def dunk_tank(ctx,member:discord.Member,amount = None ):
 ###########################
 
 @oimate.command(help = "fishing")
+@commands.cooldown(1,3600,commands.BucketType.user) #1 time , 1hr cooldown , per user
 async def fishing(ctx):
     
     cast = random.randint(5,7)
@@ -1458,7 +1458,7 @@ async def fishing(ctx):
         print(cooler_list)
         
         
-        fish[user.id] = (cooler_list)
+        fish[str(user.id)].append(cooler_list)
         print("updated")
         
         with open("fishCooler.json","w") as f:
@@ -1486,6 +1486,23 @@ async def fishing(ctx):
         
         with open("petPocket.json" ,"w") as f:
             json.dump(pet,f)
+            
+@oimate.command(help = "slap someone with the fish u caught")
+async def fish_slap(ctx, member:discord.Member):
+    
+    await check_fish_cooler(ctx.author)
+    fish = await get_fishcooler_data()
+    user = ctx.author
+    slap = list.fish[str(user.id)]
+    
+    if member == None:
+        await cts.send("u cant fish slap the air")
+    else:
+        
+        await ctx.send(f"{ctx.author.name} just fishslaped {member.name} with {slap}")
+        
+        
+
         
 ############################################
 ##monkeys attempted at gameing for discord##
