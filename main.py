@@ -8,7 +8,7 @@ from pynput.keyboard import Key, Controller
 from discord import Guild
 from dotenv import load_dotenv
 from os import getenv
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 import numpy
 
 os.chdir("/home/pi/Desktop/monkey bot discord")
@@ -22,15 +22,12 @@ token = getenv("monkey_bot")
 # to do list
 # come up with more games
 # pets
-# fishing
-# let u fish slap ppl with the fish u fish up
 
 
 password = False
 pocketwatch = clock.utcnow()
 oimate = commands.Bot(command_prefix = "!") # set hte prefix
 fishNchips = Controller()
-snowdict = {}
 
 # these are veriables im using for banana game
 # the targets they get set to the user and target for banana game so
@@ -42,7 +39,6 @@ splater = "a"
 async def on_ready(): #this is where the bot brain starts to work
     print("discord")  # print() sends to the CMD not to discord
     
-
 @oimate.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandOnCooldown): #checks if on cooldown
@@ -64,9 +60,6 @@ async def on_command_error(ctx, error):
 ###########################################
 ##         your pocket                   ##
 ###########################################
-
-
-   # await ctx.send(f"{ticket} <:DanTix:919966342797463552>")
 
 @oimate.command(help = "shows u whats in your pocket")
 async def pocket(ctx):
@@ -100,6 +93,8 @@ async def open_account(user):
         users[str(user.id)]["ticket"] = 0
         users[str(user.id)]["banana"] = 0
         users[str(user.id)]["snowball"] = 0
+        users[str(user.id)]["snowman_cursed"] = 0
+        users[str(user.id)]["splat"] = 0
 
     with open("ticketbank.json","w") as f:
         json.dump(users,f)
@@ -189,23 +184,15 @@ async def check_pet_pocket(user):
         users[str(user.id)]["petfood"] = 0
         users[str(user.id)]["petmed"] = 0
         users[str(user.id)]["petreminder"] = 0
+        users[str(user.id)]["active_pet"] = []
         
-        users[str(user.id)]["fish_hunger"] = 10
-        users[str(user.id)]["fish_clean"] = 10
-        users[str(user.id)]["fish_helth"] = 10
-        users[str(user.id)]["fish_sickness"] = 0
-        
-        users[str(user.id)]["monkey_hunger"] = 10
-        users[str(user.id)]["monkey_clean"] = 10
-        users[str(user.id)]["monkey_helth"] = 10
-        users[str(user.id)]["monkey_fun"] = 10
-        users[str(user.id)]["monkey_sickness"] = 0
-        
-        users[str(user.id)]["snowman_hunger"] = 10
-        users[str(user.id)]["snowman_clean"] = 10
-        users[str(user.id)]["snowman_helth"] = 10
-        users[str(user.id)]["snowman_fun"] = 10
-        users[str(user.id)]["snowman_sickness"] = 0
+        users[str(user.id)]["pet_hunger"] = 10
+        users[str(user.id)]["pet_clean"] = 10
+        users[str(user.id)]["pet_helth"] = 10
+        users[str(user.id)]["pet_fun"] = 10
+        users[str(user.id)]["pet_sickness"] = 0
+        users[str(user.id)]["pet_freeze"] = 0
+
         
     with open("petPocket.json","w") as f:
         json.dump(users,f)
@@ -725,7 +712,7 @@ async def shoke(ctx,member:discord.Member):
     global snowdict
     
     aim = random.randint(1,100)
-    #print("aim",aim)  #this is for debugging comment out when not debugging
+    #print(aim)  #this is for debugging comment out when not debugging
     
     await open_account(ctx.author)
     users = await get_ticket_data()
@@ -759,7 +746,7 @@ async def shoke(ctx,member:discord.Member):
         
         if susers[str(smem.id)]["snow_immune"] == 0:
         
-            snowdict.update({(member.id): 10})
+            users[str(member.id)]["snowman_cursed"] = 10
             
         else:
             
@@ -784,14 +771,28 @@ async def shoke(ctx,member:discord.Member):
             
 @oimate.event 
 async def on_message(message):
-    global snowdict
     
-    if message.author.id in snowdict.keys():
+    await open_account(message.author)
+    users = await get_ticket_data()
+    user = message.author
+    
+    if users[str(user.id)]["snowman_cursed"] > 0:
         await message.add_reaction("⛄")
-        snowdict[(message.author.id)] -= 1
-        melt_value = 0
-        if snowdict[(message.author.id)] == melt_value:
-            del snowdict[(message.author.id)]
+        users[str(user.id)]["snowman_cursed"] -= 1
+        if users[str(user.id)]["snowman_cursed"] < 0:
+            users[str(user.id)]["snowman_cursed"] = 0
+            with open("ticketbank.json","w") as f:
+                json.dump(users,f)
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+    elif users[str(user.id)]["splat"] > 0:
+        users[str(user.id)]["splat"] -= 1
+        if users[str(user.id)]["splat"] < 0:
+            users[str(user.id)]["splat"] = 0
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f)
+    with open("ticketbank.json","w") as f:
+        json.dump(users,f)
     await oimate.process_commands(message)
     
         
@@ -811,7 +812,6 @@ async def shake(ctx):
     #tree_shake = random.randint(1,3)
     tree_chance = ["1_banana", "bad_shake", "2_banana", "pet"] #we make a list of the random options
     randomList = random.choices( tree_chance, weights=(50, 50, 50, 1), k=1) # weighted the random chances so some options happen more then others , k=howmeny options form the list we want
-    print(randomList)
 
 
     if randomList == ["1_banana"]:
@@ -1046,6 +1046,7 @@ async def dodge(ctx):
         cc = users[str(me.id)]["banana"]
         
         users[str(user.id)]["banana"] -= banana_lost
+        users[str(user.id)]["splat"] = 10
         if users[str(user.id)]["banana"] < 0:
             users[str(user.id)]["banana"] = 0
         with open("ticketbank.json","w") as f:
@@ -1100,6 +1101,7 @@ async def block(ctx):
         bb = users[str(user.id)]["banana"]
         
         users[str(user.id)]["banana"] -= banana_lost
+        users[str(user.id)]["splat"] = 10
         if users[str(user.id)]["banana"] < 0:
             users[str(user.id)]["banana"] = 0
         with open("ticketbank.json","w") as f:
@@ -1158,6 +1160,7 @@ async def catch(ctx):
         bb = users[str(user.id)]["banana"]
         
         users[str(user.id)]["banana"] -= banana_lost
+        users[str(user.id)]["splat"] = 10
         if users[str(user.id)]["banana"] < 0:
             users[str(user.id)]["banana"] = 0
         with open("ticketbank.json","w") as f:
@@ -1228,7 +1231,6 @@ async def target(ctx):
     
     target_chance = ["1", "5", "0", "-1", "lilly"] #we make a list of the random options
     randomList = random.choices( target_chance, weights=(48, 2, 25, 25, 1), k=1) # weighted the random chances so some options happen more then others , k=howmeny options form the list we want
-    print(randomList)
 
 
     if weather_check in ["Light Rain" , "Rain" , "Rain Showers"]:
@@ -1333,7 +1335,7 @@ async def target(ctx):
 ##################
 
 @oimate.command(help = "put your friend in the dunk tank and bet (2+) tickets ", aliases = ["dunk"])
-@commands.cooldown(2,3600,commands.BucketType.user) #1 time , 1hr cooldown , per user
+@commands.cooldown(1,3600,commands.BucketType.user) #1 time , 1hr cooldown , per user
 async def dunk_tank(ctx,member:discord.Member,amount = None ):
     
     client = python_weather.Client(format=python_weather.IMPERIAL)
@@ -1425,7 +1427,6 @@ async def dunk_tank(ctx,member:discord.Member,amount = None ):
 async def fishing(ctx):
     
     cast = random.randint(5,60)
-    print(cast)
 
     fish_name = [
         "cod",
@@ -1536,43 +1537,254 @@ async def fish_slap(ctx, member:discord.Member = None):
 ##              pets                     ##
 ###########################################
 
-@oimate.command()
-async def test_check_fish(ctx):
-    
+@oimate.command(help ="puts pet stats on freese (we know real life is more inporatnt)")
+async def pet_freeze(ctx, *, message = None):
     await check_pet_pocket(ctx.author)
     users = await get_petPocket_data()
     user = ctx.author
     
-    home = Image.open("/home/pi/Desktop/monkey bot discord/pet/pet_home_empty.png")
+    if message == "on":
+        users[str(user.id)]["pet_freeze"] = 1
+        await ctx.send(f"{ctx.author.name} has froze there pet stats dont forget to unfreeze them when your not busy ^_^")
+    elif message == "off":
+        users[str(user.id)]["pet_freeze"] = 0
+        await ctx.send(f"{ctx.author.name} has unfroze there pet stats dont worry it defrozed properly ^w^")
 
-    fishbowl = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/fishbowl.png")
+@oimate.command(help = "sets your pet")
+async def set_pet(ctx, *, message = None):
+    await check_pet_pocket(ctx.author)
+    users = await get_petPocket_data()
+    user = ctx.author
     
-    fish = " "
-    fishwater = " "
     
-    if users[str(user.id)]["fish_helth"] == 0:
-        fish = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/fish_dead.png")
-    
-    elif users[str(user.id)]["fish_helth"] >= 1 and users[str(user.id)]["fish_sickness"] == 1:
-        fish = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/fish_sick.png")
-    else:
-        fish = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/fish_happy.png")
+    if message == "fish" and users[str(user.id)]["fish"] > 0:
+        users[str(user.id)]["active_pet"].clear()
+        users[str(user.id)]["fish"] -= 1
+        users[str(user.id)]["active_pet"] = ["fish"]
+        await ctx.send("you took your fish out of the pet_pocket and put the bowl on a table")
         
-    if users[str(user.id)]["fish_clean"] < 5:
-        fishwater = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/dirty_water.png")
+        with open ("petPocket.json","w") as f:
+            json.dump(users,f)
+        
+    elif message == "monkey" and users[str(user.id)]["monkey"] > 0:
+        users[str(user.id)]["active_pet"].clear()
+        users[str(user.id)]["monkey"] -= 1
+        users[str(user.id)]["active_pet"] = ["monkey"]
+        await ctx.send("you took your monkey out of the pet_pocket and let him run around the living room")
+        
+        with open ("petPocket.json","w") as f:
+            json.dump(users,f)
+        
+    elif message == "snowman" and users[str(user.id)]["snowman"] > 0:
+        users[str(user.id)]["active_pet"].clear()
+        users[str(user.id)]["snowman"] -= 1
+        users[str(user.id)]["active_pet"] = ["snowman"]
+        await ctx.send("you took your snowman out of the pet_pocket and let him in your house ....keep him away from the fireplace")
+        
+        with open ("petPocket.json","w") as f:
+            json.dump(users,f)
+    
     else:
-        fishwater = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/clean_water.png")
-    
-    fishwater.paste(fish, (0,0), fish)
+        await ctx.send("your iver forgot to say what pet OR dont have any use !pet_pocket to check")
+        
+        with open ("petPocket.json","w") as f:
+            json.dump(users,f)
+            
 
-    fishbowl.paste(fishwater, (0,0), fishwater)
-
-    home.paste(fishbowl, (0, 0), fishbowl)
-    home.save("/home/pi/Desktop/monkey bot discord/pet/fish_home.png", "PNG")
     
-    await ctx.send(file = discord.File("/home/pi/Desktop/monkey bot discord/pet/fish_home.png"))
-    await ctx.send("you took your fish out of the pet_pocket and put the bowl on a table")
-    os.remove("/home/pi/Desktop/monkey bot discord/pet/fish_home.png")     
+@oimate.command(help = "checks on your pet")
+async def check_pet(ctx): 
+    
+    await check_pet_pocket(ctx.author)
+    await open_account(ctx.author)
+    ticket = await get_ticket_data()
+    users = await get_petPocket_data()
+    user = ctx.author
+    
+    home = Image.open("/home/pi/Desktop/monkey bot discord/pet/pet_home_empty.png")
+    char = Image.open("/home/pi/Desktop/monkey bot discord/pet/char.png")
+    you = Image.open("/home/pi/Desktop/monkey bot discord/pet/you.png")
+    
+    draw = ImageDraw.Draw(home)
+    font = ImageFont.truetype(font ="/home/pi/.fonts/ZakirahsCasual.ttf",size=30)
+    sont = ImageFont.truetype(font ="/home/pi/.fonts/Symbola.ttf",size = 20)
+    
+    home.paste(char, (0,0), char) #puts a char in the living room
+    
+    if ticket[str(user.id)]["snowman_cursed"] > 0: # check to see if the user has effects or not befor sitting in the chair
+        you = Image.open("/home/pi/Desktop/monkey bot discord/pet/snowman_curse.png")
+    elif ticket[str(user.id)]["splat"] > 0:
+        banana = Image.open("/home/pi/Desktop/monkey bot discord/pet/banana.png")
+        you.paste(banana, (0,0), banana)
+    else:
+        you = Image.open("/home/pi/Desktop/monkey bot discord/pet/you.png")
+        
+    home.paste(you, (0,0), you)
+    
+    if users[str(user.id)]["active_pet"] == ["monkey"]:
+        
+
+        draw.text((353, 12), "HUNGER", font = font)
+        if users[str(user.id)]["pet_hunger"] > 8:
+            draw.text((351,45),"🍏 🍏 🍏 🍏 🍏",font = sont)
+        elif users[str(user.id)]["pet_hunger"] == 7 or users[str(user.id)]["pet_hunger"] == 8:
+            draw.text((351,45),"🍏 🍏 🍏 🍏",font = sont)
+        elif users[str(user.id)]["pet_hunger"] == 6 or users[str(user.id)]["pet_hunger"] == 5:
+            draw.text((351,45),"🍏 🍏 🍏",font = sont)
+        elif users[str(user.id)]["pet_hunger"] == 3 or users[str(user.id)]["pet_hunger"] == 4:
+            draw.text((351,45),"🍏 🍏",font = sont)
+        elif users[str(user.id)]["pet_hunger"] == 2 or users[str(user.id)]["pet_hunger"] == 1:
+            draw.text((351,45),"🍏",font = sont)
+        else:
+            draw.text((351,45),"empty",font = font)
+            
+        draw.text((356, 81),"HYGIEN", font=font)
+        if users[str(user.id)]["pet_clean"] >8:
+            draw.text((351,115),"💩 💩 💩 💩 💩",font=sont)
+        elif users[str(user.id)]["pet_clean"] == 8 or users[str(user.id)]["pet_clean"] == 7:
+            draw.text((351,115),"💩 💩 💩 💩",font=sont)
+        elif users[str(user.id)]["pet_clean"] == 5 or users[str(user.id)]["pet_clean"] == 6:
+            draw.text((351,115),"💩 💩 💩",font=sont)
+        elif users[str(user.id)]["pet_clean"] == 4 or users[str(user.id)]["pet_clean"] == 3:
+            draw.text((351,115),"💩 💩",font=sont)
+        elif users[str(user.id)]["pet_clean"] == 2 or users[str(user.id)]["pet_clean"] == 1:
+            draw.text((351,115),"💩",font=sont)
+        else:
+            draw.text((352,115),"empty",font = font)
+            
+        draw.text((354,145),"FUN",font=font)
+        if users[str(user.id)]["pet_fun"] > 8:
+            draw.text((351,175),"☻ ☻ ☻ ☻ ☻", font = sont)
+        elif users[str(user.id)]["pet_fun"] == 8 or users[str(user.id)]["pet_fun"] == 7:
+            draw.text((351,175),"☻ ☻ ☻ ☻", font = sont)
+        elif users[str(user.id)]["pet_fun"] == 6 or users[str(user.id)]["pet_fun"] == 5:
+            draw.text((351,175),"☻ ☻ ☻", font = sont)
+        elif users[str(user.id)]["pet_fun"] == 4 or users[str(user.id)]["pet_fun"] == 3:
+            draw.text((351,175),"☻ ☻", font = sont)
+        elif users[str(user.id)]["pet_fun"] == 2 or users[str(user.id)]["pet_fun"] == 1:
+            draw.text((351,175),"☻", font = sont)
+        else:
+            draw.text((351,175),"BORED", font = font)
+        
+        draw.text((335,215),"SICKNESS",font=font,size =20)
+        if users[str(user.id)]["pet_sickness"] == 0:
+            draw.text((351,245),"Healthy", font=font)
+        else:
+            draw.text((351,237),"Sick", font=font)
+        monkey = " "
+        mess = " "
+        print("stats set")
+            
+        if users[str(user.id)]["pet_helth"] == 0:
+            print(1)
+            monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_dead.png")
+        elif users[str(user.id)]["pet_fun"] < 5 and users[str(user.id)]["pet_sickness"] == 0:
+            print(2)
+            monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_bored.png")
+        elif users[str(user.id)]["pet_hunger"] < 5 and users[str(user.id)]["pet_sickness"] == 0:
+            print(3)
+            monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_hungery.png")
+        elif users[str(user.id)]["pet_health"] >= 1 and users[str(user.id)]["pet_sickness"] == 1:
+            print(4)
+            monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_sick.png")
+        else:
+            print(5)
+            monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_normal.png")
+            
+        if users[str(user.id)]["pet_clean"] < 5:
+            print(6)
+            mess = ("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_dirty.png")
+            home.paste(mess,(0,0),mess)
+        print(7)
+        home.paste(monkey, (0,0), monkey)
+        print(8)
+        
+        
+        home.save("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png", "PNG")
+        print(9)
+    
+        await ctx.send(file = discord.File("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png"))
+        print(10)
+        os.remove("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png")  
+        print(11)
+        
+        
+    
+    if users[str(user.id)]["active_pet"] == ["fish"]:
+
+        draw.text((353, 12), "HUNGER", font = font)
+        if users[str(user.id)]["pet_hunger"] > 8:
+            draw.text((351,45),"🍏 🍏 🍏 🍏 🍏",font = sont)
+        elif users[str(user.id)]["pet_hunger"] == 7 or users[str(user.id)]["pet_hunger"] == 8:
+            draw.text((351,45),"🍏 🍏 🍏 🍏",font = sont)
+        elif users[str(user.id)]["pet_hunger"] == 6 or users[str(user.id)]["pet_hunger"] == 5:
+            draw.text((351,45),"🍏 🍏 🍏",font = sont)
+        elif users[str(user.id)]["pet_hunger"] == 3 or users[str(user.id)]["pet_hunger"] == 4:
+            draw.text((351,45),"🍏 🍏",font = sont)
+        elif users[str(user.id)]["pet_hunger"] == 2 or users[str(user.id)]["pet_hunger"] == 1:
+            draw.text((351,45),"🍏",font = sont)
+        else:
+            draw.text((351,45),"empty",font = font)
+            
+        draw.text((356, 81),"HYGIEN", font=font)
+        if users[str(user.id)]["pet_clean"] >8:
+            draw.text((351,115),"💩 💩 💩 💩 💩",font=sont)
+        elif users[str(user.id)]["pet_clean"] == 8 or users[str(user.id)]["pet_clean"] == 7:
+            draw.text((351,115),"💩 💩 💩 💩",font=sont)
+        elif users[str(user.id)]["pet_clean"] == 5 or users[str(user.id)]["pet_clean"] == 6:
+            draw.text((351,115),"💩 💩 💩",font=sont)
+        elif users[str(user.id)]["pet_clean"] == 4 or users[str(user.id)]["pet_clean"] == 3:
+            draw.text((351,115),"💩 💩",font=sont)
+        elif users[str(user.id)]["pet_clean"] == 2 or users[str(user.id)]["pet_clean"] == 1:
+            draw.text((351,115),"💩",font=sont)
+        else:
+            draw.text((352,115),"empty",font = font)
+            
+        draw.text((354,145),"FUN",font=font)
+        draw.text((351,175),"N/A  (fish)", font = font)
+        
+        draw.text((335,215),"SICKNESS",font=font,size =20)
+        if users[str(user.id)]["pet_sickness"] == 0:
+            draw.text((351,245),"Healthy", font=font)
+        else:
+            draw.text((351,237),"Sick", font=font)
+
+        fishbowl = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/fishbowl.png")
+    
+        fish = " "
+        fishwater = " "
+    
+        if users[str(user.id)]["pet_helth"] == 0:
+            fish = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/fish_dead.png")
+    
+        elif users[str(user.id)]["pet_helth"] >= 1 and users[str(user.id)]["pet_sickness"] == 1:
+            fish = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/fish_sick.png")
+        else:
+            fish = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/fish_happy.png")
+        
+        if users[str(user.id)]["pet_clean"] < 5:
+            fishwater = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/dirty_water.png")
+        else:
+            fishwater = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/clean_water.png")
+    
+        fishwater.paste(fish, (0,0), fish)
+
+        fishbowl.paste(fishwater, (0,0), fishwater)
+
+        home.paste(fishbowl, (0, 0), fishbowl)
+        
+        
+        
+        home.save("/home/pi/Desktop/monkey bot discord/pet/fish_home.png", "PNG")
+    
+        await ctx.send(file = discord.File("/home/pi/Desktop/monkey bot discord/pet/fish_home.png"))
+        os.remove("/home/pi/Desktop/monkey bot discord/pet/fish_home.png")  
+        
+    else:
+        home.save("/home/pi/Desktop/monkey bot discord/pet/you_home.png", "PNG")
+        await ctx.send(file = discord.File("/home/pi/Desktop/monkey bot discord/pet/you_home.png"))
+        await ctx.send("you dont have a active pet")
+        os.remove("/home/pi/Desktop/monkey bot discord/pet/you_home.png")
      
      
      
