@@ -1616,13 +1616,11 @@ async def check_pet(ctx):
     ticket = await get_ticket_data()
     users = await get_petPocket_data()
     user = ctx.author
-
-    
     
     home = Image.open("/home/pi/Desktop/monkey bot discord/pet/pet_home_empty.png")
     char = Image.open("/home/pi/Desktop/monkey bot discord/pet/char.png")
     you = Image.open("/home/pi/Desktop/monkey bot discord/pet/you.png")
-    
+        
     home.paste(char, (0,0), char) #puts a char in the living room
     
     if ticket[str(user.id)]["snowman_cursed"] > 0: # check to see if the user has effects or not befor sitting in the chair
@@ -1634,8 +1632,12 @@ async def check_pet(ctx):
         you = Image.open("/home/pi/Desktop/monkey bot discord/pet/you.png")
         
     home.paste(you, (0,0), you)
-    
+        
     if users[str(user.id)]["active_pet"] == ["monkey"]:
+        
+        draw = ImageDraw.Draw(home)
+        font = ImageFont.truetype(font ="/home/pi/.fonts/ZakirahsCasual.ttf",size=30)
+        sont = ImageFont.truetype(font ="/home/pi/.fonts/Symbola.ttf",size = 20)
 
 
         draw.text((353, 12), "HUNGER", font = font)
@@ -1651,7 +1653,7 @@ async def check_pet(ctx):
             draw.text((351,45),"🍏",font = sont)
         else:
             draw.text((351,45),"empty",font = font)
-
+            
         draw.text((356, 81),"HYGIEN", font=font)
         if users[str(user.id)]["pet_clean"] >8:
             draw.text((351,115),"💩 💩 💩 💩 💩",font=sont)
@@ -1665,7 +1667,7 @@ async def check_pet(ctx):
             draw.text((351,115),"💩",font=sont)
         else:
             draw.text((352,115),"empty",font = font)
-
+            
         draw.text((354,145),"FUN",font=font)
         if users[str(user.id)]["pet_fun"] > 8:
             draw.text((351,175),"☻ ☻ ☻ ☻ ☻", font = sont)
@@ -1679,30 +1681,22 @@ async def check_pet(ctx):
             draw.text((351,175),"☻", font = sont)
         else:
             draw.text((351,175),"BORED", font = font)
-
+            
         draw.text((335,215),"SICKNESS",font=font,size =20)
         if users[str(user.id)]["pet_sickness"] == 0:
             draw.text((351,245),"Healthy", font=font)
         else:
             draw.text((351,237),"Sick", font=font)
-        monkey = " "
-        mess = " "
-        print("stats set")
-
+            
         if users[str(user.id)]["pet_helth"] == 0:
-            print(1)
             monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_dead.png")
         elif users[str(user.id)]["pet_fun"] < 5 and users[str(user.id)]["pet_sickness"] == 0:
-            print(2)
             monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_bored.png")
         elif users[str(user.id)]["pet_hunger"] < 5 and users[str(user.id)]["pet_sickness"] == 0:
-            print(3)
             monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_hungery.png")
         elif users[str(user.id)]["pet_health"] >= 1 and users[str(user.id)]["pet_sickness"] == 1:
-            print(4)
             monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_sick.png")
         else:
-            print(5)
             monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_normal.png")
 
         if users[str(user.id)]["pet_clean"] < 5:
@@ -1722,7 +1716,7 @@ async def check_pet(ctx):
         os.remove("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png")  
         print(11)
     
-    if users[str(user.id)]["active_pet"] == ["fish"]:
+    elif users[str(user.id)]["active_pet"] == ["fish"]:
         
         draw = ImageDraw.Draw(home)
         font = ImageFont.truetype(font ="/home/pi/.fonts/ZakirahsCasual.ttf",size=30)
@@ -1765,9 +1759,6 @@ async def check_pet(ctx):
             draw.text((351,237),"Sick", font=font)
 
         fishbowl = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/fishbowl.png")
-    
-        fish = " "
-        fishwater = " "
     
         if users[str(user.id)]["pet_helth"] == 0:
             fish = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/fish_dead.png")
