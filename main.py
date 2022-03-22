@@ -184,7 +184,7 @@ async def check_pet_pocket(user):
         users[str(user.id)]["petfood"] = 0
         users[str(user.id)]["petmed"] = 0
         users[str(user.id)]["petreminder"] = 0
-        users[str(user.id)]["active_pet"] = []
+        users[str(user.id)]["active_pet"] = ""
         
         users[str(user.id)]["pet_hunger"] = 10
         users[str(user.id)]["pet_clean"] = 10
@@ -194,6 +194,10 @@ async def check_pet_pocket(user):
         users[str(user.id)]["pet_freeze"] = 0
         
         users[str(user.id)]["weather"] = "London"
+        users[str(user.id)]["helth_tick"] = 10
+        users[str(user.id)]["hunger_tick"] = 10
+        users[str(user.id)]["fun_tick"] = 10
+        users[str(user.id)]["clean_tick"] = 10
 
         
     with open("petPocket.json","w") as f:
@@ -530,10 +534,10 @@ async def buy(ctx,item = None):
         user = ctx.author
 
         pocket[str(user.id)]["ticket"] -= 10
-        pet[str(user.id)]["petreminder"] += 1
+        pet[str(user.id)]["petreminder"] = 1
         
         b = pocket[str(user.id)]["ticket"]
-        await ctx.send(f"thanks for the tickets heres your reminder and u now have {b} tickets")
+        await ctx.send(f"thanks for the tickets heres your reminder and u now have {b} tickets DO NOT BUY THIS A GEN YOU CAN ONLY HAVE ONE")
         
         with open("ticketbank.json","w") as f:
             json.dump(pocket,f)
@@ -775,9 +779,7 @@ async def shoke(ctx,member:discord.Member):
 async def on_message(message):
     
     await open_account(message.author)
-    await check_pet_pocket(message.author)
     users = await get_ticket_data()
-    pet = await get_petPocket_data()
     user = message.author
     
     if users[str(user.id)]["snowman_cursed"] > 0:
@@ -790,83 +792,17 @@ async def on_message(message):
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
     
-    if users[str(user.id)]["splat"] > 0:
+    elif users[str(user.id)]["splat"] > 0:
         users[str(user.id)]["splat"] -= 1
         if users[str(user.id)]["splat"] < 0:
             users[str(user.id)]["splat"] = 0
+            with open("ticketbank.json","w") as f:
+                json.dump(users,f)
         with open("ticketbank.json","w") as f:
             json.dump(users,f)
-    with open("ticketbank.json","w") as f:
-        json.dump(users,f)
+            
     
-    if pet[str(user.id)]["active_pet"] in ["fish","monkey","snowman"]:
-        check1 = random.randint(1,5)
-        check2 = random.randint(1,5)
-        helth = 10
-        clean = 10
-        fun = 10
-        hunger = 10
-        
-        if check1 == 1 and check2 == 1:
-            if pet[str(user.id)]["pet_hunger"] < 3:
-                helth - 1
-                if helth == 0:
-                    helth = 10
-                pet[str(user.id)]["pet_helth"] -= 1
-                if pet[str(user.id)]["pet_helth"] < 0:
-                    pet[str(user.id)]["pet_helth"] = 0
-                    with open("petPocket.json","w") as f:
-                        json.dump(pet,f)
-                with open("petPocket.json""w") as f:
-                    json.dump(pet,f)
-        elif check1 == 1 and check2 == 2:
-            clean -1
-            if clean ==0:
-                clean = 10
-                pet[str(user.id)]["pet_clean"] -= 1
-                if pet[str(user.id)]["pet_clean"] < 0:
-                    pet[str(user.id)]["pet_clean"] = 0
-                    with open("petPocket.json","w") as f:
-                        json.dump(pet,f)
-                with open("petPocket.json","w") as f:
-                    json.dump(pet,f)
-        elif  check1 == 2 and check2 == 1:
-            fun - 1
-            if fun == 0:
-                fun = 10
-                pet[str(user.id)]["pet_fun"] -= 1
-                if pet[str(user.id)]["pet_fun"] < 0:
-                    pet[str(user.id)]["pet_fun"] = 0
-                    with open("petPocket.json","w") as f:
-                        json.dump(pet,f)
-                with open("petPocket.json","w") as f:
-                    json.dump(pet,f)
-        elif check1 == 2 and check2 == 2:
-            hunger - 1
-            if hunger == 0:
-                hunger = 10
-                pet[str(user.id)]["pet_hunger"] -= 1
-                if pet[str(user.id)]["pet_hunger"] < 0:
-                    pet[str(user.id)]["pet_hunger"] = 0
-                    with open("petPocket.json","w") as f:
-                        json.dump(pet,f)
-        elif pet[str(user.id)]["pet_clean"] == 0:
-            sicky = random.randint(1,10)
-            if sicky > 8:
-                pet[str(user.id)]["pet_sickenss"] = 1
-                with open(petPocket.json) as f:
-                    json.dump(pet,f)
-        elif pet[str(user.id)]["pet_sickness"] == 1:
-            helth - 2
-            if helth == 0:
-                helth = 10
-                pet[str(user.id)]["pet_helth"] -= 2
-                if  pet[str(user.id)]["pet_helth"] <0:
-                    pet[str(user.id)]["pet_helth"] = 0
-                    with open("petPocket.json","w") as f:
-                        json.dump(pet,f)
-                with open("petPocket.json","w") as f:
-                    json.dump(pet,f)
+
     await oimate.process_commands(message)
                     
     
@@ -1552,7 +1488,6 @@ async def fishing(ctx):
         user = ctx.author
         
         fish[str(user.id)]["fish name"].append(named_fish)
-        print("updated")
         
         with open("fishCooler.json","w") as f:
             json.dump(fish,f)
@@ -1619,9 +1554,9 @@ async def set_pet(ctx, *, message = None):
     
     
     if message == "fish" and users[str(user.id)]["fish"] > 0:
-        users[str(user.id)]["active_pet"].clear()
+        users[str(user.id)]["active_pet"] = ""
         users[str(user.id)]["fish"] -= 1
-        users[str(user.id)]["active_pet"] = ["fish"]
+        users[str(user.id)]["active_pet"] = "fish"
         users[str(user.id)]["pet_hunger"] = 10
         users[str(user.id)]["pet_clean"] = 10
         users[str(user.id)]["pet_helth"] = 10
@@ -1634,9 +1569,9 @@ async def set_pet(ctx, *, message = None):
             json.dump(users,f)
         
     elif message == "monkey" and users[str(user.id)]["monkey"] > 0:
-        users[str(user.id)]["active_pet"].clear()
+        users[str(user.id)]["active_pet"] = ""
         users[str(user.id)]["monkey"] -= 1
-        users[str(user.id)]["active_pet"] = ["monkey"]
+        users[str(user.id)]["active_pet"] = "monkey"
         users[str(user.id)]["pet_hunger"] = 10
         users[str(user.id)]["pet_clean"] = 10
         users[str(user.id)]["pet_helth"] = 10
@@ -1649,9 +1584,9 @@ async def set_pet(ctx, *, message = None):
             json.dump(users,f)
         
     elif message == "snowman" and users[str(user.id)]["snowman"] > 0:
-        users[str(user.id)]["active_pet"].clear()
+        users[str(user.id)]["active_pet"] = ""
         users[str(user.id)]["snowman"] -= 1
-        users[str(user.id)]["active_pet"] = ["snowman"]
+        users[str(user.id)]["active_pet"] = "snowman"
         users[str(user.id)]["pet_hunger"] = 10
         users[str(user.id)]["pet_clean"] = 10
         users[str(user.id)]["pet_helth"] = 10
@@ -1736,6 +1671,15 @@ async def pet(ctx,message = None):
     elif message == "clock":
         await ctx.send("coming soon thinking it over not sure if DM or reacte")
         
+    elif message == "play":
+        
+        fun = random.randint(1,10)
+        
+        await ctx.send(f"you played with your pet he fun went up by{fun} (this will be upgraded later)")
+        users[str(user.id)]["pet_fun"] += fun
+        with open("petPocket.json","w") as f:
+            json.dump(users,f)
+        
 #@oimate.command(help = "set weather for check_pet")
 #async def set_weather(ctx,message = None):
 #    
@@ -1749,6 +1693,20 @@ async def pet(ctx,message = None):
 #        
 #        users[str(user.id)]["weather"] = message
 #        await ctx.send("you have set weather location")
+
+@oimate.command()
+async def testt(ctx):
+    await check_pet_pocket(ctx.author)
+    users = await get_petPocket_data()
+    user = ctx.author
+    
+    a = users[str(user.id)]["helth_tick"]
+    b = users[str(user.id)]["hunger_tick"]
+    c = users[str(user.id)]["fun_tick"]
+    d = users[str(user.id)]["clean_tick"]
+    
+    
+    await ctx.send(f" {a}  {b}  {c}  {d}")
     
 @oimate.command(help = "checks on your pet")
 async def check_pet(ctx): 
@@ -1783,7 +1741,7 @@ async def check_pet(ctx):
         
     home.paste(you, (0,0), you)
         
-    if users[str(user.id)]["active_pet"] == ["monkey"]:
+    if users[str(user.id)]["active_pet"] == "monkey":
         
         draw.text((353, 12), "HUNGER", font = font)
         if users[str(user.id)]["pet_hunger"] > 8:
@@ -1871,7 +1829,7 @@ async def check_pet(ctx):
         await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | and {clock} ⏰ on there bedside")
         os.remove("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png")  
         
-    elif users[str(user.id)]["active_pet"] == ["snowman"]:
+    elif users[str(user.id)]["active_pet"] == "snowman":
 
         draw.text((353, 12), "HUNGER", font = font)
         if users[str(user.id)]["pet_hunger"] > 8:
@@ -1956,7 +1914,7 @@ async def check_pet(ctx):
         await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | and {clock} ⏰ on there bedside")
         os.remove("/home/pi/Desktop/monkey bot discord/pet/snowman_home.png")  
     
-    elif users[str(user.id)]["active_pet"] == ["fish"]:
+    elif users[str(user.id)]["active_pet"] == "fish":
 
         draw.text((353, 12), "HUNGER", font = font)
         if users[str(user.id)]["pet_hunger"] > 8:
