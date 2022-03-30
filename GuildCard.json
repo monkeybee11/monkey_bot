@@ -1,0 +1,18 @@
+{
+    "113051316225368064": {
+        "class": "magicalMONKEY",
+        "def": 0,
+        "dex": 4,
+        "eq": {},
+        "hp": 100,
+        "int": 11,
+        "inv": [],
+        "luk": 17,
+        "m_def": 0,
+        "max_hp": 100,
+        "max_mp": 10,
+        "mp": 10,
+        "party": [],
+        "str": 2
+    }
+}
