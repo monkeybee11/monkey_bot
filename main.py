@@ -8,6 +8,7 @@ from pynput.keyboard import Key, Controller
 from dotenv import load_dotenv
 from os import getenv
 from PIL import Image, ImageDraw, ImageFont
+#from discord.ui import Button, View
 
 os.chdir("/home/pi/Desktop/monkey bot discord")
 
@@ -25,6 +26,12 @@ password = False
 pocketwatch = clock.utcnow()
 oimate = commands.Bot(command_prefix = "!") # set hte prefix
 fishNchips = Controller()
+t1 = ""
+t2 = ""
+t3 = ""
+b1 = ""
+b2 = ""
+b3 = ""
 
 # these are veriables im using for banana game
 # the targets they get set to the user and target for banana game so
@@ -53,6 +60,18 @@ async def on_command_error(ctx, error):
 #if this block of code is empty im not testing anything
 #this is just so im able to find it in like 4 weeks time
 # and me proberly forgotten how to use python :P
+
+@oimate.command()
+async def buttontest(ctx):
+    print(1)
+    button = Button(label = "click", style = discord.ButtonStyle.green)
+    print(2)
+    view = View()
+    print(3)
+    view.add_item(button)
+    print(4)
+    await ctx.send("testtest",view=view)
+    print(5)
 
 ###########################################
 ##         your pocket                   ##
@@ -206,7 +225,7 @@ async def get_petPocket_data():
     return users
     
     
-@tasks.loop(hours=1)
+@tasks.loop(minutes=30)
 async def pet_tick():
     with open("petPocket.json","r") as f:
         users = json.load(f)
@@ -795,80 +814,154 @@ async def buy(ctx,item = None, amount = 1):
 ##               top 10                  ##
 ###########################################
 @oimate.command()
-async def testtop(ctx):
+async def top10(ctx):
+    global t1
+    global t2
+    global t3
     
     users = await get_ticket_data()
+
+    top10 = {}
+    tot = []
+    amt1 = []
+
+    for user in users:
+        name = int(user)
+        tot_amt = users[user]["ticket"]
+        top10[tot_amt] = name
+        tot.append(tot_amt)
+
+    tot = sorted(tot,reverse=True)[:10]
+
+    for amt in tot:
+        id_ = top10[amt]
+        amt1.append(amt)
         
     total = {k: v for k, v in sorted(users.items(), key=lambda item: item[1]["ticket"], reverse=True)[:10]}
     
-    await ctx.send(total)
-
-@oimate.command(help = "shows the top10 ticket holders")
-async def top10(ctx,x = 10):
-
-    users = await get_ticket_data()
-
-    top10 = {}
-    total = []
-    allready = []
-
-    for user in users:
-        name = int(user)
-        total_amt = users[user]["ticket"]
-        top10[total_amt] = name
-        total.append(total_amt)
-
-    total = sorted(total,reverse=True)
-
-    em = discord.Embed(title=f"top {x} ticket holders")
-
-    index = 1
-    for amt in total:
-        id_ = top10[amt]
-        member = await oimate.fetch_user(id_)
-        name = member.name
-        em.add_field(name = f"{index}. {name}" , value = f"{amt} <:DanTix:919966342797463552>", inline = False)
-
-        if index == x:
-            break
-        else:
-            index += 1
-
+    id1 = list(total)[0]
+    id2 = list(total)[1]
+    id3 = list(total)[2]
+    id4 = list(total)[3]
+    id5 = list(total)[4]
+    id6 = list(total)[5]
+    id7 = list(total)[6]
+    id8 = list(total)[7]
+    id9 = list(total)[8]
+    id10 = list(total)[9]
+    member1 = await oimate.fetch_user(id1)
+    member2 = await oimate.fetch_user(id2)
+    member3 = await oimate.fetch_user(id3)
+    member4 = await oimate.fetch_user(id4)
+    member5 = await oimate.fetch_user(id5)
+    member6 = await oimate.fetch_user(id6)
+    member7 = await oimate.fetch_user(id7)
+    member8 = await oimate.fetch_user(id8)
+    member9 = await oimate.fetch_user(id9)
+    member10 = await oimate.fetch_user(id10)
+    name1 = member1.name
+    name2 = member2.name
+    name3 = member3.name
+    name4 = member4.name
+    name5 = member5.name
+    name6 = member6.name
+    name7 = member7.name
+    name8 = member8.name
+    name9 = member9.name
+    name10 = member10.name
+    t1 = member1
+    t2 = member2
+    t3 = member3
+    
+    em = discord.Embed(title="top 10 ticket holders")
+    em.add_field(name = f"1. {name1}" , value = f"{amt1[0]}<:DanTix:919966342797463552>", inline = False)
+    em.add_field(name = f"2. {name2}" , value = f"{amt1[1]} <:DanTix:919966342797463552>", inline = False)
+    em.add_field(name = f"3. {name3}" , value = f"{amt1[2]} <:DanTix:919966342797463552>", inline = False)
+    em.add_field(name = f"4. {name4}" , value = f"{amt1[3]} <:DanTix:919966342797463552>", inline = False)
+    em.add_field(name = f"5. {name5}" , value = f"{amt1[4]} <:DanTix:919966342797463552>", inline = False)
+    em.add_field(name = f"6. {name6}" , value = f"{amt1[5]} <:DanTix:919966342797463552>", inline = False)
+    em.add_field(name = f"7. {name7}" , value = f"{amt1[6]} <:DanTix:919966342797463552>", inline = False)
+    em.add_field(name = f"8. {name8}" , value = f"{amt1[7]} <:DanTix:919966342797463552>", inline = False)
+    em.add_field(name = f"9. {name9}" , value = f"{amt1[8]} <:DanTix:919966342797463552>", inline = False)
+    em.add_field(name = f"10. {name10}" , value = f"{amt1[9]} <:DanTix:919966342797463552>", inline = False)
     await ctx.send(embed = em)
     
-    
+    await ctx.send(f"{id1.items()}")
+
 @oimate.command(help = "shows the top10 banana holders")
 async def topb(ctx,x = 10):
-
+    global b1
+    global b2
+    global b3
+    
     users = await get_ticket_data()
 
     top10 = {}
-    total = []
+    tot = []
+    amt1 = []
 
     for user in users:
         name = int(user)
-        total_amt = users[user]["banana"]
-        top10[total_amt] = name
-        total.append(total_amt)
+        tot_amt = users[user]["banana"]
+        top10[tot_amt] = name
+        tot.append(tot_amt)
 
-    total = sorted(total,reverse=True)
+    tot = sorted(tot,reverse=True)[:10]
 
-    em = discord.Embed(title=f"top banana")
-
-    index = 1
-    for amt in total:
+    for amt in tot:
         id_ = top10[amt]
-        member = await oimate.fetch_user(id_)
-        name = member.name
-        em.add_field(name = f"{index}. {name}" , value = f"{amt} <:mnkyThrow:704518598764527687>", inline = False)
-
-        if index == x:
-            break
-        else:
-            index += 1
-            total.pop()
-
+        amt1.append(amt)
+        
+    total = {k: v for k, v in sorted(users.items(), key=lambda item: item[1]["banana"], reverse=True)[:10]}
+    
+    id1 = list(total)[0]
+    id2 = list(total)[1]
+    id3 = list(total)[2]
+    id4 = list(total)[3]
+    id5 = list(total)[4]
+    id6 = list(total)[5]
+    id7 = list(total)[6]
+    id8 = list(total)[7]
+    id9 = list(total)[8]
+    id10 = list(total)[9]
+    member1 = await oimate.fetch_user(id1)
+    member2 = await oimate.fetch_user(id2)
+    member3 = await oimate.fetch_user(id3)
+    member4 = await oimate.fetch_user(id4)
+    member5 = await oimate.fetch_user(id5)
+    member6 = await oimate.fetch_user(id6)
+    member7 = await oimate.fetch_user(id7)
+    member8 = await oimate.fetch_user(id8)
+    member9 = await oimate.fetch_user(id9)
+    member10 = await oimate.fetch_user(id10)
+    name1 = member1.name
+    name2 = member2.name
+    name3 = member3.name
+    name4 = member4.name
+    name5 = member5.name
+    name6 = member6.name
+    name7 = member7.name
+    name8 = member8.name
+    name9 = member9.name
+    name10 = member10.name
+    b1 = member1
+    b2 = member2
+    b3 = member3
+    
+    em = discord.Embed(title="top 10 banana holders")
+    em.add_field(name = f"1. {name1}" , value = f"{amt1[0]} <:mnkyThrow:704518598764527687>", inline = False)
+    em.add_field(name = f"2. {name2}" , value = f"{amt1[1]} <:mnkyThrow:704518598764527687>", inline = False)
+    em.add_field(name = f"3. {name3}" , value = f"{amt1[2]} <:mnkyThrow:704518598764527687>", inline = False)
+    em.add_field(name = f"4. {name4}" , value = f"{amt1[3]} <:mnkyThrow:704518598764527687>", inline = False)
+    em.add_field(name = f"5. {name5}" , value = f"{amt1[4]} <:mnkyThrow:704518598764527687>", inline = False)
+    em.add_field(name = f"6. {name6}" , value = f"{amt1[5]} <:mnkyThrow:704518598764527687>", inline = False)
+    em.add_field(name = f"7. {name7}" , value = f"{amt1[6]} <:mnkyThrow:704518598764527687>", inline = False)
+    em.add_field(name = f"8. {name8}" , value = f"{amt1[7]} <:mnkyThrow:704518598764527687>", inline = False)
+    em.add_field(name = f"9. {name9}" , value = f"{amt1[8]} <:mnkyThrow:704518598764527687>", inline = False)
+    em.add_field(name = f"10. {name10}" , value = f"{amt1[9]} <:mnkyThrow:704518598764527687>", inline = False)
     await ctx.send(embed = em)
+    
+    await ctx.send(f"{id1.items()}")
 
 ############################################
 ##              snow game                 ##
@@ -1914,7 +2007,7 @@ async def pet(ctx,message = None):
     user = ctx.author
     
     if message == None:
-        await ctx.send("say food to feed your pet | meds to medicate your pet ONLY DO IT IF THERE SICK | play to play with your pet")
+        await ctx.send("say food to feed your pet | meds to medicate your pet ONLY DO IT IF THERE SICK | play to play with your pet | clean to clean your pet")
     
     elif message == "feed":
         if users[str(user.id)]["petfood"] == 0:
@@ -1955,6 +2048,12 @@ async def pet(ctx,message = None):
         users[str(user.id)]["pet_fun"] += fun
         with open("petPocket.json","w") as f:
             json.dump(users,f, indent=4)
+            
+    elif message == "clean":
+        await ctx.send(f"you gave your pet a bath")
+        users[str(user.id)]["pet_clean"] = 10
+        with open("petPocket.json","w") as f:
+            json.dump(users,f, indent=4)
         
 #@oimate.command(help = "set weather for check_pet")
 #async def set_weather(ctx,message = None):
@@ -1985,7 +2084,13 @@ async def testt(ctx):
     await ctx.send(f" helth_tick {a}  hunger_tick {b}  fun_tick {c}  clean_tick {d}")
     
 @oimate.command(help = "checks on your pet")
-async def check_pet(ctx): 
+async def check_pet(ctx):
+    global t1
+    global t2
+    global t3
+    global b1
+    global b2
+    global b3
     
     await check_pet_pocket(ctx.author)
     await open_account(ctx.author)
@@ -2015,6 +2120,25 @@ async def check_pet(ctx):
         you = Image.open("/home/pi/Desktop/monkey bot discord/pet/you.png")
         
     home.paste(you, (0,0), you)
+    
+    if ctx.author == t1:
+        ticket = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/ticket1.png")
+        home.paste(ticket,(0,0), ticket)
+    elif ctx.author == t2:
+        ticket = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/ticket2.png")
+        home.paste(ticket,(0,0), ticket)
+    elif ctx.author == t3:
+        ticket == Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/ticket3.png")
+        home.paste(ticket,(0,0), ticket)
+    if ctx.author == b1:
+        b = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/banana1.png")
+        home.paste(b,(0,0),b)
+    elif ctx.author == b2:
+        b = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/banana2.png")
+        home.paste(b,(0,0),b)
+    elif ctx.author == b3:
+        b = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/banana3.png")
+        home.paste(b,(0,0),b)
         
     if users[str(user.id)]["active_pet"] == "monkey":
         
@@ -2404,7 +2528,7 @@ async def start(ctx): #the blue word is the commarnd u type in discord
 
             await asyncio.sleep(5)
             timer = clock.now() #monkey this veriable is here to refresh its time check
-            if(timer.hour == 18 and timer.minute == 35): #checking if the time is what ever numbers ive typed
+            if(timer.hour == 18 and timer.minute == 38): #checking if the time is what ever numbers ive typed
                 await ctx.send('<@&888038726154993714> oi oi paycheck time come and get your<:Galaxy_Cookie:776762120686927896><:Galaxy_Cookie:776762120686927896><:Galaxy_Cookie:776762120686927896>') # ALLWAYS PUT "await ctx.send('') if u want it to speak in discord
                 print("do we have to pay the workers?") # print will only post to my CMD so dosnt matter if its a little mean
                 await asyncio.sleep(60) #this is ment to be a 60secon timer so it only says the message once insted of everytick for that minnet
