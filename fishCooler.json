@@ -41,7 +41,11 @@
             "a strange glowing book something about mending",
             "frozen tuna",
             "old boot",
-            "frozen tuna"
+            "frozen tuna",
+            ":shark:",
+            "frozen tuna",
+            "frozen tuna",
+            "kitchen sink"
         ]
     },
     "265105169115643904": {
@@ -78,6 +82,12 @@
             ":wood:",
             "\ud83d\udd76\ufe0f",
             "\ud83d\udd76\ufe0f",
+            "cod",
+            "a peanut butter and jelly fish",
+            ":wood:",
+            ":shark:",
+            "NEMO",
+            "the other old boot",
             "cod"
         ]
     },
@@ -98,7 +108,8 @@
     "210232841726853121": {
         "fish name": [
             ":fish:",
-            "kitchen sink"
+            "kitchen sink",
+            ":wood:"
         ]
     }
 }

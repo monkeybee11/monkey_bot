@@ -3,12 +3,12 @@
 ############################################################################################################################################################################
 from datetime import datetime as clock
 import discord, asyncio, time, os, json, random, requests, python_weather
+from discord.ui import Button , View
 from discord.ext import commands, tasks
 from pynput.keyboard import Key, Controller
 from dotenv import load_dotenv
 from os import getenv
 from PIL import Image, ImageDraw, ImageFont
-#from discord.ui import Button, View
 
 os.chdir("/home/pi/Desktop/monkey bot discord")
 
@@ -64,7 +64,7 @@ async def on_command_error(ctx, error):
 @oimate.command()
 async def buttontest(ctx):
     print(1)
-    button = Button(label = "click", style = discord.ButtonStyle.green)
+    button = Button(label = "click", style = discord.Buttonstyle.green)
     print(2)
     view = View()
     print(3)
@@ -206,7 +206,6 @@ async def check_pet_pocket(user):
         users[str(user.id)]["pet_sickness"] = 0
         users[str(user.id)]["pet_freeze"] = 0
         
-        users[str(user.id)]["weather"] = "London"
         users[str(user.id)]["helth_tick"] = 10
         users[str(user.id)]["hunger_tick"] = 10
         users[str(user.id)]["fun_tick"] = 10
@@ -235,7 +234,7 @@ async def pet_tick():
         
     for user, value in users.items():
         
-        if users[user]["active_pet"] != "":
+        if users[user]["active_pet"] != "" and users[user]["pet_freeze"] == 0:
             if check1 == 1 and check2 == 1:
                 users[user]["hunger_tick"] -= 1
                 if users[user]["hunger_tick"] <= 0:
@@ -688,9 +687,11 @@ async def joke(ctx):
 
 @oimate.command(help ="tells you the weather over the wildwestcarni AND the jungle party")
 async def weather(ctx):
+    
     client = python_weather.Client(format=python_weather.METRIC)
     weather = await client.find("Boston")
     weather_check = weather.current.sky_text
+    
     if weather_check == "Partly Sunny": # little cloudy but sunny
         await ctx.send(":partly_sunny:")
     elif weather_check == "Mostly Cloudy": # sunny cloud
@@ -1683,7 +1684,6 @@ async def target(ctx):
         await open_account(ctx.author)
         users = await get_ticket_data()
         user = ctx.author
-        ticket_amt = users[str(user.id)]["ticket"]
 
         users[str(user.id)]["ticket"] -= 10
         if users[str(user.id)]["ticket"] < 0:
@@ -1698,7 +1698,7 @@ async def target(ctx):
         em.set_author(name = (ctx.author.name))
         em.set_thumbnail(url="https://cdn.discordapp.com/emojis/887076837392527400.webp?size=44&quality=lossless")
         em.add_field(name = "<:DanWater1:919977398127165440><:DanWater2:919977398357868564><:DanWater3:919977398118776864><:DanWater4:919977398013919274><:DanCat:704518407822901339>", value = "WO WO WOOOOOOO now you just gona soaked lilly ill be taking 10 tickets to dry her fur")
-        em.add_field(name="you now have" , value = new_amt + "<:DanTix:919966342797463552>",inline = False)
+        em.add_field(name="you now have" , value = f" {new_amt} <:DanTix:919966342797463552>",inline = False)
         await ctx.send(embed = em)
             
 ##################
@@ -1987,14 +1987,14 @@ async def freeze(ctx, message = None):
     
     elif message == "on":
         users[str(user.id)]["pet_freeze"] = 1
-        ctx.send("your pets stats have been frozen dont forget to unfreeze when your back ^_^")
+        await ctx.send("your pets stats have been frozen dont forget to unfreeze when your back ^_^")
         
         with open("petPocket.json","w") as f:
             json.dump(users,f, indent=4)
         
     elif message == "off":
         users[str(user.id)]["pet_freeze"] = 0
-        ctx.send("your pets stats are unfrozzen wellcome back :3")
+        await ctx.send("your pets stats are unfrozzen wellcome back :3")
         
         with open("petPocket.json","w") as f:
             json.dump(users,f, indent=4)
@@ -2055,20 +2055,6 @@ async def pet(ctx,message = None):
         with open("petPocket.json","w") as f:
             json.dump(users,f, indent=4)
         
-#@oimate.command(help = "set weather for check_pet")
-#async def set_weather(ctx,message = None):
-#    
-#    if message == None:
-#        await ctx.send("you can do this commarnd in DMs if you want but all this dose is change weather locaion form London to your location so the weather outside the window changes \n ping monkey if you need help with the command and use <https://www.msn.com/en-us/weather/today/weather-today/we-city?el=ox1MBH8SUU7%2FfCFHsuGapKr68ejBk1QwdrC2sJ%2Fe7WIWUQdo9wqWU8SUUAFzsVkY&ctsrc=outlook%3E> to make sure you get the right place \n to prevent bugs if u dont use this commarnd your location will be set to London")
-#        
-#    else:
-#        await check_pet_pocket(ctx.author)
-#        users = await get_petPocket_data()
-#        user = ctx.author
-#        
-#        users[str(user.id)]["weather"] = message
-#        await ctx.send("you have set weather location")
-
 @oimate.command()
 async def testt(ctx):
     await check_pet_pocket(ctx.author)
@@ -2079,18 +2065,26 @@ async def testt(ctx):
     b = users[str(user.id)]["hunger_tick"]
     c = users[str(user.id)]["fun_tick"]
     d = users[str(user.id)]["clean_tick"]
+    e = users[str(user.id)]["pet_helth"]
+    f = users[str(user.id)]["pet_hunger"]
+    g = users[str(user.id)]["pet_fun"]
+    h = users[str(user.id)]["pet_clean"]
+    i = users[str(user.id)]["pet_sickness"]
+    j = users[str(user.id)]["pet_freeze"]
     
     
-    await ctx.send(f" helth_tick {a}  hunger_tick {b}  fun_tick {c}  clean_tick {d}")
+    await ctx.send(f" helth_tick {a} | hunger_tick {b} | fun_tick {c} | clean_tick {d} \n helth {e} | hunger {f} | fun {g} | hygien {h} \n sickness (0 = good 1 = bad) {i} | frozen (0 = unfrozen 1 = frozen) {j}")
     
 @oimate.command(help = "checks on your pet")
 async def check_pet(ctx):
+    
     global t1
     global t2
     global t3
     global b1
     global b2
     global b3
+    
     
     await check_pet_pocket(ctx.author)
     await open_account(ctx.author)
@@ -2211,11 +2205,9 @@ async def check_pet(ctx):
         elif users[str(user.id)]["pet_fun"] < 5 :
             monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_bored.png")
         elif users[str(user.id)]["pet_hunger"] < 5 :
-            monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_hungery.png")
+            monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_hungry.png")
         elif users[str(user.id)]["pet_sickness"] == 1:
             monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_sick.png")
-        
-            monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_normal.png")
 
         if users[str(user.id)]["pet_clean"] < 5:
             mess = ("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_dirty.png")
@@ -2226,7 +2218,7 @@ async def check_pet(ctx):
 
         await ctx.send(file = discord.File("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png"))
         await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box")
-        os.remove("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png")  
+        os.remove("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png") 
         
     elif users[str(user.id)]["active_pet"] == "snowman":
 

@@ -1,22 +1,21 @@
 {
     "113051316225368064": {
         "active_pet": "monkey",
-        "clean_tick": 8,
+        "clean_tick": 7,
         "fish": 0,
-        "fun_tick": 4,
+        "fun_tick": 2,
         "helth_tick": 10,
-        "hunger_tick": 10,
+        "hunger_tick": 9,
         "monkey": 0,
         "pet_clean": 9,
         "pet_freeze": 0,
-        "pet_fun": 12,
+        "pet_fun": 10,
         "pet_helth": 10,
-        "pet_hunger": 6,
+        "pet_hunger": 9,
         "pet_sickness": 0,
-        "petfood": 14,
+        "petfood": 12,
         "petmed": 4,
-        "snowman": 0,
-        "weather": "London"
+        "snowman": 0
     },
     "119791596681166848": {
         "active_pet": "",
@@ -34,8 +33,7 @@
         "pet_sickness": 0,
         "petfood": 0,
         "petmed": 0,
-        "snowman": 0,
-        "weather": "London"
+        "snowman": 0
     },
     "237194159826403329": {
         "active_pet": "",
@@ -53,8 +51,7 @@
         "pet_sickness": 0,
         "petfood": 0,
         "petmed": 0,
-        "snowman": 0,
-        "weather": "London"
+        "snowman": 0
     },
     "247170379376885761": {
         "active_pet": "",
@@ -72,8 +69,7 @@
         "pet_sickness": 0,
         "petfood": 0,
         "petmed": 0,
-        "snowman": 0,
-        "weather": "London"
+        "snowman": 0
     },
     "326610755061415937": {
         "active_pet": "",
@@ -91,7 +87,6 @@
         "pet_sickness": 0,
         "petfood": 0,
         "petmed": 0,
-        "snowman": 0,
-        "weather": "London"
+        "snowman": 0
     }
 }
