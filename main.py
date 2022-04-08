@@ -1,14 +1,15 @@
 ############################################################################################################################################################################
 ## if you are reading this on github and your not monkey 99.9% of the comments are for me 4 weeks later from typing the code so sry if theres to much comments for you XD ##
 ############################################################################################################################################################################
-from datetime import datetime as clock
-import discord, asyncio, time, os, json, random, requests, python_weather
+from datetime import time , timezone, datetime as clock
+import discord, asyncio, os, json, random, requests, python_weather
 from discord.ui import Button , View
 from discord.ext import commands, tasks
 from pynput.keyboard import Key, Controller
 from dotenv import load_dotenv
 from os import getenv
 from PIL import Image, ImageDraw, ImageFont
+import datetime
 
 os.chdir("/home/pi/Desktop/monkey bot discord")
 
@@ -23,7 +24,7 @@ token = getenv("monkey_bot")
 
 
 password = False
-pocketwatch = clock.utcnow()
+#pocketwatch = clock.utcnow()
 oimate = commands.Bot(command_prefix = "!") # set hte prefix
 fishNchips = Controller()
 t1 = ""
@@ -42,7 +43,7 @@ splater = "a"
 @oimate.event
 async def on_ready(): #this is where the bot brain starts to work
     print("discord")  # print() sends to the CMD not to discord
-    await pet_tick.start()
+
     
 @oimate.event
 async def on_command_error(ctx, error):
@@ -63,15 +64,10 @@ async def on_command_error(ctx, error):
 
 @oimate.command()
 async def buttontest(ctx):
-    print(1)
-    button = Button(label = "click", style = discord.Buttonstyle.green)
-    print(2)
+    button = Button(label = "click", style = discord.ButtonStyle.green)
     view = View()
-    print(3)
     view.add_item(button)
-    print(4)
     await ctx.send("testtest",view=view)
-    print(5)
 
 ###########################################
 ##         your pocket                   ##
@@ -223,6 +219,10 @@ async def get_petPocket_data():
         users = json.load(f)
     return users
     
+@tasks.loop(time = time(17 , 35, tzinfo=datetime.timezone.utc))
+async def choco_loop():
+    channel = oimate.get_channel(672550204213297174)
+    await channel.send('<@&888038726154993714> oi oi paycheck time come and get your<:Galaxy_Cookie:776762120686927896><:Galaxy_Cookie:776762120686927896><:Galaxy_Cookie:776762120686927896>') # ALLWAYS PUT "await ctx.send('') if u want it to speak in discord
     
 @tasks.loop(minutes=30)
 async def pet_tick():
@@ -463,70 +463,39 @@ async def quest(ctx, message = None):
     a = False
     quest_timer = quest_time
     in_fight = 0
-    monsterA = {}
-    monsterB = {}
-    monsterC = {}
-    monsterD = {}
     
     await ctx.send(f"you have left out on {youron} and it will take {quest_time}")
-    a = True
-    
-    while a == True:
-        if fight == False and quest_timer > 0:
-            await asyncio.sleep(1)
-            quest_timer -= 1
-            print(quest_timer)
-            
-            encounter = random.randint(1,15)
-            if encounter == 10:
-                monsterTEAM = [random.choice(list(monsters)) for i in range(monsterparty)]
-                await ctx.send(f"your have been attacted by {monsterTEAM}")
-                monsterA = monsterTEAM[0]
-                monsterB = monsterTEAM[1]
-                monsterC = monsterTEAM[2]
-                monsterD = monsterTEAM[3]
-                monsterABC = [monsterTEAM]
-                fight = True
-        elif fight == True:
-            if monsterABC:
-                await ctx.send(f"{monsterABC} reply with \"fightA/B/C/D\"  \"magicA/B/C/D\" \"shootA/B/C/D\" \"run\" ")
-            
-                if message == fightA:
+    if fight == False and quest_timer > 0:
+        await asyncio.sleep(1)
+        quest_timer -= 1
+        print(quest_timer)
+        
+        encounter = random.randint(1,15)
+        if encounter == 10:
+            monsterTEAM = [random.choice(list(monsters)) for i in range(monsterparty)]
+            await ctx.send(f"your have been attacted by {monsterTEAM}")
+            fight = True
+    elif fight == True:
+        if monsterTEAM:
+            attack = Button(label = "fightA", style = discord.ButtonStyle.green)
+            Adammage = list(monsterTEAM)[0]["hp"] - (users[str(user.id)]["str"] - list(monsterTEAM)[0]["def"])
+            async def fight_callback(interaction):
+                await interaction.responce.send_message(f" you attacked {list(monsterTEAM)[0]} for {Adammage}")
+            view = View()
+            view.add_item(attack)
+            await ctx.send(f"{monsterTEAM}", view=view)
                 
-                    dammage = users[str(user.id)]["str"] - monsterA["def"]
-                    
-                    monsterA["hp"] -= dammage
-                    
-                    await ctx.send(f"you attacked {monsterA} for {dammage} the {monasterA} now has {monsterA['hp']} left")
-                    
-                    if monsterA["hp"] <=0 :
-                        monsterABC.pop(monsterA)
-                    
-                if message == fightB:
+        elif list(monsterTEAM)[0]["hp"] <= 0:
+            await ctx.send(f"you have defeated {list(monsterTEAM)[0]}")
+            list(monsterTEAM).pop([0])
+
                 
-                    monsterB["hp"] = users[str(user.id)]["str"] - monsterB["def"]
+        elif not monsterTEAM:
+            fight = False
                 
-                    if monsterB["hp"] <= 0:
-                        monsterABC.pop(monsterB)
-                    
-                if message == fightC:
-                    monsterC["hp"] = users[str(user.id)]["str"] - monsterC["def"]
-                    
-                    if monsterC["hp"] <= 0:
-                        monsterABC.pop(monsterC)
-                    
-                if message == fightD:
-                
-                    monsterD["hp"] = users[str(user.id)]["str"] - monsterD["def"]
-                
-                    if monsterD["hp"] <= 0:
-                        monsterABC.pop(monsterD)
-            elif not monsterABC:
-                fight = False
-                
-        elif quest_timer <= 0:
-            await ctx.send("your quest is over")
-            a = False
+    elif quest_timer <= 0:
+        await ctx.send("your quest is over")
+        a = False
                 
             
             
@@ -1149,7 +1118,6 @@ async def on_message(message):
                 json.dump(users,f, indent=4)
         with open("ticketbank.json","w") as f:
             json.dump(users,f, indent=4)
-            
     
 
     await oimate.process_commands(message)
@@ -1350,12 +1318,32 @@ async def throw(ctx, member:discord.Member):
         with open("ticketbank.json","w") as f:
             json.dump(users,f, indent=4)
             
+            
+        dodge_button = Button(label="Dodge")
+        block_button = Button(label="Block")
+        catch_button = Button(label="Catch")
+        view=View()
+        view.add_item(dodge_button)
+        
+        async def dodge_callback(interaction):
+            await interaction.send("this is a test button sry")
+        dodge_button.callback = dodge_callback
+        
+        async def block_callback(interaction):
+            await interaction.send("this is a test button sry")
+        block_button.callback = block_callback
+        
+        async def catch_callback(interaction):
+            await interaction.send("this is a test button sry")
+        catch_button.callback = catch_callback
+            
         be = discord.Embed(title = "BANANA GAMES")
         be.set_author(name = (ctx.author.name))
         be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
         be.add_field(name= f"{ctx.author.name} has thrown a <:mnkyThrow:704518598764527687> at" , value = f"{bb}", inline = True)
         be.add_field(name= f"{member.name} has to respond with !dodge !block !catch" , value = f"{cc}", inline = True)
         await ctx.send(embed = be)
+
                 
         await asyncio.sleep(2*60*60)
         if splater == member.id:
@@ -1603,7 +1591,6 @@ async def target(ctx):
     
     target_chance = ["1", "5", "0", "-1", "lilly"] #we make a list of the random options
     randomList = random.choices( target_chance, weights=(48, 2, 25, 25, 1), k=1) # weighted the random chances so some options happen more then others , k=howmeny options form the list we want
-    print(randomList)
 
     if weather_check in ["Light Rain" , "Rain" , "Rain Showers"]:
 
@@ -2019,9 +2006,6 @@ async def pet(ctx,message = None):
             if users[str(user.id)]["pet_hunger"] > 10:
                 users[str(user.id)]["pet_hunger"] = 10
             await ctx.send("your pet (nameing coming soon :tm:) munches away happerly")
-            
-            with open("petPocket.json","w") as f:
-                json.dump(users,f, indent=4)
     
     elif message == "meds":
         if users[str(user.id)]["petmed"] == 0:
@@ -2032,13 +2016,11 @@ async def pet(ctx,message = None):
             if users[str(user.id)]["pet_sickness"] == 1:
                 users[str(user.id)]["pet_sickness"] = 0
                 await ctx.send("your pet is no longer sick")
-                with open("petPocket.json","w") as f:
-                    json.dump(users,f, indent=4)
+
             elif users[str(user.id)]["pet_sickness"] == 0:
                 users[str(user.id)]["pet_helth"] - 5
                 await ctx.send("your pet wasnt sick but now he looks worce for wear")
-                with open("petPocket.json","w") as f:
-                    json.dump(users,f, indent=4)
+
         
     elif message == "play":
         
@@ -2046,14 +2028,17 @@ async def pet(ctx,message = None):
         
         await ctx.send(f"you played with your pet he fun went up by{fun} (this will be upgraded later)")
         users[str(user.id)]["pet_fun"] += fun
-        with open("petPocket.json","w") as f:
-            json.dump(users,f, indent=4)
+        if users[str(user.id)]["pet_fun"] > 10:
+            users[str(user.id)]["pet_fun"] = 10
+
+
             
     elif message == "clean":
         await ctx.send(f"you gave your pet a bath")
         users[str(user.id)]["pet_clean"] = 10
-        with open("petPocket.json","w") as f:
-            json.dump(users,f, indent=4)
+        
+    with open("petPocket.json","w") as f:
+        json.dump(users,f, indent=4)
         
 @oimate.command()
 async def testt(ctx):
@@ -2202,16 +2187,17 @@ async def check_pet(ctx):
             
         if users[str(user.id)]["pet_helth"] == 0:
             monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_dead.png")
-        elif users[str(user.id)]["pet_fun"] < 5 :
+        elif users[str(user.id)]["pet_fun"] <= 6 :
             monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_bored.png")
-        elif users[str(user.id)]["pet_hunger"] < 5 :
+        elif users[str(user.id)]["pet_hunger"] <= 6 :
             monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_hungry.png")
         elif users[str(user.id)]["pet_sickness"] == 1:
             monkey = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_sick.png")
-
-        if users[str(user.id)]["pet_clean"] < 5:
-            mess = ("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_dirty.png")
-            home.paste(mess,(0,0),mess)
+        
+        if users[str(user.id)]["pet_clean"] < 6:
+            mess = Image.open("/home/pi/Desktop/monkey bot discord/pet/monkey/monkey_dirty.png")
+            home.paste(mess, (0,0), mess)
+            
         home.paste(monkey, (0,0), monkey)
 
         home.save("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png", "PNG")
@@ -2290,11 +2276,11 @@ async def check_pet(ctx):
             snowman = Image.open("/home/pi/Desktop/monkey bot discord/pet/snowman/snowman_dead.png")
         elif users[str(user.id)]["pet_helth"] >=1 and users[str(user.id)]["pet_sickness"] == 1:
             snowman = Image.open("/home/pi/Desktop/monkey bot discord/pet/snowman/snowman_sick.png")
-        elif users[str(user.id)]["pet_clean"] < 5:
+        elif users[str(user.id)]["pet_clean"] <= 6:
             snowman = Image.open("/home/pi/Desktop/monkey bot discord/pet/snowman/snowman_dirty.png")
-        elif users[str(user.id)]["pet_hunger"] <5:
+        elif users[str(user.id)]["pet_hunger"] <=6:
             snowman = Image.open("/home/pi/Desktop/monkey bot discord/pet/snowman/snowman_hungery.png")
-        elif users[str(user.id)]["pet_fun"] < 5:
+        elif users[str(user.id)]["pet_fun"] <= 6:
             snowman = Image.open("/home/pi/Desktop/monkey bot discord/pet/snowman/snowman_bored.png")
             
         home.paste(snowman,(0,0),snowman)
@@ -2368,7 +2354,7 @@ async def check_pet(ctx):
         else:
             fish = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/fish_happy.png")
         
-        if users[str(user.id)]["pet_clean"] < 5:
+        if users[str(user.id)]["pet_clean"] <= 6:
             fishwater = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/dirty_water.png")
         else:
             fishwater = Image.open("/home/pi/Desktop/monkey bot discord/pet/fish/clean_water.png")
@@ -2512,25 +2498,12 @@ async def time(ctx): #say 8time in discord to have monkeybot say the time....thi
     await ctx.send(sausage) #was hungery when typing out the veriables
 
 
-@oimate.command(help = "dont use this commarnd unless your monkeybee11")
-async def start(ctx): #the blue word is the commarnd u type in discord
-    if ctx.author.id == 113051316225368064:
-        print("ok")
-        while True:
-
-            await asyncio.sleep(5)
-            timer = clock.now() #monkey this veriable is here to refresh its time check
-            if(timer.hour == 18 and timer.minute == 38): #checking if the time is what ever numbers ive typed
-                await ctx.send('<@&888038726154993714> oi oi paycheck time come and get your<:Galaxy_Cookie:776762120686927896><:Galaxy_Cookie:776762120686927896><:Galaxy_Cookie:776762120686927896>') # ALLWAYS PUT "await ctx.send('') if u want it to speak in discord
-                print("do we have to pay the workers?") # print will only post to my CMD so dosnt matter if its a little mean
-                await asyncio.sleep(60) #this is ment to be a 60secon timer so it only says the message once insted of everytick for that minnet
-    elif ctx.author.id != 113051316225368064:
-        await ctx.send(f"sry {ctx.author.name} only <@113051316225368064> can use this command to stop me from spamming in random channels :thumbsup:")
-
-
 @oimate.command(help = "ignore this")
 async def test(ctx):
     if ctx.author.id == 113051316225368064:
         await ctx.send("<@&888038726154993714> this is a test let me know if u got pinged")
+        
+choco_loop.start()
+pet_tick.start()
 
 oimate.run(token)

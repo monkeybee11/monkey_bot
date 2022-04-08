@@ -1,17 +1,17 @@
 {
     "113051316225368064": {
-        "ticket": 37,
-        "banana": 7,
+        "ticket": 36,
+        "banana": 15,
         "snowball": 6,
         "snowman_cursed": 0,
         "splat": 0
     },
     "119791596681166848": {
-        "ticket": 1,
-        "banana": 23,
+        "ticket": 11,
+        "banana": 31,
         "snowball": 9,
         "snowman_cursed": 0,
-        "splat": 6
+        "splat": 0
     },
     "122654163443253248": {
         "ticket": 0,
@@ -120,7 +120,7 @@
     },
     "247170379376885761": {
         "ticket": 0,
-        "banana": 4,
+        "banana": 5,
         "snowball": 8,
         "snowman_cursed": 0,
         "splat": 0
@@ -147,8 +147,8 @@
         "splat": 0
     },
     "265105169115643904": {
-        "ticket": 16,
-        "banana": 9,
+        "ticket": 17,
+        "banana": 10,
         "snowball": 3,
         "snowman_cursed": 0,
         "splat": 0
@@ -567,6 +567,48 @@
         "splat": 0
     },
     "939954661228699735": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0
+    },
+    "849672491386273802": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0
+    },
+    "863967363765370901": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0
+    },
+    "959648267099070486": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0
+    },
+    "519288685473169423": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0
+    },
+    "804406672986341406": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0
+    },
+    "414925323197612032": {
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
