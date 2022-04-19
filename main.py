@@ -257,6 +257,9 @@ async def pet_tick():
                 if users[user]["fun_tick"] == 0:
                     users[user]["fun_tick"] = 10
                     users[user]["pet_fun"] -= 1
+            elif users[user]["pet_helth"] > 0 and users[user]["pet_helth"] < 10:
+                users[user]["pet_hunger"] -= 1
+                users[user]["pet_helth"] += 1
                     
     with open("petPocket.json","w") as f:
         json.dump(users,f, indent=4)
@@ -1318,25 +1321,6 @@ async def throw(ctx, member:discord.Member):
         with open("ticketbank.json","w") as f:
             json.dump(users,f, indent=4)
             
-            
-        dodge_button = Button(label="Dodge")
-        block_button = Button(label="Block")
-        catch_button = Button(label="Catch")
-        view=View()
-        view.add_item(dodge_button)
-        
-        async def dodge_callback(interaction):
-            await interaction.send("this is a test button sry")
-        dodge_button.callback = dodge_callback
-        
-        async def block_callback(interaction):
-            await interaction.send("this is a test button sry")
-        block_button.callback = block_callback
-        
-        async def catch_callback(interaction):
-            await interaction.send("this is a test button sry")
-        catch_button.callback = catch_callback
-            
         be = discord.Embed(title = "BANANA GAMES")
         be.set_author(name = (ctx.author.name))
         be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
@@ -1574,6 +1558,9 @@ async def refund_banana(ctx, member:discord.Member):
             thrower = "b"
             
             await ctx.send(f"spalter and thrower has been reset to {splater} {thrower}")
+            
+    elif ctx.author.id != 113051316225368064 or ctx.author.id != 119791596681166848:
+        await ctx.send("only monkey and DKS can use this commarnd :P")
 
 
 ############################################
@@ -1829,7 +1816,12 @@ async def fishing(ctx):
     if cast == 60:
         await ctx.send(f"{ctx.author.name} casts their line 🎣 ...")
         await asyncio.sleep(cast)
-        await ctx.send("...not even a nibble")
+        
+        fishbed = discord.Embed(title="nope",colour = discord.Colour.blue())
+        fishbed.set_author(name = (ctx.author.name))
+        fishbed.set_thumbnail(url="https://www.emoji.co.uk/files/twitter-emojis/activity-twitter/10839-fishing-pole-and-fish.png")
+        fishbed.add_field(name ="...not even a nibble", value = " ", inline = True)
+        await ctx.send(embed = fishbed)
         
     elif cast < 60 and randomname != 11:
         await ctx.send(f"{ctx.author.name} casts their line 🎣 ...")
@@ -2101,14 +2093,14 @@ async def check_pet(ctx):
     home.paste(you, (0,0), you)
     
     if ctx.author == t1:
-        ticket = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/ticket1.png")
-        home.paste(ticket,(0,0), ticket)
+        t = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/ticket1.png")
+        home.paste(t,(0,0), t)
     elif ctx.author == t2:
-        ticket = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/ticket2.png")
-        home.paste(ticket,(0,0), ticket)
+        t = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/ticket2.png")
+        home.paste(t,(0,0), t)
     elif ctx.author == t3:
-        ticket == Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/ticket3.png")
-        home.paste(ticket,(0,0), ticket)
+        t = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/ticket3.png")
+        home.paste(t,(0,0), t)
     if ctx.author == b1:
         b = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/banana1.png")
         home.paste(b,(0,0),b)
@@ -2205,7 +2197,7 @@ async def check_pet(ctx):
         await ctx.send(file = discord.File("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png"))
         await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box")
         os.remove("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png") 
-        
+    
     elif users[str(user.id)]["active_pet"] == "snowman":
 
         draw.text((353, 12), "HUNGER", font = font)
@@ -2373,10 +2365,10 @@ async def check_pet(ctx):
         await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box")
         os.remove("/home/pi/Desktop/monkey bot discord/pet/fish_home.png")  
         
-    else:
+    elif users[str(user.id)]["active_pet"] == "":
         home.save("/home/pi/Desktop/monkey bot discord/pet/you_home.png", "PNG")
         await ctx.send(file = discord.File("/home/pi/Desktop/monkey bot discord/pet/you_home.png"))
-        await ctx.send("you dont have a active pet")
+        await ctx.send(f"you dont have a active in your pet pocket ther is {monkey} monekeys | {snowman} snowmans | {fish} fish more pets coming soon:tm:")
         os.remove("/home/pi/Desktop/monkey bot discord/pet/you_home.png")
      
      
@@ -2486,7 +2478,7 @@ async def reset(ctx):
         await ctx.send("there is no game playing atm check with monkey")
     if password == True:
         fishNchips.tap(Key.backspace)
-
+        
 ##########################################################################
 ## time stuff for choco server so ppl get pinged to colect there cookies##
 ##########################################################################

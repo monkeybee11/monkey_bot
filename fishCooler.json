@@ -59,7 +59,22 @@
             "frozen tuna",
             ":wood:",
             "whale",
-            "catfish"
+            "catfish",
+            ":wood:",
+            "the other old boot",
+            "\ud83d\udc53",
+            "whale",
+            "a peanut butter and jelly fish",
+            "a peanut butter and jelly fish",
+            ":wood:",
+            "salamon",
+            "salamon",
+            "a strange glowing book something about mending",
+            "old boot",
+            "a strange glowing book something about mending",
+            ":shark:",
+            "a new boot",
+            "shark"
         ]
     },
     "265105169115643904": {
@@ -78,7 +93,10 @@
             "a peanut butter and jelly fish",
             "a peanut butter and jelly fish",
             ":fish:",
-            "\ud83d\udc53"
+            "\ud83d\udc53",
+            ":fish:",
+            "catfish",
+            "a strange glowing book something about mending"
         ]
     },
     "119791596681166848": {
@@ -115,13 +133,31 @@
             "salamon",
             "a peanut butter and jelly fish",
             ":wood:",
-            "cod"
+            "cod",
+            "old boot",
+            "old boot",
+            ":wood:",
+            "the other old boot",
+            ":wood:",
+            "shark",
+            "shark",
+            ":fish:",
+            ":shark:",
+            "a peanut butter and jelly fish",
+            "a strange glowing book something about mending",
+            "old boot",
+            "shark",
+            ":shark:",
+            "whale",
+            "NEMO",
+            "a peanut butter and jelly fish"
         ]
     },
     "247170379376885761": {
         "fish name": [
             "the other old boot",
-            "\ud83d\udd76\ufe0f"
+            "\ud83d\udd76\ufe0f",
+            "a strange glowing book something about mending"
         ]
     },
     "237194159826403329": {
@@ -136,7 +172,9 @@
         "fish name": [
             ":fish:",
             "kitchen sink",
-            ":wood:"
+            ":wood:",
+            "\ud83d\udc53",
+            "frozen tuna"
         ]
     }
 }
