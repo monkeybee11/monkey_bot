@@ -1,14 +1,14 @@
 {
     "113051316225368064": {
-        "ticket": 45,
-        "banana": 20,
+        "ticket": 46,
+        "banana": 17,
         "snowball": 6,
         "snowman_cursed": 0,
         "splat": 0
     },
     "119791596681166848": {
-        "ticket": 19,
-        "banana": 43,
+        "ticket": 25,
+        "banana": 52,
         "snowball": 9,
         "snowman_cursed": 0,
         "splat": 0
@@ -147,8 +147,8 @@
         "splat": 0
     },
     "265105169115643904": {
-        "ticket": 20,
-        "banana": 13,
+        "ticket": 14,
+        "banana": 16,
         "snowball": 3,
         "snowman_cursed": 0,
         "splat": 0
@@ -637,6 +637,13 @@
         "splat": 0
     },
     "112682500052049920": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0
+    },
+    "844318227742982145": {
         "ticket": 0,
         "banana": 0,
         "snowball": 0,

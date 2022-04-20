@@ -1385,9 +1385,7 @@ async def dodge(ctx):
         await open_account(ctx.author)
         users = await get_ticket_data()
         user = ctx.author
-        me = member
         bb = users[str(user.id)]["banana"]
-        cc = users[str(me.id)]["banana"]
         
         users[str(user.id)]["banana"] -= banana_lost
         users[str(user.id)]["splat"] = 10
@@ -1809,6 +1807,9 @@ async def fishing(ctx):
     fishname = len(fish_name)
     randomname = random.randrange(fishname)
     named_fish = fish_name[randomname]
+    
+    print(named_fish)
+    print(randomname)
     
     fishsize = round(random.uniform(0.8,1500),2) #cm
     fishweight = random.randint(8,42624) # OZ
