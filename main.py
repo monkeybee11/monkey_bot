@@ -861,7 +861,7 @@ async def top10(ctx):
     
     await ctx.send(f"{id1.items()}")
 
-@oimate.command(help = "shows the top10 banana holders")
+@oimate.command(help = "shows the top10 banana holders", aliases = ["top10b"])
 async def topb(ctx,x = 10):
     global b1
     global b2
@@ -2389,6 +2389,7 @@ async def gamestart(ctx):
     else:
         await ctx.send("you are not monkey only he can start games")
 
+
 @oimate.command(help = "only monkey can use this to end the game")
 async def gamestop(ctx):
     global password
@@ -2398,6 +2399,103 @@ async def gamestop(ctx):
         await ctx.send("sorry DKS you are not the right monkey for this command ***froundy face*** BUT heres a ticket to the carnie <:DanTix:919966342797463552>")
     else:
         await ctx.send("you are not monkey only he can stop games")
+        
+@oimate.command(help = "dpad gui for discord plays...")
+async def dpad(ctx):
+    global password
+    button0 = Button(label = "left click")
+    button1 = Button(label = "up")
+    button2 = Button(label = "right clock")
+    button3 = Button(label = "m up")
+    button4 = Button(label = "m left")
+    
+    button5 = Button(label = "left")
+    button6 = Button(label = " ")
+    button7 = Button(label = "right")
+    button8 = Button(label = "m down")
+    button9 = Button(label = "m right")
+    
+    button10 = Button(label = " ")
+    button11 = Button(label = "down")
+    button12 = Button(label = " ")
+    button13 = Button(label = " ")
+    button14 = Button(label = " ")
+    
+    async def button1_callback(interaction):
+        fishNchips.tap(Key.up)
+        
+    button1.callback = button1_callback
+    
+    async def button5_callback(interaction):
+        fishNchips.tap(Key.left)
+        
+    button5.callback = button5_callback
+    
+    async def button7_callback(interaction):
+        fishNchips.tap(Key.right)
+        
+    button7.callback = button7_callback
+    
+    async def button11_callback(interaction):
+        fishNchips.tap(Key.down)
+        
+    button11.callback = button11_callback
+    
+    async def button0_callback(interaction):
+        fishNchips.press(Button.left)
+        fishNchips.release(Button.left)
+        
+    button0.callback = button0_callback
+    
+    async def button2_callback(interaction):
+        fishNchips.press(Button.right)
+        fishNchips.release(Button.right)
+        
+    button2.callback = button2_callback
+    
+    async def button3_callback(interaction):
+        fishNchips.move(0, 15)
+        
+    button3.callback = button3_callback
+    
+    async def button8_callback(interaction):
+        fishNchips.move(0, -15)
+        
+    button8.callback = button3_callback
+    
+    async def button4_callback(interaction):
+        fishNchips.move(-15, 0)
+        
+    button4.callback = button4_callback
+    
+    async def button9_callback(interaction):
+        fishNchips.move(15, 0)
+        
+    button9.callback = button9_callback
+        
+    
+    view = View()
+    view.add_item(button0)
+    view.add_item(button1)
+    view.add_item(button2)
+    view.add_item(button3)
+    view.add_item(button4)
+    view.add_item(button5)
+    view.add_item(button6)
+    view.add_item(button7)
+    view.add_item(button8)
+    view.add_item(button9)
+    view.add_item(button10)
+    view.add_item(button11)
+    view.add_item(button12)
+    view.add_item(button13)
+    view.add_item(button14)
+    if password == False:
+        await ctx.send("there is no game playing atm check with monkey")
+    elif password == True:
+        print(1)
+        await ctx.send("chicken", view = view)
+        
 
 @oimate.command(help = "presses the up arrow")
 async def up(ctx):
