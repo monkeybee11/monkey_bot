@@ -77,7 +77,11 @@
             "shark",
             "whale",
             "BEAR-acuda",
-            "a new boot"
+            "a new boot",
+            "catfish",
+            ":fish:",
+            "the other old boot",
+            ":wood:"
         ]
     },
     "265105169115643904": {
@@ -170,7 +174,16 @@
             "a new boot",
             "NEMO",
             "kitchen sink",
-            "BEAR-acuda"
+            "BEAR-acuda",
+            ":fish:",
+            "some legobricks from the 1969 LEGO satun V rocket",
+            "cod",
+            "some legobricks from the 1969 LEGO satun V rocket",
+            "shark",
+            "kitchen sink",
+            "a peanut butter and jelly fish",
+            "salamon",
+            ":wood:"
         ]
     },
     "247170379376885761": {
@@ -194,7 +207,8 @@
             "kitchen sink",
             ":wood:",
             "\ud83d\udc53",
-            "frozen tuna"
+            "frozen tuna",
+            "catfish"
         ]
     }
 }

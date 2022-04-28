@@ -11,6 +11,7 @@ from os import getenv
 from PIL import Image, ImageDraw, ImageFont
 import datetime
 
+
 os.chdir("/home/pi/Desktop/monkey bot discord")
 
 load_dotenv()
@@ -21,6 +22,9 @@ token = getenv("monkey_bot")
 
 # to do list
 # come up with more games
+
+monkey = 113051316225368064
+dks = 119791596681166848
 
 
 password = False
@@ -107,6 +111,7 @@ async def open_account(user):
         users[str(user.id)]["snowball"] = 0
         users[str(user.id)]["snowman_cursed"] = 0
         users[str(user.id)]["splat"] = 0
+        users[str(user.id)]["twitch"] = ""
 
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
@@ -557,9 +562,12 @@ async def hug(ctx,member:discord.Member):
 async def pew(ctx,member:discord.Member):
     miss = random.randint(1,100)
     if miss <= 80:
+        
         await ctx.send(f"{member.name} got shot by {ctx.author.name}")
         await ctx.send("<a:TargetAnim:927671875834875974>")
+        
     elif miss > 80 and miss < 90:
+        
         await open_account(ctx.author)
         await open_account(member)
         users = await get_ticket_data()
@@ -1140,7 +1148,6 @@ async def shake(ctx):
     weather = await client.find("Boston")
     weather_check = weather.current.sky_text
 
-    #tree_shake = random.randint(1,3)
     tree_chance = ["1_banana", "bad_shake", "2_banana", "pet"] #we make a list of the random options
     randomList = random.choices( tree_chance, weights=(50, 50, 50, 1), k=1) # weighted the random chances so some options happen more then others , k=howmeny options form the list we want
 
@@ -1475,8 +1482,10 @@ async def check_throw(ctx): #check what the thrower and splater values are in ca
 async def refund_banana(ctx, member:discord.Member):
     global splater
     global thrower
+    global monkeybee
+    global monkeydks
     
-    if ctx.author.id == 113051316225368064 or ctx.author.id == 119791596681166848:
+    if ctx.author.id == monkeybee or ctx.author.id == monkeydks:
         if splater == "a":
             await ctx.send("nobody need a refund")
             
@@ -1500,7 +1509,7 @@ async def refund_banana(ctx, member:discord.Member):
             
             await ctx.send(f"spalter and thrower has been reset to {splater} {thrower}")
             
-    elif ctx.author.id != 113051316225368064 or ctx.author.id != 119791596681166848:
+    elif ctx.author.id != monkeybee or ctx.author.id != monkeydks:
         await ctx.send("only monkey and DKS can use this commarnd :P")
 
 
@@ -1730,10 +1739,7 @@ async def fishing(ctx):
     fishname = len(fish_name)
     randomname = random.randrange(fishname)
     named_fish = fish_name[randomname]
-    
-    print(named_fish)
-    print(randomname)
-    
+
     fishsize = round(random.uniform(0.8,1500),2) #cm
     fishweight = random.randint(8,42624) # OZ
 
@@ -1775,9 +1781,7 @@ async def fishing(ctx):
         petbed.set_thumbnail(url="https://www.emoji.co.uk/files/twitter-emojis/animals-nature-twitter/10682-fish.png")
         petbed.add_field(name = f"{ctx.author.name} has fished up a {named_fish} oooo looks like they have a new fishy pet friend" , value = f"they now have {petfish} :fish:" , inline = True)
         await ctx.send(embed = petbed)
-        
-        await ctx.send("<@113051316225368064> someone got the fish pet at last u can remove the debug code from this function")
-        
+                
     with open("petPocket.json" ,"w") as f:
         json.dump(pet,f, indent=4)
         
@@ -1981,6 +1985,9 @@ async def check_pet(ctx):
 
     food = users[str(user.id)]["petfood"]
     med = users[str(user.id)]["petmed"]
+    pet_monkey = users[str(user.id)]["monkey"]
+    pet_snowman = users[str(user.id)]["snowman"]
+    pet_fish = users[str(user.id)]["fish"]
     
     home = Image.open("/home/pi/Desktop/monkey bot discord/pet/pet_home_empty.png")
     char = Image.open("/home/pi/Desktop/monkey bot discord/pet/char.png")
@@ -1992,6 +1999,11 @@ async def check_pet(ctx):
 
     home.paste(char, (0,0), char) #puts a char in the living room
     
+    await ctx.author.display_avatar.save("/home/pi/Desktop/monkey bot discord/pet/face.png")
+    face = Image.open("/home/pi/Desktop/monkey bot discord/pet/face.png")
+    face = face.resize((38,39))
+    
+    
     if ticket[str(user.id)]["snowman_cursed"] > 0: # check to see if the user has effects or not befor sitting in the chair
         you = Image.open("/home/pi/Desktop/monkey bot discord/pet/snowman_curse.png")
     elif ticket[str(user.id)]["splat"] > 0:
@@ -1999,6 +2011,8 @@ async def check_pet(ctx):
         you.paste(banana, (0,0), banana)
     else:
         you = Image.open("/home/pi/Desktop/monkey bot discord/pet/you.png")
+
+    home.paste(face, (253, 99))
         
     home.paste(you, (0,0), you)
     
@@ -2278,11 +2292,35 @@ async def check_pet(ctx):
     elif users[str(user.id)]["active_pet"] == "":
         home.save("/home/pi/Desktop/monkey bot discord/pet/you_home.png", "PNG")
         await ctx.send(file = discord.File("/home/pi/Desktop/monkey bot discord/pet/you_home.png"))
-        await ctx.send(f"you dont have a active in your pet pocket ther is {monkey} monekeys | {snowman} snowmans | {fish} fish more pets coming soon:tm:")
+        await ctx.send(f"you dont have a active in your pet pocket ther is {pet_monkey} 🐒 | {pet_snowman} ⛄ | {pet_fish} 🐟 \n more pets coming soon:tm:")
         os.remove("/home/pi/Desktop/monkey bot discord/pet/you_home.png")
+        
+    os.remove("/home/pi/Desktop/monkey bot discord/pet/face.png")
      
      
      
+###########################################
+##         twitch tickets               ###
+###########################################
+
+@oimate.command(help = "let monkeybot know your twitch username")
+async def login(ctx, message = None):
+    await open_account(ctx.author)
+    users = await get_ticket_data()
+    user = ctx.author
+    
+    if message == None:
+        await ctx.send("use !login'your twitch name' so monkeybot knows who you are for twitch ticket giving :P")
+    
+    elif message != None:
+    
+        users[str(user.id)]["twitch"] = message
+        
+        await ctx.send(f"ok your twitch name is {message} right? reuse the commarnd if its wrong")
+    
+    with open("ticketbank.json","w") as f:
+        json.dump(users,f,indent=4)
+        
 ############################################
 ##monkeys attempted at gameing for discord##
 ############################################
@@ -2291,9 +2329,11 @@ async def check_pet(ctx):
 @oimate.command(help = "only monkey can use this to start discordplays gamein VC")
 async def gamestart(ctx):
     global password
-    if ctx.author.id == 113051316225368064: #this is MY discord id so only me can use this commarnd
+    global monkeybee
+    global monkeydks
+    if ctx.author.id == monkeybee: #this is MY discord id so only me can use this commarnd
         password = True
-    elif ctx.author.id == 119791596681166848: #this is monkeyDKS id so me can be cheaky and give him a specal responce
+    elif ctx.author.id == monkeydks: #this is monkeyDKS id so me can be cheaky and give him a specal responce
         await ctx.send("sorry DKS you are not the right monkey for this command ***froundy face*** BUT heres a ticket to the carnie <:DanTix:919966342797463552>")
     else:
         await ctx.send("you are not monkey only he can start games")
@@ -2302,9 +2342,11 @@ async def gamestart(ctx):
 @oimate.command(help = "only monkey can use this to end the game")
 async def gamestop(ctx):
     global password
-    if ctx.author.id == 113051316225368064:
+    global monkeybee
+    global monkeydks
+    if ctx.author.id == monkeybee:
         password = False
-    elif ctx.author.id == 119791596681166848:
+    elif ctx.author.id == monkeydks:
         await ctx.send("sorry DKS you are not the right monkey for this command ***froundy face*** BUT heres a ticket to the carnie <:DanTix:919966342797463552>")
     else:
         await ctx.send("you are not monkey only he can stop games")
@@ -2317,7 +2359,6 @@ async def dpad(ctx):
     button2 = Button(label = "right clock")
     button3 = Button(label = "m up")
     button4 = Button(label = "m left")
-    
     button5 = Button(label = "left")
     button6 = Button(label = " ")
     button7 = Button(label = "right")
