@@ -1,19 +1,19 @@
 {
     "113051316225368064": {
-        "ticket": 38,
-        "banana": 0,
-        "snowball": 6,
+        "ticket": 57,
+        "banana": 11,
+        "snowball": 3,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": "monkeybee11"
     },
     "119791596681166848": {
-        "ticket": 30,
-        "banana": 1,
+        "ticket": 125,
+        "banana": 4,
         "snowball": 9,
         "snowman_cursed": 0,
         "splat": 0,
-        "twitch": ""
+        "twitch": "wildwestdan"
     },
     "122654163443253248": {
         "ticket": 0,
@@ -136,12 +136,12 @@
         "twitch": ""
     },
     "247170379376885761": {
-        "ticket": 1,
-        "banana": 5,
-        "snowball": 8,
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 7,
         "snowman_cursed": 0,
-        "splat": 0,
-        "twitch": ""
+        "splat": 3,
+        "twitch": "Alpha_of_all_Foxys"
     },
     "248118818679947264": {
         "ticket": 0,
@@ -168,8 +168,8 @@
         "twitch": ""
     },
     "265105169115643904": {
-        "ticket": 12,
-        "banana": 20,
+        "ticket": 9,
+        "banana": 24,
         "snowball": 3,
         "snowman_cursed": 0,
         "splat": 0,
@@ -778,6 +778,502 @@
     "372116496979329028": {
         "ticket": 0,
         "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "971383561598959676": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "660943171047653376": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "176299196205236224": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "932911342636134400": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "618457568309805087": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "973679984470290462": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "424723262702878720": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "873277822435749909": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "299234615644913664": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "962237973296988210": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "275761591947886592": {
+        "ticket": 0,
+        "banana": 2,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "112755318806568960": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "963625308550996048": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "758781427097141308": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "976018254923444284": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "220402459468759042": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "725221789529014467": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "688202466315206661": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "975938372260474920": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "692981398927048734": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "922595972494811226": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "796675554308259872": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "976074263935205416": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "963172411077976204": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "649057335167418368": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "701731464818982962": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "294882584201003009": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "697009529769951239": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "361488133176688641": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "305518777129500682": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "983760533004099654": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "170847814648201216": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "261397666989080576": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "983771615806500934": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "496132305425924116": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "296385922797273106": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "103656512899022848": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "485117853939269635": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "104792151757484032": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "882830800712781834": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "395474487803510786": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "697339874725986304": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "985619177953984552": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "992034080994635846": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "765651171750576129": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "733960365121208392": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "811456408562040862": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "697140964824842291": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "101801214018064384": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "987332706507587634": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "264935433006219264": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "753492931465183251": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "1003715432395571271": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "439871544051892224": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "997185587880665240": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "269871846025854977": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "416391291002421268": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "1007500141843980368": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "1006117513328869447": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "832731781231804447": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "707502572583387187": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "810018816448528385": {
+        "ticket": 0,
+        "banana": 2,
         "snowball": 0,
         "snowman_cursed": 0,
         "splat": 0,

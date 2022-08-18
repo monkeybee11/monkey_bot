@@ -1,29 +1,42 @@
 {
     "113051316225368064": {
-        "snow_immune": 0
+        "snow_immune": 0,
+        "banana_immune": 0
     },
     "119791596681166848": {
-        "snow_immune": 0
+        "snow_immune": 0,
+        "banana_immune": 0
     },
     "237194159826403329": {
-        "snow_immune": 0
+        "snow_immune": 0,
+        "banana_immune": 0
     },
     "259432586806296578": {
-        "snow_immune": 0
+        "snow_immune": 0,
+        "banana_immune": 0
     },
     "265105169115643904": {
-        "snow_immune": 0
+        "snow_immune": 0,
+        "banana_immune": 0
     },
     "326084708536680448": {
-        "snow_immune": 1
+        "snow_immune": 1,
+        "banana_immune": 0
     },
     "326610755061415937": {
-        "snow_immune": 0
+        "snow_immune": 0,
+        "banana_immune": 0
     },
     "431118756073439250": {
-        "snow_immune": 1
+        "snow_immune": 1,
+        "banana_immune": 0
     },
     "733747298487631874": {
-        "snow_immune": 1
+        "snow_immune": 1,
+        "banana_immune": 0
+    },
+    "247170379376885761": {
+        "snow_immune": 0,
+        "banana_immune": 0
     }
 }

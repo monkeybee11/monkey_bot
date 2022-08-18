@@ -133,9 +133,11 @@ async def immunty_card(ctx):
     susers = await get_immunty_data()
     
     snow_imune = susers[str(suser.id)]["snow_immune"]
+    banana_imune = susers[str(suser.id)]["banana_immune"]
     
     em = discord.Embed(title = f"{ctx.author.name}")
     em.add_field(name = "snowman statis", value = f"{snow_imune}", inline = True)
+    em.add_field(name = "banana statis", value = f"{banana_imune}", inline = True)
     await ctx.send(embed = em)
     
     
@@ -148,6 +150,7 @@ async def check_immunty(user):
     else:
         users[str(user.id)] = {}
         users[str(user.id)]["snow_immune"] = 0
+        users[str(user.id)]["banana_immune"] = 0
         
     with open("immunityCARD.json","w") as f:
         json.dump(users,f, indent=4)
@@ -159,6 +162,47 @@ async def get_immunty_data():
         users = json.load(f)
         
     return users
+    
+###############
+#set immunty  #
+###############
+    
+@oimate.command(help="set your immuntys")
+async def immune(ctx, message = None):
+    await check_immunty(ctx.author)
+    users = await get_immunty_data()
+    user = ctx.author
+    
+    if message == "add_snowman":
+        
+        users[str(user.id)]["snow_immune"] = 1
+        
+        await ctx.send(f"{user.name} has become immune to the snowman curse")
+    
+    elif message == "remove_snowman":
+        
+        users[str(user.id)]["snow_immune"] = 0
+        
+        await ctx.send(f"{user.name} is no longer immune to the snowman curse")
+        
+    elif message == "add_banana":
+        
+        users[str(user.id)]["banana_immune"] = 1
+        
+        await ctx.send(f"{user.name} no longer will have banana stuck on there face")
+        
+    elif message == "remove_banana":
+        
+        users[str(user.id)]["banana_immune"] = 0
+        
+        await ctx.send(f"{user.name} will have banana stuck to there face when thrown at them")
+        
+    else:
+        
+        await ctx.send("use this commarnd to add or remove immuitys to effects from this bot")
+        
+    with open("immunityCARD.json","w") as f:
+        json.dump(users,f, indent=4)
 
 
 #######################################
@@ -304,6 +348,35 @@ async def get_fishcooler_data():
         users = json.load(f)
     return users
     
+@oimate.command(help = "better list of your fish cooler")
+async def fishlist(ctx):
+    await check_fish_cooler(ctx.author)
+    users = await get_fishcooler_data()
+    user = ctx.author
+    fish = users[str(user.id)]["fish name"]
+    
+    em = discord.Embed(title = f"{ctx.author.name} fish list")
+    em.add_field(name = "cod", value = fish.count("cod") , inline = True)
+    em.add_field(name = "salamon", value = fish.count("salamon"), inline = True)
+    em.add_field(name = "catfish", value = fish.count("catfish"), inline = True)
+    em.add_field(name = "kitchen sink", value = fish.count("kitchen sink"), inline = True)
+    em.add_field(name = "shark", value = fish.count("shark"), inline = True)
+    em.add_field(name = "whale", value = fish.count("whale"), inline = True)
+    em.add_field(name = ":fish:", value = fish.count(":fish:"), inline = True)
+    em.add_field(name = ":wood:", value = fish.count(":wood:"), inline = True)
+    em.add_field(name = ":shark:", value = fish.count(":shark:"), inline = True)
+    em.add_field(name = "👓", value = fish.count("👓"), inline = True)
+    em.add_field(name = "BEAR-acuda", value = fish.count("BEAR-acuda"), inline = True)
+    em.add_field(name = "old boot", value = fish.count("old boot"), inline = True)
+    em.add_field(name = "the other old boot", value = fish.count("the other old boot"), inline = True)
+    em.add_field(name = "a new boot", value = fish.count("a new boot"), inline = True)
+    em.add_field(name = "a strange glowing book something about mending" , value = fish.count("a strange glowing book something about mending"), inline = True)
+    em.add_field(name = "a peanut butter jelly fish", value = fish.count("a peanut butter jelly fish"), inline = True)
+    em.add_field(name = "NEMO", value = fish.count("NEMO"), inline = True)
+    em.add_field(name = "frozen tuna", value = fish.count("frozen tuna"), inline = True)
+    em.add_field(name = "some legobricks from the 1969 LEGO satun V rocket", value = fish.count("some legobricks from the 1969 LEGO satun V rocket"), inline = True)
+    await ctx.send(embed = em)  
+    
 #######################################
 ##            rpg data               ##
 #######################################
@@ -443,67 +516,67 @@ async def rollstats(ctx):
     em.add_field(name = "LUK", value = luk, inline = True)
     await ctx.send(embed = em)
         
-@oimate.command(help= "go out on a random quest")
-async def quest(ctx, message = None):
-    
-    await get_guildcard(ctx.author)
-    users = await get_guildcard_data()
-    user = ctx.author
-    
-    monsters = {
-    "carat": { "max_hp": 10, "hp": 10, "max_mp": 0, "mp": 0, "def": 5, "m_def": 3, "str": 11, "dex": 3, "int": 0, "luk": 15},
-    "onrot": { "max_hp": 10, "hp": 10, "max_mp": 0, "mp": 0, "def":8, "m_def": 2, "str": 12, "dex": 0, "int":0, "luk": 0},
-    "mushpup": { "max_hp": 10, "hp": 10, "max_mp": 10, "mp": 0, "def":10, "m_def": 5, "str":15, "dex": 10, "int":10, "luk": 6}
-    }
-    monsterparty = random.randint(1,4)
-    
-    quest_list = [
-    "help farmer with monster problem",
-    "going out on a scout",
-    ]
-    
-    questlist = len(quest_list)
-    randomquest = random.randrange(questlist)
-    youron = quest_list[randomquest]
-    
-    quest_time = random.randint(60,120)
-    fight = False
-    a = False
-    quest_timer = quest_time
-    in_fight = 0
-    
-    await ctx.send(f"you have left out on {youron} and it will take {quest_time}")
-    if fight == False and quest_timer > 0:
-        await asyncio.sleep(1)
-        quest_timer -= 1
-        print(quest_timer)
-        
-        encounter = random.randint(1,15)
-        if encounter == 10:
-            monsterTEAM = [random.choice(list(monsters)) for i in range(monsterparty)]
-            await ctx.send(f"your have been attacted by {monsterTEAM}")
-            fight = True
-    elif fight == True:
-        if monsterTEAM:
-            attack = Button(label = "fightA", style = discord.ButtonStyle.green)
-            Adammage = list(monsterTEAM)[0]["hp"] - (users[str(user.id)]["str"] - list(monsterTEAM)[0]["def"])
-            async def fight_callback(interaction):
-                await interaction.responce.send_message(f" you attacked {list(monsterTEAM)[0]} for {Adammage}")
-            view = View()
-            view.add_item(attack)
-            await ctx.send(f"{monsterTEAM}", view=view)
-                
-        elif list(monsterTEAM)[0]["hp"] <= 0:
-            await ctx.send(f"you have defeated {list(monsterTEAM)[0]}")
-            list(monsterTEAM).pop([0])
-
-                
-        elif not monsterTEAM:
-            fight = False
-                
-    elif quest_timer <= 0:
-        await ctx.send("your quest is over")
-        a = False
+#@oimate.command(help= "go out on a random quest")
+#async def quest(ctx, message = None):
+#    
+#    await get_guildcard(ctx.author)
+#    users = await get_guildcard_data()
+#    user = ctx.author
+#    
+#    monsters = {
+#    "carat": { "max_hp": 10, "hp": 10, "max_mp": 0, "mp": 0, "def": 5, "m_def": 3, "str": 11, "dex": 3, "int": 0, "luk": 15},
+#    "onrot": { "max_hp": 10, "hp": 10, "max_mp": 0, "mp": 0, "def":8, "m_def": 2, "str": 12, "dex": 0, "int":0, "luk": 0},
+#    "mushpup": { "max_hp": 10, "hp": 10, "max_mp": 10, "mp": 0, "def":10, "m_def": 5, "str":15, "dex": 10, "int":10, "luk": 6}
+#    }
+#    monsterparty = random.randint(1,4)
+#    
+#    quest_list = [
+#    "help farmer with monster problem",
+#    "going out on a scout",
+#    ]
+#    
+#    questlist = len(quest_list)
+#    randomquest = random.randrange(questlist)
+#    youron = quest_list[randomquest]
+#    
+#    quest_time = random.randint(60,120)
+#    fight = False
+#    a = False
+#    quest_timer = quest_time
+#    in_fight = 0
+#    
+#    await ctx.send(f"you have left out on {youron} and it will take {quest_time}")
+#    if fight == False and quest_timer > 0:
+#        await asyncio.sleep(1)
+#        quest_timer -= 1
+#        print(quest_timer)
+#        
+#        encounter = random.randint(1,15)
+#        if encounter == 10:
+#            monsterTEAM = [random.choice(list(monsters)) for i in range(monsterparty)]
+#            await ctx.send(f"your have been attacted by {monsterTEAM}")
+#            fight = True
+#    elif fight == True:
+#        if monsterTEAM:
+#            attack = Button(label = "fightA", style = discord.ButtonStyle.green)
+#            Adammage = list(monsterTEAM)[0]["hp"] - (users[str(user.id)]["str"] - list(monsterTEAM)[0]["def"])
+#            async def fight_callback(interaction):
+#                await interaction.responce.send_message(f" you attacked {list(monsterTEAM)[0]} for {Adammage}")
+#            view = View()
+#            view.add_item(attack)
+#            await ctx.send(f"{monsterTEAM}", view=view)
+#                
+#        elif list(monsterTEAM)[0]["hp"] <= 0:
+#            await ctx.send(f"you have defeated {list(monsterTEAM)[0]}")
+#            list(monsterTEAM).pop([0])
+#
+#                
+#        elif not monsterTEAM:
+#            fight = False
+#                
+#    elif quest_timer <= 0:
+#        await ctx.send("your quest is over")
+#        a = False
                 
             
             
@@ -674,6 +747,16 @@ async def joke(ctx):
     jokebed.set_thumbnail(url=(jokeimg))
     jokebed.add_field(name = f"{JOKE}" , value = "<:laughtingmonkey:894525186655780864>", inline = True)
     await ctx.send(embed=jokebed)
+    
+    
+##########################################
+##              bubble wrap             ##
+##########################################
+
+@oimate.command(help = "discord stress releave")
+async def stress(ctx):
+    await ctx.send(f"you seem stressed {ctx.author}....here have some bubble wrap")
+    await ctx.send("||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||\n||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||\n||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||\n||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||\n||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||\n||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||\n||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||\n||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||\n||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||\n||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||")
 
 ##########################################
 ##               weather                ##
@@ -946,33 +1029,6 @@ async def topb(ctx,x = 10):
 ##              snow game                 ##
 ############################################
 
-@oimate.command(help ="makes you immune to snowman statis")
-async def snowman_immunty(ctx):
-    
-    await check_immunty(ctx.author)
-    users = await get_immunty_data()
-    user = ctx.author
-    users[str(user.id)]["snow_immune"] = 1
-    with open("immunityCARD.json","w") as f:
-        json.dump(users,f, indent=4)
-        
-    await ctx.send(f"{ctx.author.name} is now immune to snowman_statis use \"remove_snow_immunty\" to undo this")
-    
-@oimate.command(help ="makes u errr...mmune? to the snowman statis")
-async def remove_snow_immunty(ctx):
-    
-    await check_immunty(ctx.author)
-    users = await get_immunty_data()
-    user = ctx.author
-    users[str(user.id)]["snow_immune"] = 0
-    with open("immunityCARD.json","w") as f:
-        json.dump(users,f, indent=4)
-        
-    await ctx.send(f"{ctx.author.name} has undone the immunity to snowman_statis")
-    
-    
-
-
 @oimate.command(help = "when its snowing over the wildwestcarni u can scoop up some snowballs")
 @commands.cooldown(1,120,commands.BucketType.user)
 async def scoop(ctx):
@@ -1069,9 +1125,6 @@ async def shoke(ctx,member:discord.Member):
         
         users[str(user.id)]["snowball"] -=1
         
-        with open("ticketbank.json","w") as f:
-            json.dump(users,f, indent=4)
-        
         balls_left = users[str(user.id)]["snowball"]
         snow_hit =discord.Embed(title = "snowball fight")
         snow_hit.set_author(name = (ctx.author.name))
@@ -1083,6 +1136,7 @@ async def shoke(ctx,member:discord.Member):
         if susers[str(smem.id)]["snow_immune"] == 0:
         
             users[str(mem.id)]["snowman_cursed"] = 10
+            
             
         else:
             
@@ -1103,6 +1157,9 @@ async def shoke(ctx,member:discord.Member):
         snow_miss.add_field(name = f"{member.name} but it misses", value = "<:mnkyDKS:780614148068605983>", inline = True)
         snow_miss.add_field(name = "you now have" , value = f"{balls_left}", inline = True)
         await ctx.send(embed=snow_miss)
+        
+    with open("ticketbank.json","w") as f:
+        json.dump(users,f, indent=4)
             
 @oimate.event 
 async def on_message(message):
@@ -1116,15 +1173,21 @@ async def on_message(message):
         users[str(user.id)]["snowman_cursed"] -= 1
         if users[str(user.id)]["snowman_cursed"] < 0:
             users[str(user.id)]["snowman_cursed"] = 0
-
-    
+        
     elif users[str(user.id)]["splat"] > 0:
+        await message.add_reaction("<:mnkySplat:704517946277494834>")
         users[str(user.id)]["splat"] -= 1
         if users[str(user.id)]["splat"] < 0:
             users[str(user.id)]["splat"] = 0
             
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
+        
+    if "!|dea" in message.content:
+        with open("idea.txt" , "a") as f:
+            f.write(message.content + "\n")
+        await message.channel.send("your idea has been noted down")
+        
     await oimate.process_commands(message)
                     
     
@@ -1346,14 +1409,16 @@ async def dodge(ctx):
     elif ctx.author.id == splater and dodge_chance >= 50:
         
         banana_lost = random.randint(2,4)
-
-        bb = users[str(user.id)]["banana"]
         
         users[str(user.id)]["banana"] -= banana_lost
         users[str(user.id)]["splat"] = 10
         if users[str(user.id)]["banana"] < 0:
             users[str(user.id)]["banana"] = 0
-        
+            
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f,indent = 4)
+            
+        bb = users[str(user.id)]["banana"]
         be = discord.Embed(title = "BANANA GAMES")
         be.set_author(name = (ctx.author.name))
         be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
@@ -1363,8 +1428,7 @@ async def dodge(ctx):
         
     splater = "a"
     thrower = "b"
-    with open("ticketbank.json","w") as f:
-        json.dump(users,f,indent = 4)
+
         
 @oimate.command(help = "blocks the banana")
 async def block(ctx):
@@ -1431,7 +1495,7 @@ async def catch(ctx):
     
     elif ctx.author.id == splater and catch_chance <= 15:
         
-        banana_get = random.randint(5,15)
+        banana_get = random.randint(1,3)
         
         users[str(user.id)]["banana"] += banana_get
 
@@ -1448,7 +1512,7 @@ async def catch(ctx):
 
     elif ctx.author.id == splater and catch_chance >=16:
         
-        banana_lost = random.randint(6,12)
+        banana_lost = random.randint(1,3)
         
         users[str(user.id)]["banana"] -= banana_lost
         users[str(user.id)]["splat"] = 10
@@ -1517,6 +1581,11 @@ async def refund_banana(ctx, member:discord.Member):
 ##target minigame for DKS server          ##
 ############################################
 
+@oimate.command(help = "link to the targetpratice web game")
+async def webgame(ctx):
+    
+    await ctx.send("heres a link to the target pratice web game(more games coming soon(tm) \n https://monkeybee11.github.io/targetpratices/")
+
 @oimate.command(help = "try your luck come win a prize")
 @commands.cooldown(1,3600,commands.BucketType.user) #1 time , 1hr cooldown , per user
 async def target(ctx):
@@ -1532,7 +1601,7 @@ async def target(ctx):
     
     target_chance = ["1", "5", "0", "-1", "lilly"] #we make a list of the random options
     randomList = random.choices( target_chance, weights=(48, 2, 25, 25, 1), k=1) # weighted the random chances so some options happen more then others , k=howmeny options form the list we want
-
+    
     if weather_check in ["Light Rain" , "Rain" , "Rain Showers"]:
 
         await ctx.send("the carni is shutdown becase of rain come back later")
@@ -1782,8 +1851,8 @@ async def fishing(ctx):
         petbed.add_field(name = f"{ctx.author.name} has fished up a {named_fish} oooo looks like they have a new fishy pet friend" , value = f"they now have {petfish} :fish:" , inline = True)
         await ctx.send(embed = petbed)
                 
-    with open("petPocket.json" ,"w") as f:
-        json.dump(pet,f, indent=4)
+        with open("petPocket.json" ,"w") as f:
+            json.dump(pet,f, indent=4)
         
     with open("fishCooler.json","w") as f:
         json.dump(fish,f, indent=4)
