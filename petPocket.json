@@ -2,7 +2,7 @@
     "113051316225368064": {
         "active_pet": "monkey",
         "clean_tick": 10,
-        "fish": 11,
+        "fish": 14,
         "fun_tick": 2,
         "helth_tick": 10,
         "hunger_tick": 2,
@@ -16,12 +16,13 @@
         "petfood": 5,
         "petmed": 1,
         "snowman": 0,
-        "pet_run": 10
+        "pet_run": 10,
+        "pet name": "chimp"
     },
     "119791596681166848": {
         "active_pet": "",
         "clean_tick": 10,
-        "fish": 10,
+        "fish": 12,
         "fun_tick": 10,
         "helth_tick": 10,
         "hunger_tick": 10,
@@ -34,7 +35,8 @@
         "pet_sickness": 0,
         "petfood": 0,
         "petmed": 0,
-        "snowman": 0
+        "snowman": 0,
+        "pet name": ""
     },
     "237194159826403329": {
         "active_pet": "",
@@ -52,7 +54,8 @@
         "pet_sickness": 0,
         "petfood": 0,
         "petmed": 0,
-        "snowman": 0
+        "snowman": 0,
+        "pet name": ""
     },
     "247170379376885761": {
         "active_pet": "",
@@ -70,7 +73,8 @@
         "pet_sickness": 0,
         "petfood": 0,
         "petmed": 0,
-        "snowman": 0
+        "snowman": 0,
+        "pet name": ""
     },
     "326610755061415937": {
         "active_pet": "",
@@ -88,7 +92,8 @@
         "pet_sickness": 0,
         "petfood": 0,
         "petmed": 0,
-        "snowman": 0
+        "snowman": 0,
+        "pet name": ""
     },
     "210232841726853121": {
         "fish": 0,
@@ -106,7 +111,8 @@
         "helth_tick": 10,
         "hunger_tick": 10,
         "fun_tick": 10,
-        "clean_tick": 10
+        "clean_tick": 10,
+        "pet name": ""
     },
     "276898982188548117": {
         "fish": 0,
@@ -124,7 +130,8 @@
         "helth_tick": 10,
         "hunger_tick": 10,
         "fun_tick": 10,
-        "clean_tick": 10
+        "clean_tick": 10,
+        "pet name": ""
     },
     "265105169115643904": {
         "fish": 0,
@@ -142,7 +149,8 @@
         "helth_tick": 10,
         "hunger_tick": 10,
         "fun_tick": 10,
-        "clean_tick": 10
+        "clean_tick": 10,
+        "pet name": ""
     },
     "275761591947886592": {
         "fish": 0,
@@ -160,7 +168,8 @@
         "helth_tick": 10,
         "hunger_tick": 10,
         "fun_tick": 10,
-        "clean_tick": 10
+        "clean_tick": 10,
+        "pet name": ""
     },
     "976074263935205416": {
         "fish": 0,
@@ -178,9 +187,29 @@
         "helth_tick": 10,
         "hunger_tick": 10,
         "fun_tick": 10,
-        "clean_tick": 10
+        "clean_tick": 10,
+        "pet name": ""
     },
     "810018816448528385": {
+        "fish": 0,
+        "monkey": 0,
+        "snowman": 0,
+        "petfood": 0,
+        "petmed": 0,
+        "active_pet": "fish",
+        "pet_hunger": 10,
+        "pet_clean": 10,
+        "pet_helth": 10,
+        "pet_fun": 10,
+        "pet_sickness": 0,
+        "pet_freeze": 0,
+        "helth_tick": 10,
+        "hunger_tick": 6,
+        "fun_tick": 10,
+        "clean_tick": 1,
+        "pet name": "Bahko"
+    },
+    "198854822806421505": {
         "fish": 0,
         "monkey": 0,
         "snowman": 0,
@@ -196,6 +225,64 @@
         "helth_tick": 10,
         "hunger_tick": 10,
         "fun_tick": 10,
-        "clean_tick": 10
+        "clean_tick": 10,
+        "pet name": ""
+    },
+    "276858398568611841": {
+        "fish": 1,
+        "monkey": 0,
+        "snowman": 0,
+        "petfood": 0,
+        "petmed": 0,
+        "active_pet": "",
+        "pet_hunger": 10,
+        "pet_clean": 10,
+        "pet_helth": 10,
+        "pet_fun": 10,
+        "pet_sickness": 0,
+        "pet_freeze": 0,
+        "helth_tick": 10,
+        "hunger_tick": 10,
+        "fun_tick": 10,
+        "clean_tick": 10,
+        "pet name": ""
+    },
+    "965989998690189372": {
+        "fish": 0,
+        "monkey": 0,
+        "snowman": 0,
+        "petfood": 0,
+        "petmed": 0,
+        "active_pet": "",
+        "pet_hunger": 10,
+        "pet_clean": 10,
+        "pet_helth": 10,
+        "pet_fun": 10,
+        "pet_sickness": 0,
+        "pet_freeze": 0,
+        "helth_tick": 10,
+        "hunger_tick": 10,
+        "fun_tick": 10,
+        "clean_tick": 10,
+        "pet name": ""
+    },
+    "308387143363985409": {
+        "fish": 0,
+        "monkey": 0,
+        "snowman": 0,
+        "petfood": 0,
+        "petmed": 0,
+        "active_pet": "",
+        "pet_hunger": 10,
+        "pet_clean": 10,
+        "pet_helth": 10,
+        "pet_fun": 10,
+        "pet_sickness": 0,
+        "pet_freeze": 0,
+        "helth_tick": 10,
+        "hunger_tick": 10,
+        "fun_tick": 10,
+        "clean_tick": 10,
+        "pet name": ""
     }
 }

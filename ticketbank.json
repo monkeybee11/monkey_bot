@@ -1,16 +1,18 @@
 {
     "113051316225368064": {
-        "ticket": 57,
-        "banana": 11,
-        "snowball": 3,
+        "ticket": 30,
+        "banana": 72,
+        "snowball": 34,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": "monkeybee11"
     },
     "119791596681166848": {
-        "ticket": 125,
-        "banana": 4,
-        "snowball": 9,
+        "ticket": 119,
+        "banana": 9,
+        "snowball": 11,
+        "ccracker": 9,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": "wildwestdan"
@@ -19,6 +21,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -27,6 +30,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -35,6 +39,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -43,6 +48,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -51,6 +57,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -59,6 +66,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -67,6 +75,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -75,6 +84,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -83,6 +93,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -91,6 +102,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -99,6 +111,7 @@
         "ticket": 0,
         "banana": 1,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -107,6 +120,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -115,6 +129,7 @@
         "ticket": 1,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -123,6 +138,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -131,22 +147,25 @@
         "ticket": 0,
         "banana": 1,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
     },
     "247170379376885761": {
-        "ticket": 0,
-        "banana": 0,
+        "ticket": 8,
+        "banana": 26,
         "snowball": 7,
+        "ccracker": 0,
         "snowman_cursed": 0,
-        "splat": 3,
+        "splat": 0,
         "twitch": "Alpha_of_all_Foxys"
     },
     "248118818679947264": {
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -155,6 +174,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -163,14 +183,16 @@
         "ticket": 0,
         "banana": 2,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
     },
     "265105169115643904": {
-        "ticket": 9,
-        "banana": 24,
+        "ticket": 13,
+        "banana": 26,
         "snowball": 3,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -179,6 +201,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -187,6 +210,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -195,6 +219,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -203,6 +228,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -211,6 +237,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -219,6 +246,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -227,6 +255,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -235,6 +264,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -243,6 +273,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -251,6 +282,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -259,6 +291,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -267,6 +300,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -275,6 +309,7 @@
         "ticket": 0,
         "banana": 1,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -283,6 +318,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -291,6 +327,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -299,6 +336,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -307,6 +345,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 1,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -315,6 +354,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -323,6 +363,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -331,6 +372,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -339,6 +381,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -347,6 +390,7 @@
         "ticket": 1,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -355,6 +399,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -363,6 +408,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -371,6 +417,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -379,6 +426,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -387,6 +435,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -395,6 +444,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -403,6 +453,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -411,6 +462,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -419,6 +471,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -427,6 +480,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -435,6 +489,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -443,6 +498,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -451,6 +507,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -459,6 +516,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -467,6 +525,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -475,6 +534,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -483,14 +543,16 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
     },
     "788126107173912636": {
-        "ticket": 0,
+        "ticket": 6,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -499,6 +561,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -507,6 +570,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -515,6 +579,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -523,6 +588,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -531,6 +597,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -539,6 +606,7 @@
         "ticket": 0,
         "banana": 2,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -547,6 +615,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -555,6 +624,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -563,6 +633,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -571,6 +642,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -579,6 +651,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -587,6 +660,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -595,6 +669,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -603,6 +678,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -611,6 +687,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -619,6 +696,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -627,6 +705,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -635,6 +714,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -643,6 +723,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -651,6 +732,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -659,6 +741,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -667,6 +750,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -675,6 +759,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -683,6 +768,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -691,6 +777,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -699,6 +786,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -707,6 +795,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -715,6 +804,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -723,6 +813,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -731,6 +822,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -739,6 +831,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -747,6 +840,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -755,6 +849,7 @@
         "ticket": 1,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -763,6 +858,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -771,6 +867,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -779,6 +876,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -787,6 +885,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -795,6 +894,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -803,6 +903,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -811,6 +912,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -819,6 +921,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -827,6 +930,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -835,6 +939,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -843,6 +948,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -851,6 +957,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -859,6 +966,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -867,6 +975,7 @@
         "ticket": 0,
         "banana": 2,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -875,6 +984,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -883,6 +993,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -891,6 +1002,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -899,6 +1011,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -907,6 +1020,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -915,6 +1029,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -923,6 +1038,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -931,6 +1047,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -939,6 +1056,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -947,6 +1065,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -955,6 +1074,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -963,6 +1083,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -971,6 +1092,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -979,6 +1101,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -987,6 +1110,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -995,6 +1119,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1003,6 +1128,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1011,6 +1137,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1019,6 +1146,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1027,6 +1155,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1035,6 +1164,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1043,6 +1173,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1051,6 +1182,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1059,6 +1191,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1067,6 +1200,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1075,6 +1209,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1083,6 +1218,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1091,6 +1227,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1099,6 +1236,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1107,6 +1245,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1115,6 +1254,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1123,6 +1263,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1131,6 +1272,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1139,6 +1281,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1147,6 +1290,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1155,6 +1299,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1163,6 +1308,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1171,6 +1317,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1179,6 +1326,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1187,6 +1335,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1195,6 +1344,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1203,6 +1353,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1211,6 +1362,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1219,6 +1371,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1227,6 +1380,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1235,6 +1389,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1243,6 +1398,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1251,6 +1407,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1259,6 +1416,7 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
@@ -1267,14 +1425,367 @@
         "ticket": 0,
         "banana": 0,
         "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""
     },
     "810018816448528385": {
+        "ticket": 1,
+        "banana": 13,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": "zinniadoodles"
+    },
+    "150776031383519232": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "315858668316786688": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "845711313329717319": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "951214865702334534": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "471091072546766849": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "680832384362479651": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "581848886356869120": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "1003043338494160906": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "1015493055949852754": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "691961209896828938": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "481962028408242186": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "148662440442331137": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "198854822806421505": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "929575205431554090": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "345006723507159041": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "372597661930618901": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "1025777448178155531": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "788729343878234133": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "276858398568611841": {
         "ticket": 0,
         "banana": 2,
         "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "88540652144443392": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "1027638660255989781": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "608811624983429132": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "176218923904139265": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "852039638141894706": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "965989998690189372": {
+        "ticket": 3,
+        "banana": 0,
+        "snowball": 5,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "579585958190514206": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "504276179390300180": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "885963801562869790": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "288118759284277248": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "318823898571341836": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "292467670207692811": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "905827203793698897": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "505364222994284554": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "973340442819190814": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "136982941879238657": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "492521779550486558": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "723272160105463819": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "706956886418784266": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "308387143363985409": {
+        "ticket": 0,
+        "banana": 1,
+        "snowball": 0,
+        "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": ""

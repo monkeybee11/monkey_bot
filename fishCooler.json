@@ -146,7 +146,36 @@
             "old boot",
             "catfish",
             "NEMO",
-            "a new boot"
+            "a new boot",
+            "some legobricks from the 1969 LEGO satun V rocket",
+            "\ud83d\udc53",
+            ":fish:",
+            "a strange glowing book something about mending",
+            "a peanut butter and jelly fish",
+            "the other old boot",
+            "\ud83d\udc53",
+            "some legobricks from the 1969 LEGO satun V rocket",
+            "NEMO",
+            "kitchen sink",
+            "BEAR-acuda",
+            "a peanut butter and jelly fish",
+            "a new boot",
+            "some legobricks from the 1969 LEGO satun V rocket",
+            ":wood:",
+            "a strange glowing book something about mending",
+            "some legobricks from the 1969 LEGO satun V rocket",
+            "salamon",
+            "salamon",
+            ":fish:",
+            "a peanut butter and jelly fish",
+            ":wood:",
+            ":fish:",
+            "kitchen sink",
+            "whale",
+            "BEAR-acuda",
+            "the other old boot",
+            "kitchen sink",
+            "BEAR-acuda"
         ]
     },
     "265105169115643904": {
@@ -186,7 +215,9 @@
             ":shark:",
             "whale",
             "shark",
-            "\ud83d\udc53"
+            "\ud83d\udc53",
+            "a new boot",
+            "BEAR-acuda"
         ]
     },
     "119791596681166848": {
@@ -344,7 +375,20 @@
             "whale",
             "frozen tuna",
             "frozen tuna",
-            "\ud83d\udc53"
+            "\ud83d\udc53",
+            "BEAR-acuda",
+            "a strange glowing book something about mending",
+            "old boot",
+            "some legobricks from the 1969 LEGO satun V rocket",
+            "frozen tuna",
+            ":fish:",
+            "old boot",
+            "\ud83d\udc53",
+            "a new boot",
+            "whale",
+            "a peanut butter and jelly fish",
+            "catfish",
+            "some legobricks from the 1969 LEGO satun V rocket"
         ]
     },
     "247170379376885761": {
@@ -361,7 +405,14 @@
             "shark",
             "catfish",
             "NEMO",
-            ":fish:"
+            ":fish:",
+            "a strange glowing book something about mending",
+            ":fish:",
+            "shark",
+            ":wood:",
+            "the other old boot",
+            "a peanut butter and jelly fish",
+            "cod"
         ]
     },
     "237194159826403329": {
@@ -393,7 +444,48 @@
     "810018816448528385": {
         "fish name": [
             "frozen tuna",
-            "whale"
+            "whale",
+            "a new boot",
+            ":wood:",
+            "frozen tuna",
+            "shark",
+            "BEAR-acuda",
+            "kitchen sink",
+            "kitchen sink",
+            "frozen tuna",
+            "a new boot",
+            "BEAR-acuda",
+            "frozen tuna",
+            "kitchen sink",
+            "some legobricks from the 1969 LEGO satun V rocket",
+            "a peanut butter and jelly fish",
+            "shark",
+            "the other old boot",
+            "a new boot",
+            "salamon",
+            "\ud83d\udc53",
+            "whale",
+            "a peanut butter and jelly fish",
+            "salamon",
+            ":fish:",
+            ":shark:",
+            "NEMO",
+            ":wood:"
+        ]
+    },
+    "198854822806421505": {
+        "fish name": [
+            ":wood:"
+        ]
+    },
+    "276858398568611841": {
+        "fish name": [
+            "the other old boot"
+        ]
+    },
+    "965989998690189372": {
+        "fish name": [
+            "kitchen sink"
         ]
     }
 }

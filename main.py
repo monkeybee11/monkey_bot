@@ -58,8 +58,9 @@ async def on_command_error(ctx, error):
     elif isinstance(error, commands.CommandOnCooldown): #checks if on cooldown
         WAIT = "placeholder text for cooldown comeback in {:.2f}s".format(error.retry_after)
         await ctx.send(WAIT)
-
-
+        
+        
+        
 #saving this emoji id for later
     # <a:TargetAnim:927671875834875974>
     
@@ -305,7 +306,8 @@ async def pet_tick():
                 if users[user]["hunger_tick"] <= 0:
                     users[user]["hunger_tick"] = 10
                     users[user]["pet_hunger"] -= 1
-                    if users[user]["pet_hunger"] == 0:
+                    if users[user]["pet_hunger"] <= 0:
+                        users[user]["pet_hunger"] = 0
                         users[user]["pet_helth"] -= 1
             elif check1 == 1 and check2 == 2:
                 users[user]["clean_tick"] -= 1
@@ -785,21 +787,21 @@ async def stress(ctx):
 # weather list       #
 ######################
 partly_sunny = "Partly Sunny"
-mostly_cloudy = "Mostly Cloudy"
+mostly_cloudy = ["Mostly Cloudy" , "Overcast" ]
 sunny = ["Sunny","Clear"]
-rainy = ["Rain","Light Rain","Rain Showers"]
+rainy = ["Rain","Light Rain","Rain Showers", "Light rain, mist"]
 cloudy = "Cloudy"
 thunder = "Thundery Showers"
 sunnycloud = ["Partly Cloudy" , "Mostly Sunny"]
 slush = "Light Rain and Snow"
 snow = "Snow"
+ninja_cloud = ["Mist", "Rain, mist"]
+
 
 ## this was easyer then making my own weather system
-
 @oimate.command(help ="tells you the weather over the wildwestcarni AND the jungle party")
 async def weather(ctx):
     
-    #async with python_weather.Client(format=python_weather.METRIC) as client:
     client = python_weather.Client(format=python_weather.METRIC)
     weather = await client.get("Boston")
     weather_check = weather.current.description
@@ -807,7 +809,7 @@ async def weather(ctx):
     if weather_check == partly_sunny: # little cloudy but sunny
         await ctx.send(":partly_sunny:")
         
-    elif weather_check == mostly_cloudy: # sunny cloud
+    elif weather_check in mostly_cloudy: # sunny cloud
         await ctx.send(":white_sun_cloud:")
         
     elif weather_check in sunny: #lots of sun
@@ -819,17 +821,20 @@ async def weather(ctx):
     elif weather_check == cloudy: #clouds
         await ctx.send(":cloud:")
         
-    elif weather_check == thunder:
+    elif weather_check == thunder: # thunder storms
         await ctx.send(":thunder_cloud_rain:")
         
-    elif weather_check in sunnycloud:
+    elif weather_check in sunnycloud: # dont knwo y ive made this its own thing
         await ctx.send(":white_sun_small_cloud:")
         
-    elif weather_check == slush:
+    elif weather_check == slush: # slush
         await ctx.send(":cloud_snow: :cloud_rain:")
         
-    elif weather_check == snow:
+    elif weather_check == snow: # snow
         await ctx.send(":cloud_snow:")
+        
+    elif weather_check in ninja_cloud: # WATCH OUT THATS NINJAS SMOKEBOMBS
+        await ctx.send("🥷😶‍🌫️")
         
     else:
         await ctx.send(weather_check)#posts name of weather to discord if not above
@@ -995,13 +1000,34 @@ async def christmas_cracker(ctx,member:discord.Member = None):
         
         a = random.randint(0,20)
         b = 20 - a
+        c = random.randint(1,3)
+        d = random.randint(1,3)
+        prize = ""
+        prizeb = ""
+        
+            
+        if c == 1:
+            users[str(user.id)]["ticket"] += a
+            prize = "<:DanTix:919966342797463552>"
+        elif c == 2:
+            users[str(user.id)]["banana"] += a
+            prize = "<:mnkyThrow:704518598764527687>"
+        elif c == 3:
+            users[str(user.id)]["snowball"] += a
+            prize = "<:2021_Snowsgiving_Emojis_001_Snow:917929344914030642>"
+        if d == 1:
+            users[str(member.id)]["ticket"] += b
+            prizeb = "<:DanTix:919966342797463552>"
+        elif d == 2:
+            users[str(member.id)]["banana"] += b
+            prizeb = "<:mnkyThrow:704518598764527687>"
+        elif d == 3:
+            users[str(member.id)]["snowball"] += b
+            prizeb = "<:2021_Snowsgiving_Emojis_001_Snow:917929344914030642>"
         
         if a > b:
             
-            users[str(user.id)]["ticket"] += a
-            users[str(member.id)]["ticket"] += b
-            
-            await ctx.send(f"{user.name} got {a}<:DanTix:919966342797463552> and a paper crown™️ \n {member.name} got {b}<:DanTix:919966342797463552> and a {junk_prize} heres your cracker joke {picked_joke}")
+            await ctx.send(f"{user.name} got {a} {prize} and a paper crown™️ \n {member.name} got {b} {prizeb} and a {junk_prize} heres your cracker joke {picked_joke}")
             await ctx.send("this is temp going to make it better looking soon....ish")
             
             with open("ticketbank.json","w") as f:
@@ -1009,10 +1035,7 @@ async def christmas_cracker(ctx,member:discord.Member = None):
             
         elif a == b:
             
-            users[str(user.id)]["ticket"] += a
-            users[str(member.id)]["ticket"] += b
-            
-            await ctx.send(f"{user.name} got {a}<:DanTix:919966342797463552> \n {member.name} got {b}<:DanTix:919966342797463552> \n AND YOU BOTH GOT A CROWN™️ \n heres your cracker joke {picked_joke}")
+            await ctx.send(f"{user.name} got {a} {prize} \n {member.name} got {b} {prizeb} \n AND YOU BOTH GOT A CROWN™️ \n heres your cracker joke {picked_joke}")
             await crx.send("this is temp going to make it better looking soon......ish")
             
             with open("ticketbank.json","w") as f:
@@ -1020,10 +1043,7 @@ async def christmas_cracker(ctx,member:discord.Member = None):
                 
         elif a < b:
             
-            users[str(user.id)]["ticket"] += a
-            users[str(member.id)]["ticket"] += b
-            
-            await ctx.send(f"{user.name} got {a}<:DanTix:919966342797463552> and a {junk_prize} \n {member.name} got {b}<:DanTix:919966342797463552> and a paper crown™ \n heres your cracker joke {picked_joke}")
+            await ctx.send(f"{user.name} got {a} {prize} and a {junk_prize} \n {member.name} got {b} {prizeb} and a paper crown™ \n heres your cracker joke {picked_joke}")
             await ctx.send("this is temp going to make it better looking soon......ish")
 
             with open("ticketbank.json","w") as f:
@@ -1190,34 +1210,36 @@ async def topb(ctx,x = 10):
 ############################################
 
 @oimate.command(help = "when its snowing over the wildwestcarni u can scoop up some snowballs")
-@commands.cooldown(1,120,commands.BucketType.user)
+@commands.cooldown(1,3600,commands.BucketType.user)
 async def scoop(ctx):
 
     #declare the client. format defults to the metric system(C, km/h, ect)
-    client = python_weather.Client(format=python_weather.IMPERIAL)
+    #client = python_weather.Client(format=python_weather.IMPERIAL)
 
     #fetch a weather forcast from a city
-    weather = await client.find("Boston")
+    #weather = await client.find("Boston")
     
-    snowlist = snow
 
     snow = random.randint(1,3)
 
-    check_weather = weather.current.description
+    #check_weather = weather.current.description
     
     await open_account(ctx.author)
     users = await get_ticket_data()
     user = ctx.author
 
-    if check_weather in snowlist and snow == 1:
+    #if check_weather in snowlist and snow == 1:
+    if snow == 1:
+        print(1)
 
         users[str(user.id)]["snowball"] += 1
         snow_get = users[str(user.id)]["snowball"]
             
         await ctx.send(f"{user.name} gathered a snowball \n you now have {snow_get}")
 
-
-    elif check_weather in snowlist and snow == 2:
+    #elif check_weather in snowlist and snow == 2:
+    elif snow == 2:
+        print(2)
 
         stash = random.randint(1,5)
         pet_event = random.randint(1,100)
@@ -1238,10 +1260,13 @@ async def scoop(ctx):
                 json.dump(pets,f, indent=4)
             
             await ctx.send(f"you found a pet snowman at the back of the hidden stash YAY COOL PET ....get it ....snow....cool....ill leave now \n {ctx.author.name} has {pet_amount} :snowman:")
-
-    elif check_weather in snowlist and snow == 3:
+            
+    #elif check_weather in snowlist and snow == 3:
+    elif snow == 3:
+        print(3)
 
         await ctx.send(f"{user.name} was a bout to scoop up some snow when they heard some one yelling ***next time dont wear yellow tinted goggles***")
+        
 
     else:
         await ctx.send("there is no snow on the ground")
@@ -1765,6 +1790,10 @@ async def target(ctx):
     if weather_check in rainy:
 
         await ctx.send("the carni is shutdown becase of rain come back later")
+        
+    elif weather_check in ninja_cloud:
+        
+        await ctx.send("what in tarnations its thicker then pea soup out there how do u exspect to hit the target in this weather?")
 
     elif randomList == ["1"]: # 1 ticket
 
@@ -1908,6 +1937,45 @@ async def dunk_tank(ctx,member:discord.Member,amount = None ):
     elif weather_check in snow:
         
         await ctx.send("sorry partner the dunktank is frozen solid")
+        
+    elif amount >= 2 and dunk_aim >= 55 and weather_check in ninja_cloud:
+        
+        users[str(user.id)]["ticket"] += amount
+        users[str(mem.id)]["ticket"] -= amount
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f, indent=4)
+            
+        ubal = users[str(user.id)]["ticket"]
+        mbal = users[str(mem.id)]["ticket"]
+        
+        dunkbed = discord.Embed(title= "DUNK TANK",colour = discord.Colour.purple())
+        dunkbed.set_author(name = (ctx.author.name))
+        dunkbed.set_thumbnail(url="https://cdn.discordapp.com/emojis/887167642417373246.webp?size=96&quality=lossless")
+        dunkbed.add_field(name =f"{ctx.author.name} threw a ball and hit the <:Target:887076837392527400>", value = f"you now have {ubal}", inline = True)
+        dunkbed.add_field(name =f"{member.name} fell in to the tank and lost the bet", value = f"they now have {mbal}",inline = True)
+        await ctx.send(embed = dunkbed)
+        
+        await ctx.send("https://tenor.com/view/fell-into-the-water-mark-chernesky-konas2002-fall-dunk-tank-gif-17968100")
+        
+    elif amount >= 2 and dunk_aim <= 54 and weather_check in ninja_cloud:
+        
+        users[str(mem.id)]["ticket"] += amount
+        users[str(user.id)]["ticket"] -= amount
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f, indent=4)
+            
+        ubal = users[str(user.id)]["ticket"]
+        mbal = users[str(mem.id)]["ticket"]
+        
+        dunkbed = discord.Embed(title= "DUNK TANK",colour = discord.Colour.purple())
+        dunkbed.set_author(name = (ctx.author.name))
+        dunkbed.set_thumbnail(url ="https://cdn.discordapp.com/emojis/887167642417373246.webp?size=96&quality=lossless")
+        dunkbed.add_field(name =f"{ctx.author.name} threw a ball but missed the <:Target:887076837392527400>", value = f"you now have {ubal}", inline = True)
+        dunkbed.add_field(name =f"{member.name} won the bet and is dry", value = f"they now have {mbal}",inline = True)
+        await ctx.send(embed = dunkbed)
+
 
     elif amount >= 2 and dunk_aim >= 50:
         
@@ -2605,6 +2673,41 @@ async def login(ctx, message = None):
     
     with open("ticketbank.json","w") as f:
         json.dump(users,f,indent=4)
+        
+        
+        
+############################################
+##              give away code            ##
+############################################
+
+
+@oimate.command(help = "prize pot command")        
+async def prizepot(ctx, mins : int, * , prize: str):
+    
+    eb = discord.Embed(title = "PRIZE POT!!!!!!" , description = f"{prize}", color = ctx.author.color)
+    
+    end = datetime.datetime.utcnow() + datetime.timedelta(seconds = mins*60)
+    
+    eb.add_field(name = "ends  at:", value = f"{end} UTC")
+    eb.set_footer(text = f"ends in {mins} minnets")
+    
+    my_chocolate = await ctx.send(embed = eb)
+        
+    await my_chocolate.add_reaction("<:mnkyHype:729464173783810130>")
+        
+    await asyncio.sleep(mins*60)
+
+        
+    new_chocolate = await ctx.channel.fetch_message(my_chocolate.id)
+        
+    users = await new_chocolate.reactions[0].users().flatten()
+    users.pop(users.index(oimate.user))
+    winner = random.choice(users)
+    await ctx.send(f"WOOHOOO HORRAY FOR {winner.mention} you won a shiny new {prize}")
+
+
+
+
         
 ############################################
 ##monkeys attempted at gameing for discord##
