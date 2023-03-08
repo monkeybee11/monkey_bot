@@ -1,20 +1,20 @@
 {
     "113051316225368064": {
-        "ticket": 30,
-        "banana": 72,
-        "snowball": 34,
+        "ticket": 47,
+        "banana": 1,
+        "snowball": 44,
         "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "twitch": "monkeybee11"
     },
     "119791596681166848": {
-        "ticket": 119,
-        "banana": 9,
-        "snowball": 11,
+        "ticket": 114,
+        "banana": 11,
+        "snowball": 12,
         "ccracker": 9,
         "snowman_cursed": 0,
-        "splat": 0,
+        "splat": 1,
         "twitch": "wildwestdan"
     },
     "122654163443253248": {
@@ -1431,7 +1431,7 @@
         "twitch": ""
     },
     "810018816448528385": {
-        "ticket": 1,
+        "ticket": 15,
         "banana": 13,
         "snowball": 0,
         "ccracker": 0,
@@ -1784,6 +1784,24 @@
     "308387143363985409": {
         "ticket": 0,
         "banana": 1,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "514539695263186945": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "twitch": ""
+    },
+    "799209643715985419": {
+        "ticket": 0,
+        "banana": 0,
         "snowball": 0,
         "ccracker": 0,
         "snowman_cursed": 0,
