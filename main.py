@@ -50,9 +50,9 @@ dunk = oimate.create_group("dunk")
 snows = oimate.create_group("snow")
 pocket = oimate.create_group("pocket")
 top = oimate.create_group("top")
-ten = top.create_subgroup("10") 
 pets = oimate.create_group("pet")
 shop = oimate.create_group("shop")
+fish_command = oimate.create_group("fish")
 
 @oimate.event
 async def on_ready(): #this is where the bot brain starts to work
@@ -60,15 +60,15 @@ async def on_ready(): #this is where the bot brain starts to work
 
     
 @oimate.event
-async def on_command_error(ctx, error):
+async def on_application_command_error(ctx, error):
     
     if isinstance(error, commands.MissingRequiredArgument): #if command wasnot not right
-        await ctx.send("you shoudnt see this message ping monkeybee11(monkeysock) and the command is on cooldown(if it has one) dont retry it")      
+        await ctx.respond("you shoudnt see this message ping monkeybee11(monkeysock) and the command is on cooldown(if it has one) dont retry it")      
         
     elif isinstance(error, commands.CommandOnCooldown): #checks if on cooldown
-        WAIT = "placeholder text for cooldown comeback in {:.2f}s".format(error.retry_after)
-        await ctx.send(WAIT)
-    
+        
+        await ctx.respond(error)
+
 #######################################
 ##          testing ground           ##
 #######################################
@@ -338,7 +338,7 @@ async def pet_tick():
 ##           fish cooler             ##
 #######################################
 
-@oimate.slash_command(name = "aqureum" , description = "look inside your aquraium")
+@oimate.slash_command(name = "aquarium" , description = "look inside your aquraium")
 async def fish_cooler(ctx):
     await check_fish_cooler(ctx.author)
     user = ctx.author
@@ -368,8 +368,8 @@ async def get_fishcooler_data():
         users = json.load(f)
     return users
     
-@oimate.slash_command(name = "fishlist", description = "better list of your fish cooler")
-async def fishlist(ctx):
+@fish_command.command(description = "better list of your fish cooler")
+async def list(ctx):
     await check_fish_cooler(ctx.author)
     users = await get_fishcooler_data()
     user = ctx.author
@@ -672,9 +672,9 @@ async def buy(ctx,item = None, amount = 1):
         await ctx.respond("you dont have the tickets for this item")
     
     elif item == "pet_food" and ticket >=2:
-    
-        pocket[str(user.id)]["ticket"] -= 2*amount
-        pet[str(user.id)]["petfood"] += 1*amount
+        
+        pocket[str(user.id)]["ticket"] -= 2*int(amount)
+        pet[str(user.id)]["petfood"] += 1*int(amount)
         
         with open("ticketbank.json","w") as f:
             json.dump(pocket,f ,indent=4)
@@ -689,8 +689,8 @@ async def buy(ctx,item = None, amount = 1):
         
     elif item == "pet_meds" and ticket >= 5:
         
-        pocket[str(user.id)]["ticket"] -= 5*amount
-        pet[str(user.id)]["petmed"] += 1*amount
+        pocket[str(user.id)]["ticket"] -= 5*int(amount)
+        pet[str(user.id)]["petmed"] += 1*int(amount)
         
         with open("ticketbank.json","w") as f:
             json.dump(pocket,f, indent=4)
@@ -704,8 +704,8 @@ async def buy(ctx,item = None, amount = 1):
         
     elif item == "christmas_cracker" and ticket >= 20:
         
-        pocket[str(user.id)]["ticket"] -= 20*amount
-        pocket[str(user.id)]["ccracker"] += 1*amount
+        pocket[str(user.id)]["ticket"] -= 20*int(amount)
+        pocket[str(user.id)]["ccracker"] += 1*int(amount)
         
         with open("ticketbank.json","w") as f:
             json.dump(pocket,f ,indent=4)
@@ -841,7 +841,7 @@ async def christmas_cracker(ctx,member:discord.Member = None):
 ###########################################
 ##               top 10                  ##
 ###########################################
-@ten.command(description = "leader board of the top 10 ticket holders")
+@top.command(description = "leader board of the top 10 ticket holders")
 async def tickets(ctx):
     global t1
     global t2
@@ -914,7 +914,7 @@ async def tickets(ctx):
     em.add_field(name = f"10. {name10}" , value = f"{amt1[9]} <:DanTix:919966342797463552>", inline = False)
     await ctx.respond(embed = em)
 
-@ten.command(description = "shows the top10 banana holders")
+@top.command(description = "shows the top10 banana holders")
 async def bananas(ctx):
     global b1
     global b2
@@ -994,31 +994,33 @@ async def bananas(ctx):
 @snows.command(description = "when its snowing over the wildwestcarni u can scoop up some snowballs")
 @commands.cooldown(1,3600,commands.BucketType.user)
 async def scoop(ctx):
+    
+    global snow
 
     client = python_weather.Client(format=python_weather.IMPERIAL)
 
     #fetch a weather forcast from a city
-    #weather = await client.find("Boston")
+    weather = await client.get("Boston")
     
 
-    snow = random.randint(1,3)
+    snowRANDOM = random.randint(1,3)
 
-    #check_weather = weather.current.description
+    check_weather = weather.current.description
     
     await open_account(ctx.author)
     users = await get_ticket_data()
     user = ctx.author
 
-    #if check_weather in snowlist and snow == 1:
-    if snow == 1:
+    if check_weather in snow and snowRANDOM == 1:
+    #if snowRANDOM == 1:
 
         users[str(user.id)]["snowball"] += 1
         snow_get = users[str(user.id)]["snowball"]
             
         await ctx.respond(f"{user.name} gathered a snowball \n you now have {snow_get}")
 
-    #elif check_weather in snowlist and snow == 2:
-    elif snow == 2:
+    elif check_weather in snow and snowRANDOM == 2:
+    #elif snowRANDOM == 2:
 
         stash = random.randint(1,5)
         pet_event = random.randint(1,100)
@@ -1041,9 +1043,8 @@ async def scoop(ctx):
             
             await ctx.respond(f"you found a pet snowman at the back of the hidden stash YAY COOL PET ....get it ....snow....cool....ill leave now \n {ctx.author.name} has {pet_amount} :snowman:")
             
-    #elif check_weather in snowlist and snow == 3:
-    elif snow == 3:
-        print(3)
+    elif check_weather in snow and snowRANDOM == 3:
+    #elif snowRANDOM == 3:
 
         await ctx.respond(f"{user.name} was a bout to scoop up some snow when they heard some one yelling ***next time dont wear yellow tinted goggles***")
         
@@ -1077,17 +1078,21 @@ async def throw(ctx,member:discord.Member):
     
     if users[str(user.id)]["snowball"] == 0:
         
+        await ctx.respond(f"<@!{member.id}> WATCH OUT")
+        
         no_snow=discord.Embed(title = "snowball fight")
         no_snow.set_author(name = (ctx.author.name))
         no_snow.set_thumbnail(url="https://cdn.discordapp.com/emojis/914587417355386950.gif?size=96&quality=lossless")
         no_snow.add_field(name = f"you have no snowballs....did they melt? and" , value = "<:puppy_eye_monkey:894525128807940096>", inline = True)
         no_snow.add_field(name = f"{member.name} is proberly anoyed at the ping", value = "<:blob_fail:777073048389419009>" , inline = True)
-        await ctx.respond(embed=no_snow)
+        await ctx.send(embed=no_snow)
 
 
     elif users[str(user.id)]["snowball"] >= 1 and aim <= 59:
         
         users[str(user.id)]["snowball"] -=1
+        
+        await ctx.respond(f"<@!{member.id}> WATCH OUT")
         
         balls_left = users[str(user.id)]["snowball"]
         snow_hit =discord.Embed(title = "snowball fight")
@@ -1095,7 +1100,7 @@ async def throw(ctx,member:discord.Member):
         snow_hit.set_thumbnail(url="https://cdn.discordapp.com/emojis/914587417355386950.gif?size=96&quality=lossless")
         snow_hit.add_field(name = f"{ctx.author.name} throws a snowball at" , value = f"<:laughtingmonkey:894525186655780864> you have {balls_left} remaining", inline = True)
         snow_hit.add_field(name = f"{member.name} is now a snowman", value = "<:2021_Snowsgiving_Emojis_001_Snum:917929344997937162>" , inline = True)
-        await ctx.respond(embed=snow_hit)
+        await ctx.send(embed=snow_hit)
         
         if susers[str(smem.id)]["snow_immune"] == 0:
         
@@ -1112,6 +1117,8 @@ async def throw(ctx,member:discord.Member):
         
         with open("ticketbank.json","w") as f:
             json.dump(users,f, indent=4)
+            
+        await ctx.respond(f"<@!{member.id}> WATCH OUT")
 
         balls_left = users[str(user.id)]["snowball"]
         snow_miss = discord.Embed(title = "snowball fight")
@@ -1120,7 +1127,7 @@ async def throw(ctx,member:discord.Member):
         snow_miss.add_field(name = f"{ctx.author.name} throws a snowball at" , value = "<:mnkyDKS:780614148068605983>", inline = True)
         snow_miss.add_field(name = f"{member.name} but it misses", value = "<:mnkyDKS:780614148068605983>", inline = True)
         snow_miss.add_field(name = "you now have" , value = f"{balls_left}", inline = True)
-        await ctx.respond(embed=snow_miss)
+        await ctx.send(embed=snow_miss)
         
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
@@ -1316,12 +1323,14 @@ async def throw(ctx, member:discord.Member):
         with open("ticketbank.json","w") as f:
             json.dump(users,f, indent=4)
             
+        await ctx.send(f"<@!{ctx.author.id}> has thrown a banana at <@!{member.id}>")
+            
         be = discord.Embed(title = "BANANA GAMES")
         be.set_author(name = (ctx.author.name))
         be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
         be.add_field(name= f"{ctx.author.name} has thrown a <:mnkyThrow:704518598764527687> at" , value = f"{user_banana}", inline = True)
-        be.add_field(name= f"<@!{member.id}> has to respond with /banana dodge, catch, block" , value = f"{member_banana}", inline = True)
-        await ctx.respond(embed = be)
+        be.add_field(name= f"{member.name} has to respond with /banana dodge, catch, block" , value = f"{member_banana}", inline = True)
+        await ctx.send(embed = be)
 
                 
         await asyncio.sleep(2*60*60)
@@ -1728,15 +1737,16 @@ async def tank(ctx,member:discord.Member,amount = None ):
         ubal = users[str(user.id)]["ticket"]
         mbal = users[str(mem.id)]["ticket"]
         
+        await ctx.respond(f"<@!{member.id}> sat in the dunk tank \n{amount} <:DanTix:919966342797463552> are put on the line")
+        
         dunkbed = discord.Embed(title= "DUNK TANK",colour = discord.Colour.purple())
         dunkbed.set_author(name = (ctx.author.name))
         dunkbed.set_thumbnail(url="https://cdn.discordapp.com/emojis/887167642417373246.webp?size=96&quality=lossless")
-        dunkbed.add_field(name=f"<@!{member.id}> sat in the dunk tank", value = f"{amount} <:DanTix:919966342797463552>  are put on the line")
         dunkbed.add_field(name =f"{ctx.author.name} threw a ball and hit the <:Target:887076837392527400>", value = f"you now have {ubal}", inline = True)
         dunkbed.add_field(name =f"{member.name} fell in to the tank and lost the bet", value = f"they now have {mbal}",inline = True)
-        await ctx.respond(embed = dunkbed)
+        await ctx.send(embed = dunkbed)
         
-        await ctx.respond("https://tenor.com/view/fell-into-the-water-mark-chernesky-konas2002-fall-dunk-tank-gif-17968100")
+        await ctx.send("https://tenor.com/view/fell-into-the-water-mark-chernesky-konas2002-fall-dunk-tank-gif-17968100")
         
     elif amount >= 2 and dunk_aim <= 54 and weather_check in ninja_cloud:
         
@@ -1749,13 +1759,14 @@ async def tank(ctx,member:discord.Member,amount = None ):
         ubal = users[str(user.id)]["ticket"]
         mbal = users[str(mem.id)]["ticket"]
         
+        await ctx.respond(f"<@!{member.id}> sat in the dunk tank \n{amount} <:DanTix:919966342797463552> are put on the line")
+        
         dunkbed = discord.Embed(title= "DUNK TANK",colour = discord.Colour.purple())
         dunkbed.set_author(name = (ctx.author.name))
         dunkbed.set_thumbnail(url ="https://cdn.discordapp.com/emojis/887167642417373246.webp?size=96&quality=lossless")
-        dunkbed.add_field(name=f"<@!{member.id}> sat in the dunk tank", value = f"{amount} <:DanTix:919966342797463552>  are put on the line")
         dunkbed.add_field(name =f"{ctx.author.name} threw a ball but missed the <:Target:887076837392527400>", value = f"you now have {ubal}", inline = True)
         dunkbed.add_field(name =f"{member.name} won the bet and is dry", value = f"they now have {mbal}",inline = True)
-        await ctx.respond(embed = dunkbed)
+        await ctx.send(embed = dunkbed)
 
 
     elif amount >= 2 and dunk_aim >= 50:
@@ -1769,14 +1780,17 @@ async def tank(ctx,member:discord.Member,amount = None ):
         ubal = users[str(user.id)]["ticket"]
         mbal = users[str(mem.id)]["ticket"]
         
+        await ctx.respond(f"<@!{member.id}> sat in the dunk tank \n{amount} <:DanTix:919966342797463552> are put on the line")
+
+        
         dunkbed = discord.Embed(title= "DUNK TANK",colour = discord.Colour.purple())
         dunkbed.set_author(name = (ctx.author.name))
         dunkbed.set_thumbnail(url="https://cdn.discordapp.com/emojis/887167642417373246.webp?size=96&quality=lossless")
         dunkbed.add_field(name =f"{ctx.author.name} threw a ball and hit the <:Target:887076837392527400>", value = f"you now have {ubal}", inline = True)
         dunkbed.add_field(name =f"{member.name} fell in to the tank and lost the bet", value = f"they now have {mbal}",inline = True)
-        await ctx.respond(embed = dunkbed)
+        await ctx.send(embed = dunkbed)
         
-        await ctx.respond("https://tenor.com/view/fell-into-the-water-mark-chernesky-konas2002-fall-dunk-tank-gif-17968100")
+        await ctx.send("https://tenor.com/view/fell-into-the-water-mark-chernesky-konas2002-fall-dunk-tank-gif-17968100")
         
     elif amount >= 2 and dunk_aim <= 49:
         
@@ -1789,13 +1803,14 @@ async def tank(ctx,member:discord.Member,amount = None ):
         ubal = users[str(user.id)]["ticket"]
         mbal = users[str(mem.id)]["ticket"]
         
+        await ctx.respond(f"<@!{member.id}> sat in the dunk tank \n{amount} <:DanTix:919966342797463552> are put on the line")
+        
         dunkbed = discord.Embed(title= "DUNK TANK",colour = discord.Colour.purple())
         dunkbed.set_author(name = (ctx.author.name))
         dunkbed.set_thumbnail(url ="https://cdn.discordapp.com/emojis/887167642417373246.webp?size=96&quality=lossless")
-        dunkbed.add_field(name=f"<@!{member.id}> sat in the dunk tank", value = f"{amount} <:DanTix:919966342797463552>  are put on the line")
         dunkbed.add_field(name =f"{ctx.author.name} threw a ball but missed the <:Target:887076837392527400>", value = f"you now have {ubal}", inline = True)
         dunkbed.add_field(name =f"{member.name} won the bet and is dry", value = f"they now have {mbal}",inline = True)
-        await ctx.respond(embed = dunkbed)
+        await ctx.send(embed = dunkbed)
         
     await client.close()
         
@@ -1865,7 +1880,7 @@ async def fishing(ctx):
         fishbed.set_author(name = (ctx.author.name))
         fishbed.set_thumbnail(url="https://www.emoji.co.uk/files/twitter-emojis/activity-twitter/10839-fishing-pole-and-fish.png")
         fishbed.add_field(name ="...not even a nibble", value = " ", inline = True)
-        await ctx.respond(embed = fishbed)
+        await ctx.send(embed = fishbed)
         
     elif cast < 60 and randomname != 11:
         
@@ -1876,7 +1891,7 @@ async def fishing(ctx):
         fishbed.set_author(name = (ctx.author.name))
         fishbed.set_thumbnail(url="https://www.emoji.co.uk/files/twitter-emojis/activity-twitter/10839-fishing-pole-and-fish.png")
         fishbed.add_field(name =f"{ctx.author.name}has fished up a {named_fish}", value = f"its {fishsize}cm and  weighs {fishweight} OZ", inline = True)
-        await ctx.respond(embed = fishbed)
+        await ctx.send(embed = fishbed)
         
         fish[str(user.id)]["fish name"].append(named_fish)
         
@@ -1893,7 +1908,7 @@ async def fishing(ctx):
         petbed.set_author(name = (ctx.author.name))
         petbed.set_thumbnail(url="https://www.emoji.co.uk/files/twitter-emojis/animals-nature-twitter/10682-fish.png")
         petbed.add_field(name = f"{ctx.author.name} has fished up a {named_fish} oooo looks like they have a new fishy pet friend" , value = f"they now have {petfish} :fish:" , inline = True)
-        await ctx.respond(embed = petbed)
+        await ctx.send(embed = petbed)
                 
         with open("petPocket.json" ,"w") as f:
             json.dump(pet,f, indent=4)
@@ -1903,8 +1918,8 @@ async def fishing(ctx):
             
     await client.close()
             
-@oimate.slash_command(name = "fish_slap", description = "slap someone with the fish u caught")
-async def fish_slap(ctx, member:discord.Member = None):
+@fish_command.command(description = "slap someone with the fish u caught")
+async def slap(ctx, member:discord.Member = None):
     
     await check_fish_cooler(ctx.author)
     fish = await get_fishcooler_data()
@@ -1983,27 +1998,27 @@ async def pick(ctx, *, message = None):
     with open ("petPocket.json","w") as f:
         json.dump(users,f, indent=4)
             
-#@oimate.slash_command("freeze", description = "freeze pets stats for when you need to step away from discord")
-#async def freeze(ctx, message = None):
-#    
-#    await check_pet_pocket(ctx.author)
-#    users = await get_petPocket_data()
-#    user = ctx.author
-#    
-#    if message == None:
-#        await ctx.respond("say \"!freeze on\" to freeze your pet stats  \n or \n say  \"!freeze off\" to unfreeze there stats")
-#    
-#    elif message == "on":
-#        users[str(user.id)]["pet_freeze"] = 1
-#        await ctx.respond("your pets stats have been frozen dont forget to unfreeze when your back ^_^")
-#
-#        
-#    elif message == "off":
-#        users[str(user.id)]["pet_freeze"] = 0
-#        await ctx.respond("your pets stats are unfrozzen wellcome back :3")
-#        
-#    with open("petPocket.json","w") as f:
-#        json.dump(users,f, indent=4)
+@pets.command(description = "freeze pets stats for when you need to step away from discord")
+async def freeze(ctx, message = None):
+    
+    await check_pet_pocket(ctx.author)
+    users = await get_petPocket_data()
+    user = ctx.author
+    
+    if message == None:
+        await ctx.respond("say \"!freeze on\" to freeze your pet stats  \n or \n say  \"!freeze off\" to unfreeze there stats")
+    
+    elif message == "on":
+        users[str(user.id)]["pet_freeze"] = 1
+        await ctx.respond("your pets stats have been frozen dont forget to unfreeze when your back ^_^")
+
+        
+    elif message == "off":
+        users[str(user.id)]["pet_freeze"] = 0
+        await ctx.respond("your pets stats are unfrozzen wellcome back :3")
+        
+    with open("petPocket.json","w") as f:
+        json.dump(users,f, indent=4)
         
 @pets.command( description = "name your pet")
 async def name(ctx,message = None):
@@ -2272,7 +2287,7 @@ async def check(ctx):
         home.save("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png", "PNG")
 
         await ctx.respond(file = discord.File("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png"))
-        await ctx.respond(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
+        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
         os.remove("/home/pi/Desktop/monkey bot discord/pet/monkey_home.png") 
     
     elif users[str(user.id)]["active_pet"] == "snowman":
@@ -2357,7 +2372,7 @@ async def check(ctx):
         home.save("/home/pi/Desktop/monkey bot discord/pet/snowman_home.png", "PNG")
     
         await ctx.respond(file = discord.File("/home/pi/Desktop/monkey bot discord/pet/snowman_home.png"))
-        await ctx.respond(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
+        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
         os.remove("/home/pi/Desktop/monkey bot discord/pet/snowman_home.png")  
     
     elif users[str(user.id)]["active_pet"] == "fish":
@@ -2439,13 +2454,13 @@ async def check(ctx):
         home.save("/home/pi/Desktop/monkey bot discord/pet/fish_home.png", "PNG")
     
         await ctx.respond(file = discord.File("/home/pi/Desktop/monkey bot discord/pet/fish_home.png"))
-        await ctx.respond(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
+        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
         os.remove("/home/pi/Desktop/monkey bot discord/pet/fish_home.png")  
         
     elif users[str(user.id)]["active_pet"] == "":
         home.save("/home/pi/Desktop/monkey bot discord/pet/you_home.png", "PNG")
         await ctx.respond(file = discord.File("/home/pi/Desktop/monkey bot discord/pet/you_home.png"))
-        await ctx.respond(f"you dont have a active in your pet pocket ther is {pet_monkey} 🐒 | {pet_snowman} ⛄ | {pet_fish} 🐟 \n more pets coming soon:tm:")
+        await ctx.send(f"you dont have a active in your pet pocket ther is {pet_monkey} 🐒 | {pet_snowman} ⛄ | {pet_fish} 🐟 \n more pets coming soon:tm:")
         os.remove("/home/pi/Desktop/monkey bot discord/pet/you_home.png")
         
     os.remove("/home/pi/Desktop/monkey bot discord/pet/face.png")
