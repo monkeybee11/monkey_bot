@@ -68,6 +68,9 @@ async def on_application_command_error(ctx, error):
     elif isinstance(error, commands.CommandOnCooldown): #checks if on cooldown
         
         await ctx.respond(error)
+        
+    else:
+        raise error
 
 #######################################
 ##          testing ground           ##
@@ -841,151 +844,59 @@ async def christmas_cracker(ctx,member:discord.Member = None):
 ###########################################
 ##               top 10                  ##
 ###########################################
-@top.command(description = "leader board of the top 10 ticket holders")
-async def tickets(ctx):
-    global t1
-    global t2
-    global t3
+
+@top.command(description = "say ticket / banana to look at there top 10 boards")
+async def ten(ctx,score = None):
     
-    users = await get_ticket_data()
 
-    top10 = {}
-    tot = []
-    amt1 = []
-
-    for user in users:
-        name = int(user)
-        tot_amt = users[user]["ticket"]
-        top10[tot_amt] = name
-        tot.append(tot_amt)
-
-    tot = sorted(tot,reverse=True)[:10]
-
-    for amt in tot:
-        id_ = top10[amt]
-        amt1.append(amt)
         
-    total = {k: v for k, v in sorted(users.items(), key=lambda item: item[1]["ticket"], reverse=True)[:10]}
+    if score == "banana" or score == "ticket":
     
-    id1 = list(total)[0]
-    id2 = list(total)[1]
-    id3 = list(total)[2]
-    id4 = list(total)[3]
-    id5 = list(total)[4]
-    id6 = list(total)[5]
-    id7 = list(total)[6]
-    id8 = list(total)[7]
-    id9 = list(total)[8]
-    id10 = list(total)[9]
-    member1 = await oimate.fetch_user(id1)
-    member2 = await oimate.fetch_user(id2)
-    member3 = await oimate.fetch_user(id3)
-    member4 = await oimate.fetch_user(id4)
-    member5 = await oimate.fetch_user(id5)
-    member6 = await oimate.fetch_user(id6)
-    member7 = await oimate.fetch_user(id7)
-    member8 = await oimate.fetch_user(id8)
-    member9 = await oimate.fetch_user(id9)
-    member10 = await oimate.fetch_user(id10)
-    name1 = member1.name
-    name2 = member2.name
-    name3 = member3.name
-    name4 = member4.name
-    name5 = member5.name
-    name6 = member6.name
-    name7 = member7.name
-    name8 = member8.name
-    name9 = member9.name
-    name10 = member10.name
-    t1 = member1
-    t2 = member2
-    t3 = member3
+        global b1,b2,b3,t1,t2,t3
     
-    em = discord.Embed(title="top 10 ticket holders")
-    em.add_field(name = f"1. {name1}" , value = f"{amt1[0]}<:DanTix:919966342797463552>", inline = False)
-    em.add_field(name = f"2. {name2}" , value = f"{amt1[1]} <:DanTix:919966342797463552>", inline = False)
-    em.add_field(name = f"3. {name3}" , value = f"{amt1[2]} <:DanTix:919966342797463552>", inline = False)
-    em.add_field(name = f"4. {name4}" , value = f"{amt1[3]} <:DanTix:919966342797463552>", inline = False)
-    em.add_field(name = f"5. {name5}" , value = f"{amt1[4]} <:DanTix:919966342797463552>", inline = False)
-    em.add_field(name = f"6. {name6}" , value = f"{amt1[5]} <:DanTix:919966342797463552>", inline = False)
-    em.add_field(name = f"7. {name7}" , value = f"{amt1[6]} <:DanTix:919966342797463552>", inline = False)
-    em.add_field(name = f"8. {name8}" , value = f"{amt1[7]} <:DanTix:919966342797463552>", inline = False)
-    em.add_field(name = f"9. {name9}" , value = f"{amt1[8]} <:DanTix:919966342797463552>", inline = False)
-    em.add_field(name = f"10. {name10}" , value = f"{amt1[9]} <:DanTix:919966342797463552>", inline = False)
-    await ctx.respond(embed = em)
+        users = await get_ticket_data()
 
-@top.command(description = "shows the top10 banana holders")
-async def bananas(ctx):
-    global b1
-    global b2
-    global b3
     
-    users = await get_ticket_data()
-
-    top10 = {}
-    tot = []
-    amt1 = []
-
-    for user in users:
-        name = int(user)
-        tot_amt = users[user]["banana"]
-        top10[tot_amt] = name
-        tot.append(tot_amt)
-
-    tot = sorted(tot,reverse=True)[:10]
-
-    for amt in tot:
-        id_ = top10[amt]
-        amt1.append(amt)
+        # reverse sort by ticket number in user dictionary ty sebi
+        users_sorted = sorted(users.items(), key=lambda x: x[1][score], reverse=True)
         
-    total = {k: v for k, v in sorted(users.items(), key=lambda item: item[1]["banana"], reverse=True)[:10]}
+        if score == "banana":
     
-    id1 = list(total)[0]
-    id2 = list(total)[1]
-    id3 = list(total)[2]
-    id4 = list(total)[3]
-    id5 = list(total)[4]
-    id6 = list(total)[5]
-    id7 = list(total)[6]
-    id8 = list(total)[7]
-    id9 = list(total)[8]
-    id10 = list(total)[9]
-    member1 = await oimate.fetch_user(id1)
-    member2 = await oimate.fetch_user(id2)
-    member3 = await oimate.fetch_user(id3)
-    member4 = await oimate.fetch_user(id4)
-    member5 = await oimate.fetch_user(id5)
-    member6 = await oimate.fetch_user(id6)
-    member7 = await oimate.fetch_user(id7)
-    member8 = await oimate.fetch_user(id8)
-    member9 = await oimate.fetch_user(id9)
-    member10 = await oimate.fetch_user(id10)
-    name1 = member1.name
-    name2 = member2.name
-    name3 = member3.name
-    name4 = member4.name
-    name5 = member5.name
-    name6 = member6.name
-    name7 = member7.name
-    name8 = member8.name
-    name9 = member9.name
-    name10 = member10.name
-    b1 = member1
-    b2 = member2
-    b3 = member3
+            b1 = int(users_sorted[0][0])
+            b2 = int(users_sorted[1][0])
+            b3 = int(users_sorted[2][0])
+            emojii = "<:mnkyThrow:704518598764527687>"
+        
+        elif score == "ticket":
+            
+            t1 = int(users_sorted[0][0])
+            t2 = int(users_sorted[1][0])
+            t3 = int(users_sorted[2][0])
+            emojii = "<:DanTix:919966342797463552>"
+
+        em = discord.Embed(title=f"top 10 {score} holders")
+        placement = 0
+        user_name = 0
+        user_banana = 0
+
+        for x in range(0,10):
+
+            placement += 1
+        
+            id_ = users_sorted[user_name][0]
+            user_name += 1
+        
+            amt1 = users_sorted[user_banana][1][score]
+            user_banana +=1
+        
+            names = await oimate.fetch_user(id_)
+            namess = names.name
+            em.add_field(name = f"{placement}.  {namess}" , value = f"{amt1} {emojii}", inline = False)
     
-    em = discord.Embed(title="top 10 banana holders")
-    em.add_field(name = f"1. {name1}" , value = f"{amt1[0]} <:mnkyThrow:704518598764527687>", inline = False)
-    em.add_field(name = f"2. {name2}" , value = f"{amt1[1]} <:mnkyThrow:704518598764527687>", inline = False)
-    em.add_field(name = f"3. {name3}" , value = f"{amt1[2]} <:mnkyThrow:704518598764527687>", inline = False)
-    em.add_field(name = f"4. {name4}" , value = f"{amt1[3]} <:mnkyThrow:704518598764527687>", inline = False)
-    em.add_field(name = f"5. {name5}" , value = f"{amt1[4]} <:mnkyThrow:704518598764527687>", inline = False)
-    em.add_field(name = f"6. {name6}" , value = f"{amt1[5]} <:mnkyThrow:704518598764527687>", inline = False)
-    em.add_field(name = f"7. {name7}" , value = f"{amt1[6]} <:mnkyThrow:704518598764527687>", inline = False)
-    em.add_field(name = f"8. {name8}" , value = f"{amt1[7]} <:mnkyThrow:704518598764527687>", inline = False)
-    em.add_field(name = f"9. {name9}" , value = f"{amt1[8]} <:mnkyThrow:704518598764527687>", inline = False)
-    em.add_field(name = f"10. {name10}" , value = f"{amt1[9]} <:mnkyThrow:704518598764527687>", inline = False)
-    await ctx.respond(embed = em)
+        await ctx.respond(embed = em)
+        
+    else:
+        await ctx.respond(f"we only have leader boards for banana and ticket we dont have one for {score} ....yet")
 
 ############################################
 ##              snow game                 ##
@@ -2136,12 +2047,7 @@ async def testt(ctx):
 @pets.command(description = "checks on your pet")
 async def check(ctx):
     
-    global t1
-    global t2
-    global t3
-    global b1
-    global b2
-    global b3
+    global t1,t2,t3,b1,b2,b3
     
     
     await check_pet_pocket(ctx.author)
@@ -2184,22 +2090,22 @@ async def check(ctx):
         
     home.paste(you, (0,0), you)
     
-    if ctx.author == t1:
+    if ctx.author.id == t1:
         t = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/ticket1.png")
         home.paste(t,(0,0), t)
-    elif ctx.author == t2:
+    elif ctx.author.id == t2:
         t = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/ticket2.png")
         home.paste(t,(0,0), t)
-    elif ctx.author == t3:
+    elif ctx.author.id == t3:
         t = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/ticket3.png")
         home.paste(t,(0,0), t)
-    if ctx.author == b1:
+    if ctx.author.id == b1:
         b = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/banana1.png")
         home.paste(b,(0,0),b)
-    elif ctx.author == b2:
+    elif ctx.author.id == b2:
         b = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/banana2.png")
         home.paste(b,(0,0),b)
-    elif ctx.author == b3:
+    elif ctx.author.id == b3:
         b = Image.open("/home/pi/Desktop/monkey bot discord/pet/top10/banana3.png")
         home.paste(b,(0,0),b)
         
