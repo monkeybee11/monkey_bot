@@ -23,8 +23,8 @@ token = getenv("monkey_bot")
 # to do list
 # come up with more games
 
-monkey = 113051316225368064
-dks = 119791596681166848
+monkey = int(113051316225368064)
+dks = int(119791596681166848)
 
 
 password = False
@@ -292,6 +292,27 @@ async def choco_loop():
     channel = oimate.get_channel(672550204213297174)
     await channel.send('<@&888038726154993714> oi oi paycheck time come and get your<:Galaxy_Cookie:776762120686927896><:Galaxy_Cookie:776762120686927896><:Galaxy_Cookie:776762120686927896>') 
     
+
+@tasks.loop(hours=1)
+async def trophy_check():
+    
+    global t1, t2, t3 ,b1 ,b2 ,b3
+    with open("ticketbank.json","r") as f:
+        users = json.load(f)
+        
+        ticket_check = sorted(users.items(), key=lambda x: x[1]["ticket"], reverse=True)
+        banana_check = sorted(users.items(), key=lambda x: x[1]["banana"], reverse=True)
+        
+        t1 = int(ticket_check[0][0])
+        t2 = int(ticket_check[1][0])
+        t3 = int(ticket_check[2][0])
+        b1 = int(banana_check[0][0])
+        b2 = int(banana_check[1][0])
+        b3 = int(banana_check[2][0])
+        
+        
+            
+
 @tasks.loop(minutes=30)
 async def pet_tick():
     with open("petPocket.json","r") as f:
@@ -624,7 +645,10 @@ async def weather(ctx):
         
     elif weather_check in ninja_cloud: # WATCH OUT THATS NINJAS SMOKEBOMBS
         await ctx.respond("🥷😶‍🌫️")
-        
+    
+    elif weather_check == "Partly cloudy":
+        await ctx.respond("🌥️")
+
     else:
         await ctx.respond(weather_check)#posts name of weather to discord if not above
 
@@ -636,11 +660,6 @@ async def weather(ctx):
 ##            ticket shop                 ##
 ############################################
 
-shopshelf = [
-    {"name":"pet_food","price":"2 <:DanTix:919966342797463552>","desc":"🥫 \n magical pet food all pets love"},
-    {"name":"pet_meds","price":"5 <:DanTix:919966342797463552>","desc":"💊 \n magic medicen to cure pet sickness"},
-    {"name":"christmas_crackers","price":"20 <:DanTix:919966342797463552>","desc":"<:christmas_cracker:1040655557171871794> \n a christmas cracker to pull with someone"}
-    ]
 
 @shop.command(description = "see what u can extange tickets for")
 async def browse(ctx):
@@ -1210,6 +1229,175 @@ async def shake(ctx):
 ## catch throw block ##
 #######################
 
+class bananaView(discord.ui.View):
+    async def on_timeout(self):
+        for child in self.children:
+            child.disabled = True
+        await self.message.edit(content="the target must of fallen a sleep", view=self)
+        
+    @discord.ui.button(label = "dodge", style= discord.ButtonStyle.primary)
+    async def dodge(self, button, interaction):
+        global thrower, splater
+        
+        dodge_chance = random.randint(1,100)
+        await open_account(interaction.user)
+        users = await get_ticket_data()
+        user = interaction.user
+        banana_lost = random.randint(2,4)
+        bb= users[str(user.id)]["banana"]
+        eww = users[str(user.id)]["splat"]
+        
+        if splater == user.id:
+            
+            be = discord.Embed(title = "BANANA GAMES")
+            be.set_author(name = (user.name))
+            be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+            
+            if dodge_chance <= 49:
+                
+                
+                be.add_field(name = f"{user.name} dodges the banana with monkey like reflexes!!!!!!", value = f"your have {bb} <:mnkyThrow:704518598764527687> ", inline = True)
+                
+            elif dodge_chance >= 50:
+                    
+                bb -= banana_lost
+                eww = 10
+                    
+                if bb <= 0:
+                    bb = 0
+                        
+                with open("ticketbank.json","w") as f:
+                    json.dump(users,f,indent = 4)
+                    
+                bbb = bb
+                        
+
+                be.add_field(name = f"{user.name} dodges but the banana was TOO quick!", value = f"{user.name} gets smacked in the face and drops {banana_lost}<:mnkyThrow:704518598764527687>", inline = True)
+                be.add_field(name = f"{user.name} now has" , value = f"<:mnkyThrow:704518598764527687>{bbb}", inline = True)
+                    
+                    
+            for child in self.children:
+                child.disabled = True
+            button.label = "ended"
+                    
+            await interaction.response.edit_message(embed = be,view=self)
+        
+            splater = "a"
+            thrower = "b"
+                    
+                    
+            
+        elif splater != user.id:
+            await interaction.response.send_message(f"no one is throwing a banana at you {user.name} y are you dodgeing???")
+            
+    @discord.ui.button(label = "block", style= discord.ButtonStyle.primary)
+    async def block(self, button, interaction):
+        
+        global thrower, splater
+        block_chance = random.randint(1,100)
+        banana_lost = random.randint(3,7)
+        await open_account(interaction.user)
+        users = await get_ticket_data()
+        user = interaction.user
+        bb = users[str(user.id)]["banana"]
+        eww = users[str(user.id)]["splat"]
+        
+        if user.id == splater:
+            
+            
+            be = discord.Embed(title = "BANANA GAMES")
+            be.set_author(name = (user.name))
+            be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+            
+            if block_chance <= 30:
+                
+                be.add_field(name = f"{user.name} blocks the banana. whew, that was close!", value = f"{user.name} has {bb} bananas", inline = True)
+                
+            elif block_chance >= 31:
+                
+                bb-= banana_lost
+                eww = 10
+                if bb <= 0:
+                    bb = 0
+                    
+                with open("ticketbank.json","w") as f:
+                    json.dump(users,f, indent=4)
+                    
+                bbb = bb
+                
+                be.add_field(name = f"{user.name} trys to block the banana but", value = f"it slips through and smacks {user.name} right in the face and they drop {banana_lost} more <:mnkyThrow:704518598764527687>", inline = True)
+                be.add_field(name = f"{user.name} now has" , value = f"<:mnkyThrow:704518598764527687>{bbb}", inline = True)
+                
+        
+            for child in self.children:
+                child.disabled = True
+            button.label = "ended"
+                    
+            await interaction.response.edit_message(embed = be,view=self)
+            
+            splater = "a"
+            thrower = "b"
+        
+        elif user.id != splater:
+            await interaction.response.send_message(f"no one threw a banana at you {user.name} y are you blocking ???")
+            
+    @discord.ui.button(label = "catch", style= discord.ButtonStyle.primary)
+    async def catchlock(self, button, interaction):
+        
+        global thrower, splater
+        
+        catch_chance = random.randint(1,100)
+        banana_get = random.randint(1,3)
+        user = interaction.user
+        await open_account(user)
+        users = await get_ticket_data()
+        bb = users[str(user.id)]["banana"]
+        
+        if user.id == splater:
+            
+            be = discord.Embed(title = "BANANA GAMES")
+            be.set_author(name = (user.name))
+            be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
+            
+            if catch_chance <= 15:
+                
+                bb += banana_get
+                
+                with open("ticketbank.json","w") as f:
+                    json.dump(users,f, indent=4)
+                    
+                bbb = bb
+                
+                be.add_field(name = f"DISPLAYING amazing reflezes {user.name} catches the banana", value = f"backs into the banana tree and catches {banana_get} more <:mnkyThrow:704518598764527687> ", inline = True)
+                be.add_field(name = f"{user.name} now has", value = f"{bbb} <:mnkyThrow:704518598764527687>" , inline = True)
+                
+            elif catch_chance >= 16:
+                
+                bb -= banana_get
+                eww = 10
+                if bb <= 0:
+                    bb = 0
+                    
+                bbb = bb
+                    
+                be.add_field(name = f"{user.name} trys to catch the banana gets hit in the face", value = f"slips on a banana peel and drops {banana_get} more <:mnkyThrow:704518598764527687>", inline = True)
+                be.add_field(name = f"{user.name} now has" , value = f"<:mnkyThrow:704518598764527687>{bbb}", inline = True)
+                
+            for child in self.children:
+                child.disabled = True
+            button.label = "ended"
+                    
+            await interaction.response.edit_message(embed = be,view=self)
+            
+            splater = "a"
+            thrower = "b"
+        
+        elif user.id != splater:
+            
+            await interaction.response.send_message(f"no one threw a banana at you {user.name}....your not trying to steal the banana are you???")
+                
+
+
 @commands.cooldown(3,3600,commands.BucketType.user)
 @banana.command(description = "throw your banana at someone")
 async def throw(ctx, member:discord.Member):
@@ -1226,22 +1414,22 @@ async def throw(ctx, member:discord.Member):
     
     if splater == "a" and user_banana >= 1:
         
-        thrower = (ctx.author.id)
-        splater = (member.id)
+        thrower = int(ctx.author.id)
+        splater = int(member.id)
         
         users[str(user.id)]["banana"] -= 1
         
         with open("ticketbank.json","w") as f:
             json.dump(users,f, indent=4)
             
-        await ctx.send(f"<@!{ctx.author.id}> has thrown a banana at <@!{member.id}>")
+        await ctx.respond(f"<@!{ctx.author.id}> has thrown a banana at <@!{member.id}>")
             
         be = discord.Embed(title = "BANANA GAMES")
         be.set_author(name = (ctx.author.name))
         be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
         be.add_field(name= f"{ctx.author.name} has thrown a <:mnkyThrow:704518598764527687> at" , value = f"{user_banana}", inline = True)
-        be.add_field(name= f"{member.name} has to respond with /banana dodge, catch, block" , value = f"{member_banana}", inline = True)
-        await ctx.send(embed = be)
+        be.add_field(name= f"{member.name} has to respond by clicking dodge, catch or block" , value = f"{member_banana}", inline = True)
+        await ctx.send(embed = be, view=bananaView(timeout=(2*60*60)))
 
                 
         await asyncio.sleep(2*60*60)
@@ -1265,158 +1453,7 @@ async def throw(ctx, member:discord.Member):
         
     with open("ticketbank.json", "w") as f:
         json.dump(users,f,indent=4)
-        
-@banana.command(description = "dodges the banana")
-async def dodge(ctx):
-    global thrower
-    global splater
-    dodge_chance = random.randint(1,100)
-    await open_account(ctx.author)
-    users = await get_ticket_data()
-    user = ctx.author
-    
-    if ctx.author.id != splater:
-        await ctx.respond("no one is throwing a banana at you y are you dodgeing?")
-        
-    elif ctx.author.id == splater and dodge_chance <= 49:
-        
-        bb = users[str(user.id)]["banana"]
-        with open("ticketbank.json","w") as f:
-            json.dump(users,f, indent=4)
-        
-        be = discord.Embed(title = "BANANA GAMES")
-        be.set_author(name = (ctx.author.name))
-        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
-        be.add_field(name = f"{ctx.author.name} dodges the banana with monkey like reflexes!!!!!!", value = f"your have {bb} <:mnkyThrow:704518598764527687> ", inline = True)
-        await ctx.respond(embed = be)
-    
-    elif ctx.author.id == splater and dodge_chance >= 50:
-        
-        banana_lost = random.randint(2,4)
-        
-        users[str(user.id)]["banana"] -= banana_lost
-        users[str(user.id)]["splat"] = 10
-        if users[str(user.id)]["banana"] < 0:
-            users[str(user.id)]["banana"] = 0
-            
-        with open("ticketbank.json","w") as f:
-            json.dump(users,f,indent = 4)
-            
-        bb = users[str(user.id)]["banana"]
-        be = discord.Embed(title = "BANANA GAMES")
-        be.set_author(name = (ctx.author.name))
-        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
-        be.add_field(name = f"{ctx.author.name} dodges but the banana was TOO quick!", value = f"{ctx.author.name} gets smacked in the face and drops {banana_lost}<:mnkyThrow:704518598764527687>", inline = True)
-        be.add_field(name = f"{ctx.author.name} now has" , value = f"<:mnkyThrow:704518598764527687>{bb}", inline = True)
-        await ctx.respond(embed = be)
-        
-    splater = "a"
-    thrower = "b"
-
-        
-@banana.command(description = "blocks the banana")
-async def block(ctx):
-    global thrower
-    global splater
-    block_chance = random.randint(1,100)
-    await open_account(ctx.author)
-    users = await get_ticket_data()
-    user = ctx.author
-    
-    if ctx.author.id != splater:
-        await ctx.respond("no one is throwing a banana at you y are u blocking?")
-        
-    elif ctx.author.id == splater and block_chance <= 30:
-
-        
-        with open("ticketbank.json","w") as f:
-            json.dump(users,f, indent=4)
-        
-        bb = users[str(user.id)]["banana"]
-        be = discord.Embed(title = "BANANA GAMES")
-        be.set_author(name = (ctx.author.name))
-        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
-        be.add_field(name = f"{ctx.author.name} blocks the banana. Whew, that was close!", value = f"<@{ctx.user.id}> has {bb} bananas", inline = True)
-        await ctx.respond(embed = be)
-
-        
-    elif ctx.author.id == splater and block_chance >= 31:
-        
-        banana_lost = random.randint(3,7)
-        
-        users[str(user.id)]["banana"] -= banana_lost
-        users[str(user.id)]["splat"] = 10
-        if users[str(user.id)]["banana"] < 0:
-            users[str(user.id)]["banana"] = 0
-        with open("ticketbank.json","w") as f:
-            json.dump(users,f, indent=4)
-            
-        bb = users[str(user.id)]["banana"]
-        
-        be = discord.Embed(title = "BANANA GAMES")
-        be.set_author(name = (ctx.author.name))
-        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
-        be.add_field(name = f"{ctx.author.name} trys to block the banana but", value = f"it slips through and smacks {ctx.author.name} right in the face and they drop {banana_lost} more <:mnkyThrow:704518598764527687>", inline = True)
-        be.add_field(name = f"{ctx.author.name} now has" , value = f"<:mnkyThrow:704518598764527687>{bb}", inline = True)
-        await ctx.respond(embed = be)
-        
-        
-    splater = "a"
-    thrower = "b"
-        
-@banana.command(description = "catches the banana")
-async def catch(ctx):
-    global thrower
-    global splater
-    catch_chance = random.randint(1,100)
-    
-    await open_account(ctx.author)
-    users = await get_ticket_data()
-    user = ctx.author
-    
-    if ctx.author.id != splater:
-        await ctx.respond("no one is throwing a banana at you...what are u trying to catch?")
-    
-    elif ctx.author.id == splater and catch_chance <= 15:
-        
-        banana_get = random.randint(1,3)
-        
-        users[str(user.id)]["banana"] += banana_get
-
-        with open("ticketbank.json","w") as f:
-            json.dump(users,f, indent=4)
-        
-        bb = users[str(user.id)]["banana"]
-        be = discord.Embed(title = "BANANA GAMES")
-        be.set_author(name = (ctx.author.name))
-        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
-        be.add_field(name = f"DISPLAYING amazing reflezes {ctx.author.name} catches the banana", value = f"backs into the banana tree and catches {banana_get} more <:mnkyThrow:704518598764527687> ", inline = True)
-        be.add_field(name = f"{ctx.author.name} now has", value = f"{bb} <:mnkyThrow:704518598764527687>" , inline = True)
-        await ctx.respond(embed = be)
-
-    elif ctx.author.id == splater and catch_chance >=16:
-        
-        banana_lost = random.randint(1,3)
-        
-        users[str(user.id)]["banana"] -= banana_lost
-        users[str(user.id)]["splat"] = 10
-        if users[str(user.id)]["banana"] < 0:
-            users[str(user.id)]["banana"] = 0
-        with open("ticketbank.json","w") as f:
-            json.dump(users,f, indent=4)
-            
-        bb = users[str(user.id)]["banana"]
-        be = discord.Embed(title = "BANANA GAMES")
-        be.set_author(name = (ctx.author.name))
-        be.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
-        be.add_field(name = f"{ctx.author.name} trys to catch the banana gets hit in the face", value = f"slips on a banana peel and drops {banana_lost} more <:mnkyThrow:704518598764527687>", inline = True)
-        be.add_field(name = f"{ctx.author.name} now has" , value = f"<:mnkyThrow:704518598764527687>{bb}", inline = True)
-        await ctx.respond(embed = be)
-        
-    splater = "a"
-    thrower = "b"
-        
-        
+                
 
 @banana.command(description = "used for checking if this commarnd worked properly")
 async def check(ctx): #check what the thrower and splater values are in case the game buged out
@@ -1430,10 +1467,10 @@ async def check(ctx): #check what the thrower and splater values are in case the
 async def refund(ctx, member:discord.Member):
     global splater
     global thrower
-    global monkeybee
-    global monkeydks
+    global monkey
+    global dks
     
-    if ctx.author.id == monkeybee or ctx.author.id == monkeydks:
+    if ctx.author.id == monkey or ctx.author.id == dks: #this is right ive got thrower and splatter verables in reverse :P
         if splater == "a":
             await ctx.respond("nobody need a refund")
             
@@ -1445,19 +1482,21 @@ async def refund(ctx, member:discord.Member):
             user = member
             bb = users[str(user.id)]["banana"]
             
-            await ctx.respond(f"{splater} has {bb} refunding....")
+            await ctx.respond(f"{member.name} has {bb} refunding....")
+            
             users[str(user.id)]["banana"] += 1
             bb = users[str(user.id)]["banana"]
-            await ctx.respond(f" {splater} now has {bb}")
+            
+            await ctx.send(f" {member.name} now has {bb}")
             with open("ticketbank.json","w") as f:
                 json.dump(users,f, indent=4)
             
             splater = "a"
             thrower = "b"
             
-            await ctx.respond(f"spalter and thrower has been reset to {splater} {thrower}")
+            await ctx.name(f"spalter and thrower has been reset to {splater} {thrower}")
             
-    elif ctx.author.id != monkeybee or ctx.author.id != monkeydks:
+    elif ctx.author.id != monkey or ctx.author.id != dks:
         await ctx.respond("only monkey and DKS can use this commarnd :P")
 
 
@@ -2403,11 +2442,12 @@ async def login(ctx, message = None):
 @oimate.slash_command(name = "gamestart", description = "only monkey can use this to start discordplays gamein VC")
 async def gamestart(ctx):
     global password
-    global monkeybee
-    global monkeydks
-    if ctx.author.id == monkeybee: #this is MY discord id so only me can use this commarnd
+    global monkey
+    global dks
+    if ctx.author.id == monkey: #this is MY discord id so only me can use this commarnd
         password = True
-    elif ctx.author.id == monkeydks: #this is monkeyDKS id so me can be cheaky and give him a specal responce
+        await ctx.respond("games enabled")
+    elif ctx.author.id == dks: #this is monkeyDKS id so me can be cheaky and give him a specal responce
         await ctx.respond("sorry DKS you are not the right monkey for this command ***froundy face*** BUT heres a ticket to the carnie <:DanTix:919966342797463552>")
     else:
         await ctx.respond("you are not monkey only he can start games")
@@ -2416,11 +2456,12 @@ async def gamestart(ctx):
 @oimate.slash_command(name = "gamestop", description = "only monkey can use this to end the game")
 async def gamestop(ctx):
     global password
-    global monkeybee
-    global monkeydks
-    if ctx.author.id == monkeybee:
+    global monkey
+    global dks
+    if ctx.author.id == monkey:
         password = False
-    elif ctx.author.id == monkeydks:
+        await ctx.respond("games disabled")
+    elif ctx.author.id == dks:
         await ctx.respond("sorry DKS you are not the right monkey for this command ***froundy face*** BUT heres a ticket to the carnie <:DanTix:919966342797463552>")
     else:
         await ctx.respond("you are not monkey only he can stop games")
@@ -2531,5 +2572,6 @@ async def dpad(ctx):
 
 choco_loop.start()
 pet_tick.start()
+trophy_check.start()
 
 oimate.run(token)
