@@ -182,8 +182,7 @@
             "some legobricks from the 1969 LEGO satun V rocket",
             "a peanut butter and jelly fish",
             ":shark:",
-            ":shark:",
-            "salamon"
+            ":shark:"
         ]
     },
     "265105169115643904": {
@@ -395,8 +394,7 @@
             "a new boot",
             "whale",
             "a peanut butter and jelly fish",
-            "catfish",
-            "some legobricks from the 1969 LEGO satun V rocket"
+            "catfish"
         ]
     },
     "247170379376885761": {
@@ -493,7 +491,8 @@
     },
     "965989998690189372": {
         "fish name": [
-            "kitchen sink"
+            "kitchen sink",
+            ":fish:"
         ]
     }
 }

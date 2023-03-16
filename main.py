@@ -72,7 +72,6 @@ async def on_application_command_error(ctx, error):
         
     else:
         raise error
-        await ctx.respond(f"uhh ohh....something broke <@!{monkey}> go get some help")
 
 #######################################
 ##          testing ground           ##
@@ -118,6 +117,8 @@ async def open_account(user):
         return False
     else:
         #this is where we set the names for the database in the json file
+        
+        # cant think of a name but item? based things 
         users[str(user.id)] = {}
         users[str(user.id)]["ticket"] = 0
         users[str(user.id)]["banana"] = 0
@@ -125,7 +126,32 @@ async def open_account(user):
         users[str(user.id)]["ccracker"] = 0
         users[str(user.id)]["snowman_cursed"] = 0
         users[str(user.id)]["splat"] = 0
-        users[str(user.id)]["twitch"] = ""
+        users[str(user.id)]["name"] = ""
+        
+        #immunitys 
+        users[str(user.id)]["snow_immune"] = 0
+        users[str(user.id)]["banana_immune"] = 0
+        
+        #pets
+        users[str(user.id)]["fish"] = 0
+        users[str(user.id)]["monkey"] = 0
+        users[str(user.id)]["snowman"] = 0
+        users[str(user.id)]["petfood"] = 0
+        users[str(user.id)]["petmed"] = 0
+        users[str(user.id)]["active_pet"] = ""
+        
+        users[str(user.id)]["pet_hunger"] = 10
+        users[str(user.id)]["pet_clean"] = 10
+        users[str(user.id)]["pet_health"] = 10
+        users[str(user.id)]["pet_fun"] = 10
+        users[str(user.id)]["pet_sickness"] = 0
+        users[str(user.id)]["pet_freeze"] = 0
+        
+        users[str(user.id)]["health_tick"] = 10
+        users[str(user.id)]["hunger_tick"] = 10
+        users[str(user.id)]["fun_tick"] = 10
+        users[str(user.id)]["clean_tick"] = 10
+        users[str(user.id)]["pet name"] = ""
 
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
@@ -144,40 +170,17 @@ async def get_ticket_data():
 async def immunty_card(ctx):
     await ctx.response.defer()
     
-    await check_immunty(ctx.author)
-    suser = ctx.author
-    susers = await get_immunty_data()
+    await open_account(ctx.author)
+    user = ctx.author
+    users = await get_ticket_data()
     
-    snow_imune = susers[str(suser.id)]["snow_immune"]
-    banana_imune = susers[str(suser.id)]["banana_immune"]
+    snow_imune = users[str(user.id)]["snow_immune"]
+    banana_imune = users[str(user.id)]["banana_immune"]
     
     em = discord.Embed(title = f"{ctx.author.name}")
     em.add_field(name = "snowman statis", value = f"{snow_imune}", inline = True)
     em.add_field(name = "banana statis", value = f"{banana_imune}", inline = True)
     await ctx.followup.send(embed = em)
-    
-    
-async def check_immunty(user):
-
-    users = await get_immunty_data()
-        
-    if str(user.id) in users:
-        return False
-    else:
-        users[str(user.id)] = {}
-        users[str(user.id)]["snow_immune"] = 0
-        users[str(user.id)]["banana_immune"] = 0
-        
-    with open("immunityCARD.json","w") as f:
-        json.dump(users,f, indent=4)
-            
-    return True
-        
-async def get_immunty_data():
-    with open("immunityCARD.json","r") as f:
-        users = json.load(f)
-        
-    return users
     
 ##############
 # map link   #
@@ -196,9 +199,9 @@ async def map(ctx):
 async def immune(ctx, message = None):
     await ctx.response.defer()
     
-    await check_immunty(ctx.author)
-    users = await get_immunty_data()
+    await open_account(ctx.author)
     user = ctx.author
+    users = await get_ticket_data()
     
     if message == "add_snowman":
         
@@ -228,7 +231,7 @@ async def immune(ctx, message = None):
         
         await ctx.followup.send("use this commarnd to add or remove immuitys to effects from this bot")
         
-    with open("immunityCARD.json","w") as f:
+    with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
 
 
@@ -240,9 +243,9 @@ async def immune(ctx, message = None):
 async def pet(ctx):
     await ctx.response.defer()
     
-    await check_pet_pocket(ctx.author)
+    await open_account(ctx.author)
     user = ctx.author
-    users = await get_petPocket_data()
+    users = await get_ticket_data()
     
     fish = users[str(user.id)]["fish"]
     monkey = users[str(user.id)]["monkey"]
@@ -257,47 +260,7 @@ async def pet(ctx):
     em.add_field(name = "🥫", value = f"{petfood}", inline = True)
     em.add_field(name = "💊", value = f"{petmed}", inline = True)
     await ctx.followup.send(embed = em)    
-    
-async def check_pet_pocket(user):
-
-    users = await get_petPocket_data()
         
-    if str(user.id) in users:
-        return False
-    else:
-        users[str(user.id)] = {}
-        users[str(user.id)]["fish"] = 0
-        users[str(user.id)]["monkey"] = 0
-        users[str(user.id)]["snowman"] = 0
-        users[str(user.id)]["petfood"] = 0
-        users[str(user.id)]["petmed"] = 0
-        users[str(user.id)]["active_pet"] = ""
-        
-        users[str(user.id)]["pet_hunger"] = 10
-        users[str(user.id)]["pet_clean"] = 10
-        users[str(user.id)]["pet_health"] = 10
-        users[str(user.id)]["pet_fun"] = 10
-        users[str(user.id)]["pet_sickness"] = 0
-        users[str(user.id)]["pet_freeze"] = 0
-        
-        users[str(user.id)]["health_tick"] = 10
-        users[str(user.id)]["hunger_tick"] = 10
-        users[str(user.id)]["fun_tick"] = 10
-        users[str(user.id)]["clean_tick"] = 10
-        users[str(user.id)]["pet name"] = ""
-
-        
-    with open("petPocket.json","w") as f:
-        json.dump(users,f, indent=4)
-            
-    return True
-        
-async def get_petPocket_data():
-    
-    with open ("petPocket.json","r") as f:
-        users = json.load(f)
-    return users
-    
 @tasks.loop(time = time(17 , 35, tzinfo=datetime.timezone.utc))
 async def choco_loop():
     channel = oimate.get_channel(672550204213297174)
@@ -326,7 +289,7 @@ async def trophy_check():
 
 @tasks.loop(minutes=30)
 async def pet_tick():
-    with open("petPocket.json","r") as f:
+    with open("ticketbank.json","r") as f:
         users = json.load(f)
         check1 = random.randint(1,2)
         check2 = random.randint(1,2)
@@ -365,7 +328,7 @@ async def pet_tick():
                 users[user]["pet_hunger"] -= 1
                 users[user]["pet_health"] += 1
                     
-    with open("petPocket.json","w") as f:
+    with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
         
 
@@ -693,11 +656,9 @@ async def buy(ctx,item = None, amount = 1):
     await ctx.response.defer()
     
     await open_account(ctx.author)
-    await check_pet_pocket(ctx.author)
-    pocket = await get_ticket_data()
-    pet = await get_petPocket_data()
+    users = await get_ticket_data()
     user = ctx.author
-    ticket = pocket[str(user.id)]["ticket"]
+    ticket = users[str(user.id)]["ticket"]
     
     if item == None:
         await ctx.followup.send("pick a item \n say !shop to see what u can buy")
@@ -710,13 +671,13 @@ async def buy(ctx,item = None, amount = 1):
     
     elif item == "pet_food" and ticket >=2:
         
-        pocket[str(user.id)]["ticket"] -= 2*int(amount)
-        pet[str(user.id)]["petfood"] += 1*int(amount)
+        users[str(user.id)]["ticket"] -= 2*int(amount)
+        users[str(user.id)]["petfood"] += 1*int(amount)
         
         with open("ticketbank.json","w") as f:
             json.dump(pocket,f ,indent=4)
         
-        new_amt = pocket[str(user.id)]["ticket"]
+        new_amt = users[str(user.id)]["ticket"]
         await ctx.followup.send(f"thanks for the tickets heres your pet food and u now have {new_amt} tickets")
 
         
@@ -726,13 +687,13 @@ async def buy(ctx,item = None, amount = 1):
         
     elif item == "pet_meds" and ticket >= 5:
         
-        pocket[str(user.id)]["ticket"] -= 5*int(amount)
-        pet[str(user.id)]["petmed"] += 1*int(amount)
+        users[str(user.id)]["ticket"] -= 5*int(amount)
+        users[str(user.id)]["petmed"] += 1*int(amount)
         
         with open("ticketbank.json","w") as f:
             json.dump(pocket,f, indent=4)
         
-        new_amt = pocket[str(user.id)]["ticket"]
+        new_amt = users[str(user.id)]["ticket"]
         await ctx.followup.send(f"thanks for the tickets heres your pet meds and u now have {new_amt} tickets")
     
     elif item == "christmas_cracker" and ticket < 20:
@@ -741,16 +702,16 @@ async def buy(ctx,item = None, amount = 1):
         
     elif item == "christmas_cracker" and ticket >= 20:
         
-        pocket[str(user.id)]["ticket"] -= 20*int(amount)
-        pocket[str(user.id)]["ccracker"] += 1*int(amount)
+        users[str(user.id)]["ticket"] -= 20*int(amount)
+        users[str(user.id)]["ccracker"] += 1*int(amount)
         
         with open("ticketbank.json","w") as f:
             json.dump(pocket,f ,indent=4)
             
-        new_amt = pocket[str(user.id)]["ticket"]
+        new_amt = users[str(user.id)]["ticket"]
         await ctx.followup.send(f"thanks for the tickets heres your christmas cracker you now have {new_amt} of tickets")
 
-    with open("petPocket.json","w") as f:
+    with open("ticketbank.json","w") as f:
         json.dump(pet,f, indent=4)
         
 ###########################################
@@ -989,12 +950,9 @@ async def scoop(ctx):
         await ctx.followup.send(f"{user.name} was gathering snowballs when they stumbled apon someones hidden stash \n you now have {snow_get}")
         if pet_event > 95:
             
-            await check_pet_pocket()
-            pets = get_petPocket_data()
+            pet_amount = users[str(user.id)]["snowman"]
             
-            pet_amount = pets[str(user.id)]["snowman"]
-            
-            with open("petPocket.json","w") as f:
+            with open("ticketbank.json","w") as f:
                 json.dump(pets,f, indent=4)
             
             await ctx.followup.send(f"you found a pet snowman at the back of the hidden stash YAY COOL PET ....get it ....snow....cool....ill leave now \n {ctx.author.name} has {pet_amount} :snowman:")
@@ -1026,12 +984,6 @@ async def throw(ctx,member:discord.Member):
     users = await get_ticket_data()
     user = ctx.author
     mem = member
-
-    await check_immunty(ctx.author)
-    await check_immunty(member)
-    susers = await get_immunty_data()
-    suser = ctx.author
-    smem = member
     
     if users[str(user.id)]["snowball"] == 0:
         
@@ -1059,7 +1011,7 @@ async def throw(ctx,member:discord.Member):
         snow_hit.add_field(name = f"{member.name} is now a snowman", value = "<:2021_Snowsgiving_Emojis_001_Snum:917929344997937162>" , inline = True)
         await ctx.send(embed=snow_hit)
         
-        if susers[str(smem.id)]["snow_immune"] == 0:
+        if users[str(mem.id)]["snow_immune"] == 0:
         
             users[str(mem.id)]["snowman_cursed"] = 10
             
@@ -1071,9 +1023,6 @@ async def throw(ctx,member:discord.Member):
     elif users[str(user.id)]["snowball"] >= 1 and aim >= 60:
         
         users[str(user.id)]["snowball"] -=1
-        
-        with open("ticketbank.json","w") as f:
-            json.dump(users,f, indent=4)
             
         await ctx.followup.send(f"<@!{member.id}> WATCH OUT")
 
@@ -1111,11 +1060,6 @@ async def on_message(message):
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
         
-    if "!|dea" in message.content:
-        with open("idea.txt" , "a") as f:
-            f.write(message.content + "\n")
-        await message.channel.send("your idea has been noted down")
-        
     await oimate.process_commands(message)
                     
     
@@ -1132,9 +1076,6 @@ async def shake(ctx):
     await open_account(ctx.author)
     users = await get_ticket_data()
     user = ctx.author
-    await check_pet_pocket(ctx.author)
-    pet = await get_petPocket_data()
-    
     
     client = python_weather.Client(format=python_weather.METRIC)
     weather = await client.get("Boston")
@@ -1233,10 +1174,10 @@ async def shake(ctx):
             with open("ticketbank.json","w") as f:
                 json.dump(users,f, indent=4)
             
-        pet[str(user.id)]["monkey"] += 1
+        users[str(user.id)]["monkey"] += 1
         
-        banana_amount = pocket[str(user.id)]["banana"]
-        pet_amount = pet[str(user.id)]["monkey"]
+        banana_amount = users[str(user.id)]["banana"]
+        pet_amount = users[str(user.id)]["monkey"]
         
         shakebed=discord.Embed(title= "PET EVENT!!!!", colour = discord.Colour.gold())
         shakebed.set_author(name = (ctx.author.name))
@@ -1247,9 +1188,6 @@ async def shake(ctx):
         
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
-            
-    with open("petPocket.json","w") as f:
-        json.dump(pet,f, indent=4)
         
     await client.close()
 
@@ -1817,9 +1755,9 @@ async def fishing(ctx):
     weather_check = weather.current.description
     
     await check_fish_cooler(ctx.author)
-    await check_pet_pocket(ctx.author)
+    await open_account(ctx.author)
+    users = await get_ticket_data()
     fish = await get_fishcooler_data()
-    pet = await get_petPocket_data()
     user = ctx.author
     
     
@@ -1889,9 +1827,9 @@ async def fishing(ctx):
         await ctx.followup.send(f"{ctx.author.name} casts their line 🎣 ...")
         await asyncio.sleep(cast)
         
-        pet[str(user.id)]["fish"] += 1
+        users[str(user.id)]["fish"] += 1
         
-        petfish = pet[str(user.id)]["fish"]
+        petfish = users[str(user.id)]["fish"]
         
         petbed = discord.Embed(title = "PET EVENT!!", colour = discord.Colour.gold())
         petbed.set_author(name = (ctx.author.name))
@@ -1899,7 +1837,7 @@ async def fishing(ctx):
         petbed.add_field(name = f"{ctx.author.name} has fished up a {named_fish} oooo looks like they have a new fishy pet friend" , value = f"they now have {petfish} :fish:" , inline = True)
         await ctx.send(embed = petbed)
                 
-        with open("petPocket.json" ,"w") as f:
+        with open("ticketbank.json" ,"w") as f:
             json.dump(pet,f, indent=4)
         
     with open("fishCooler.json","w") as f:
@@ -1943,8 +1881,8 @@ async def slap(ctx, member:discord.Member = None):
 async def pick(ctx, *, message = None):
     await ctx.response.defer()
     
-    await check_pet_pocket(ctx.author)
-    users = await get_petPocket_data()
+    await open_account(ctx.author)
+    users = await get_ticket_data()
     user = ctx.author
     
     
@@ -1987,16 +1925,16 @@ async def pick(ctx, *, message = None):
     else:
         await ctx.followup.send("your iver forgot to say what pet OR dont have any use !pet_pocket to check")
         
-    with open ("petPocket.json","w") as f:
+    with open ("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
             
 @pets.command(description = "freeze pets stats for when you need to step away from discord")
 async def freeze(ctx, message = None):
     await ctx.response.defer()
     
-    await check_pet_pocket(ctx.author)
-    users = await get_petPocket_data()
+    await open_account(ctx.author)
     user = ctx.author
+    users = await get_ticket_data()
     
     if message == None:
         await ctx.followup.send("say \"!freeze on\" to freeze your pet stats  \n or \n say  \"!freeze off\" to unfreeze there stats")
@@ -2010,16 +1948,16 @@ async def freeze(ctx, message = None):
         users[str(user.id)]["pet_freeze"] = 0
         await ctx.followup.send("your pets stats are unfrozzen wellcome back :3")
         
-    with open("petPocket.json","w") as f:
+    with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
         
 @pets.command( description = "name your pet")
 async def name(ctx,message = None):
     await ctx.response.defer()
     
-    await check_pet_pocket(ctx.author)
-    users = await get_petPocket_data()
+    await open_account(ctx.author)
     user = ctx.author
+    users = await get_ticket_data()
     
     if message == None:
         await ctx.followup.send("say !name_pet name to name your pet name")
@@ -2028,7 +1966,7 @@ async def name(ctx,message = None):
         users[str(user.id)]["pet name"] = message
         await ctx.followup.send(f"your pet is now named {message}")
         
-    with open("petPocket.json","w") as f:
+    with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
         
             
@@ -2036,9 +1974,9 @@ async def name(ctx,message = None):
 async def feed(ctx):
     await ctx.response.defer()
     
-    await check_pet_pocket(ctx.author)
-    users = await get_petPocket_data()
+    await open_account(ctx.author)
     user = ctx.author
+    users = await get_ticket_data()
     
     name = users[str(user.id)]["pet name"]
  
@@ -2052,16 +1990,16 @@ async def feed(ctx):
             users[str(user.id)]["pet_hunger"] = 10
         await ctx.followup.send(f"you feed {name} munches away happerly")
         
-    with open("petPocket.json","w") as f:
+    with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
         
 @pets.command(description = "give your pet medicen")
 async def meds(ctx):
     await ctx.response.defer()
 
-    await check_pet_pocket(ctx.author)
-    users = await get_petPocket_data()
+    await open_account(ctx.author)
     user = ctx.author
+    users = await get_ticket_data()
 
     if users[str(user.id)]["petmed"] == 0:
         await ctx.followup.send(f"you dont have any meds for {name} but some with !shop and !buy")
@@ -2076,16 +2014,16 @@ async def meds(ctx):
             users[str(user.id)]["pet_health"] - 5
             await ctx.followup.send(f"{name} wasnt sick but now he looks worce for wear")
 
-    with open("petPocket.json","w") as f:
+    with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
         
 @pets.command(description = "play with your pet")     
 async def play(ctx):
     await ctx.response.defer()
     
-    await check_pet_pocket(ctx.author)
-    users = await get_petPocket_data()
+    await open_account(ctx.author)
     user = ctx.author
+    users = await get_ticket_data()
     fun = random.randint(1,10)
         
     await ctx.followup.send(f"you played with {name} he fun went up by{fun} (this will be upgraded later)")
@@ -2093,30 +2031,30 @@ async def play(ctx):
     if users[str(user.id)]["pet_fun"] > 10:
         users[str(user.id)]["pet_fun"] = 10
         
-    with open("petPocket.json","w") as f:
+    with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
         
 @pets.command(description = "clean your pet")
 async def clean(ctx):
     await ctx.response.defer()
 
-    await check_pet_pocket(ctx.author)
-    users = await get_petPocket_data()
+    await open_account(ctx.author)
     user = ctx.author
+    users = await get_ticket_data()
             
     await ctx.followup.send(f"you gave {name} a bath")
     users[str(user.id)]["pet_clean"] = 10
         
-    with open("petPocket.json","w") as f:
+    with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
         
 @oimate.slash_command(name ="testt", description = "this is a commarnd to check hidden pet stats")
 async def testt(ctx):
     await ctx.response.defer()
     
-    await check_pet_pocket(ctx.author)
-    users = await get_petPocket_data()
+    await open_account(ctx.author)
     user = ctx.author
+    users = await get_ticket_data()
     
     a = users[str(user.id)]["health_tick"]
     b = users[str(user.id)]["hunger_tick"]
@@ -2140,10 +2078,8 @@ async def check(ctx):
     global t1,t2,t3,b1,b2,b3
     
     
-    await check_pet_pocket(ctx.author)
     await open_account(ctx.author)
-    ticket = await get_ticket_data()
-    users = await get_petPocket_data()
+    users = await get_ticket_data()
     user = ctx.author
 
     food = users[str(user.id)]["petfood"]
@@ -2464,11 +2400,11 @@ async def check(ctx):
      
      
 ###########################################
-##         twitch tickets               ###
+##         name                         ###
 ###########################################
 
 @oimate.slash_command(name = "name", description = "let monkeybot know your name makes it easyer to find u in the .json files")
-async def login(ctx, message = None):
+async def name(ctx, message = None):
     await ctx.response.defer()
     
     await open_account(ctx.author)
@@ -2476,13 +2412,13 @@ async def login(ctx, message = None):
     user = ctx.author
     
     if message == None:
-        await ctx.followup.send("use !login'your twitch name' so monkeybot knows who you are for twitch ticket giving :P")
+        await ctx.followup.send("use /name 'your name' so its easyer for monkey to find you in the .json files")
     
     elif message != None:
     
-        users[str(user.id)]["twitch"] = message
+        users[str(user.id)]["name"] = message
         
-        await ctx.followup.send(f"ok your twitch name is {message} right? reuse the commarnd if its wrong")
+        await ctx.followup.send(f"ok your name is {message} right? reuse the commarnd if its wrong")
     
     with open("ticketbank.json","w") as f:
         json.dump(users,f,indent=4)
@@ -2626,6 +2562,11 @@ async def dpad(ctx):
     elif password == True:
         print(1)
         await ctx.followup.send("chicken", view = view)
+        
+@oimate.slash_commarnd(name = "ideas", description = "link to the docs where me scribble ideas down and you can add some to...hopefuly")
+async def idea(ctx):
+    await ctx.response.defer()
+    await ctx.fallowup.send("https://docs.google.com/document/d/1oOeTDy-fzwGTLCnY-zSr8caKNq3zsPg36BRpVxsVzTY/edit?usp=sharing")
 
 choco_loop.start()
 pet_tick.start()
