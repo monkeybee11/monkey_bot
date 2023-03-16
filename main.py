@@ -2563,7 +2563,7 @@ async def dpad(ctx):
         print(1)
         await ctx.followup.send("chicken", view = view)
         
-@oimate.slash_commarnd(name = "ideas", description = "link to the docs where me scribble ideas down and you can add some to...hopefuly")
+@oimate.slash_command(name = "ideas", description = "link to the docs where me scribble ideas down and you can add some to...hopefuly")
 async def idea(ctx):
     await ctx.response.defer()
     await ctx.fallowup.send("https://docs.google.com/document/d/1oOeTDy-fzwGTLCnY-zSr8caKNq3zsPg36BRpVxsVzTY/edit?usp=sharing")
