@@ -2,7 +2,7 @@
 ## if you are reading this on github and your not monkey 99.9% of the comments are for me 4 weeks later from typing the code so sry if theres to much comments for you XD ##
 ############################################################################################################################################################################
 from datetime import time , timezone, datetime as clock
-import discord, asyncio, os, json, random, requests, python_weather
+import discord, asyncio, os, json, random, requests, python_weather, openai, better_profanity
 from discord.ui import Button , View
 from discord.ext import commands, tasks
 from pynput.keyboard import Key, Controller
@@ -17,6 +17,9 @@ os.chdir("/home/pi/Desktop/monkey bot discord")
 load_dotenv()
 
 token = getenv("monkey_bot")
+openai.api_key = getenv('OPENAI_API_KEY')
+
+canTalk = False
 
 # to do list
 # come up with more games
@@ -51,6 +54,7 @@ top = oimate.create_group("top")
 pets = oimate.create_group("pet")
 shop = oimate.create_group("shop")
 fish_command = oimate.create_group("fish")
+talk = oimate.create_group("talk")
 
 @oimate.event
 async def on_ready(): #this is where the bot brain starts to work
@@ -78,6 +82,77 @@ async def on_application_command_error(ctx, error):
 #if this block of code is empty im not testing anything
 #this is just so im able to find it in like 4 weeks time
 # and me proberly forgotten how to use python :P
+
+@talk.command(description = "start talking to monkeybot")
+async def start(ctx):
+    global canTalk
+    
+    canTalk = True
+    
+    await ctx.response.defer()
+    
+    #turn on profanity filter
+    better_profanity.load_censor_words()
+    
+    #chat GPT3 stuff
+    brain = "text-davinci-002" = # one of GPT3 model engins
+    prompt = "huh who what errr IM UP IM UP monkeybot is ready"
+    gpt3 = openai.Model(engine = brain)
+    
+    #start using GPT3
+    while canTalk == True:
+        try:
+            await check_api_calls()
+            
+            # Check if the current month is the same as the last API call month
+            current_month = datetime.datetime.now().month
+            if api_calls['last_month'] != current_month:
+                # Reset the API call count
+                api_calls['last_month'] = current_month
+                api_calls['count'] = 0
+
+            # Increment the API call count
+            api_calls['count'] += 1
+            
+            if api_calls['count'] <= 80000:
+            
+                #wait for someone to say something
+                message = await oimate.wait_for("message", check=lambda m: m.channel == ctx.channel and m.author != bot.user)
+                #generate a responce
+                response = gpt3.generate(prompt= message.content, max_tokens=1024, n=1, stop=None, temperature=0.5, )[0]["text"].strip()
+            
+                # check if he said a bad word
+                if better_profanity.check(response):
+                    await message.channel.send("***washes mouth out with soap***")
+            
+                else:
+                
+                    await message.channel.send(response)
+            
+            elif api_calls['count'] >= 80000:
+                
+                await message.channel.send("sorry my api calls are used up for this mounth")
+        
+        except Exception as e:
+            print(f"Error:{e}")
+            await ctx.folloup.send(f"Error: {e}")
+            
+@talk.command(description = "stop monkeybot form talking back")
+async def stop(ctx):
+    global canTalk
+    
+    await ctx.response.defer()
+    
+    canTalk = False
+    
+    await ctx.follorup.send("ok back to bed")
+    
+    
+asyc def check_api_calls():
+    with open("api_calls.json", "r") as f:
+        api_calls = json.load(f)
+    
+    
 
 
 ###########################################
