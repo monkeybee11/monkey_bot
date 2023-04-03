@@ -18,8 +18,6 @@ load_dotenv()
 
 token = getenv("monkey_bot")
 
-
-
 # to do list
 # come up with more games
 
@@ -264,7 +262,7 @@ async def pet(ctx):
 @tasks.loop(time = time(17 , 35, tzinfo=datetime.timezone.utc))
 async def choco_loop():
     channel = oimate.get_channel(672550204213297174)
-    await channel.send('<@&888038726154993714> oi oi paycheck time come and get your<:Galaxy_Cookie:776762120686927896><:Galaxy_Cookie:776762120686927896><:Galaxy_Cookie:776762120686927896>') 
+    await channel.send('<@&888038726154993714> oi oi paycheck time come and get your<:galixy_cookie:1086380582080086057><:galixy_cookie:1086380582080086057><:galixy_cookie:1086380582080086057>') 
     
 
 @tasks.loop(hours=1)
@@ -552,6 +550,8 @@ async def joke(ctx):
     await ctx.followup.send(embed=jokebed)
     
     
+    
+    
 ##########################################
 ##              bubble wrap             ##
 ##########################################
@@ -635,6 +635,11 @@ async def weather(ctx):
 ##            ticket shop                 ##
 ############################################
 
+shopshelf = [
+    {"name":"pet_food","price":"2 <:DanTix:919966342797463552>","desc":"🥫 \n magical pet food all pets love"},
+    {"name":"pet_meds","price":"5 <:DanTix:919966342797463552>","desc":"💊 \n magic medicen to cure pet sickness"},
+    {"name":"christmas_crackers","price":"20 <:DanTix:919966342797463552>","desc":"<:christmas_cracker:1040655557171871794> \n a christmas cracker to pull with someone"}
+    ]
 
 @shop.command(description = "see what u can extange tickets for")
 async def browse(ctx):
@@ -675,7 +680,7 @@ async def buy(ctx,item = None, amount = 1):
         users[str(user.id)]["petfood"] += 1*int(amount)
         
         with open("ticketbank.json","w") as f:
-            json.dump(pocket,f ,indent=4)
+            json.dump(users,f ,indent=4)
         
         new_amt = users[str(user.id)]["ticket"]
         await ctx.followup.send(f"thanks for the tickets heres your pet food and u now have {new_amt} tickets")
@@ -691,7 +696,7 @@ async def buy(ctx,item = None, amount = 1):
         users[str(user.id)]["petmed"] += 1*int(amount)
         
         with open("ticketbank.json","w") as f:
-            json.dump(pocket,f, indent=4)
+            json.dump(users,f, indent=4)
         
         new_amt = users[str(user.id)]["ticket"]
         await ctx.followup.send(f"thanks for the tickets heres your pet meds and u now have {new_amt} tickets")
@@ -706,13 +711,13 @@ async def buy(ctx,item = None, amount = 1):
         users[str(user.id)]["ccracker"] += 1*int(amount)
         
         with open("ticketbank.json","w") as f:
-            json.dump(pocket,f ,indent=4)
+            json.dump(users,f ,indent=4)
             
         new_amt = users[str(user.id)]["ticket"]
         await ctx.followup.send(f"thanks for the tickets heres your christmas cracker you now have {new_amt} of tickets")
 
     with open("ticketbank.json","w") as f:
-        json.dump(pet,f, indent=4)
+        json.dump(users,f, indent=4)
         
 ###########################################
 ##           christmas crackers          ##
@@ -953,7 +958,7 @@ async def scoop(ctx):
             pet_amount = users[str(user.id)]["snowman"]
             
             with open("ticketbank.json","w") as f:
-                json.dump(pets,f, indent=4)
+                json.dump(users,f, indent=4)
             
             await ctx.followup.send(f"you found a pet snowman at the back of the hidden stash YAY COOL PET ....get it ....snow....cool....ill leave now \n {ctx.author.name} has {pet_amount} :snowman:")
             
@@ -1037,6 +1042,86 @@ async def throw(ctx,member:discord.Member):
         
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
+        
+class REV(discord.ui.View):
+    
+    async def on_timeout(self):
+        for child in self.children:
+            child.disabled = True
+        await self.message.edit(content="some one else has clamed the chest", view=self)
+        
+    @discord.ui.button(label = "clame!!!", style= discord.ButtonStyle.primary)
+    async def clam(self, button, interaction):
+        
+            
+        for child in self.children: # loop through all the children of the view
+            child.disabled = True # set the button to disabled
+        await interaction.response.edit_message(view=self)
+        
+        await open_account(interaction.user)
+        users = await get_ticket_data()
+        user = interaction.user
+        
+        mimic = random.randint(1,5)
+        prize = random.randint(1,50)
+        background = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/background.png")
+        open_chest = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_open.png")
+        
+        background.paste(open_chest, (211, 160),open_chest)
+        
+        if mimic == 1:
+            
+            chest_loot = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_loot_1.png")
+            background.paste(chest_loot, (241, 160), chest_loot)
+            background.save("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
+            
+            users[str(user.id)]["banana"] += prize
+            
+            await interaction.followup.send(f"<@!{user.id}> opened the chest and found a wonderfull amount of {prize} <:mnkyThrow:704518598764527687> ",file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
+            
+        elif mimic == 2:
+            
+            chest_loot = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_loot_2.png")
+            background.paste(chest_loot, (241, 160),chest_loot)
+            background.save("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
+            
+            users[str(user.id)]["splat"] += 10
+            
+            await interaction.followup.send(f"<@!{user.id}> opened the chest and found a grumpy monkey who threw a banana at your face",file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
+            
+        elif mimic == 3:
+            
+            chest_loot = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_loot_3.png")
+            background.paste(chest_loot, (241, 160),chest_loot)
+            background.save("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
+            
+            users[str(user.id)]["snowman_cursed"] += 10
+            
+            await interaction.followup.send(f"<@!{user.id}> opened the chest and found a evil snowman you are now cursed",file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
+            
+        elif mimic == 4:
+            
+            chest_loot = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_loot_4.png")
+            background.paste(chest_loot, (241, 160),chest_loot)
+            background.save("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
+            
+            users[str(user.id)]["ticket"] += prize
+            
+            await interaction.followup.send(f"<@!{user.id}> opened the chest and found a hand full of <:DanTix:919966342797463552> you got {prize} of them",file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
+            
+        elif mimic == 5:
+            
+            background.save("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
+            
+            await interaction.followup.send("you opened the chest but all you found was some dust",file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
+
+            
+        os.remove("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f, indent=4)
+
+        
             
 @oimate.event 
 async def on_message(message):
@@ -1044,6 +1129,9 @@ async def on_message(message):
     await open_account(message.author)
     users = await get_ticket_data()
     user = message.author
+    
+    if message.author.bot:
+        return
     
     if users[str(user.id)]["snowman_cursed"] > 0:
         await message.add_reaction("⛄")
@@ -1059,6 +1147,24 @@ async def on_message(message):
             
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
+        
+        
+    event = random.randint(1,100)
+    if event == 1 and message.guild.id != 672546027672436749: #not checking if message came from choco factory they woud have a hissyfit
+        channel = oimate.get_channel(951151130153451560) #send message to my testing channel for now change this to carnival games later :) (look in to maby using threads)
+        
+        background = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/background.png")
+        chest = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_close.png")
+        
+        background.paste(chest,(242,175),chest)
+        
+        background.save("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_closed.png")
+        
+        await channel.send(f"<@!{user.id}> HAS TRIGGERED A RANDOM EVENT!!!!!!")
+        await channel.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_closed.png"),view =REV(timeout=(2*60*60)))
+        
+        os.remove("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_closed.png")
+            
         
     await oimate.process_commands(message)
                     
@@ -1491,7 +1597,6 @@ async def target(ctx):
     users = await get_ticket_data()
     user = ctx.author
     ticket_amt = users[str(user.id)]["ticket"]
-
     client = python_weather.Client(format=python_weather.METRIC)
     weather = await client.get("Boston")
     weather_check = weather.current.description
@@ -1838,7 +1943,7 @@ async def fishing(ctx):
         await ctx.send(embed = petbed)
                 
         with open("ticketbank.json" ,"w") as f:
-            json.dump(pet,f, indent=4)
+            json.dump(users,f, indent=4)
         
     with open("fishCooler.json","w") as f:
         json.dump(fish,f, indent=4)
@@ -1877,6 +1982,83 @@ async def slap(ctx, member:discord.Member = None):
 ###########################################
 ##              pets                     ##
 ###########################################
+
+
+
+class petview(discord.ui.View):
+    
+    @discord.ui.button(label = "feed", style = discord.ButtonStyle.primary)
+    async def feed(self, button, interaction):
+    
+        user = interaction.user
+        await open_account(user)
+        users = await get_ticket_data()
+    
+        name = users[str(user.id)]["pet name"]
+ 
+        if users[str(user.id)]["petfood"] == 0:
+            await interaction.response.send_message("you dont have any pet food buy some with !shop and !buy")
+            
+        elif users[str(user.id)]["petfood"] > 0:
+            users[str(user.id)]["petfood"] -= 1
+            users[str(user.id)]["pet_hunger"] += 5
+            if users[str(user.id)]["pet_hunger"] > 10:
+                users[str(user.id)]["pet_hunger"] = 10
+            await interaction.response.send_message(f"you feed {name} munches away happerly")
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f, indent=4)
+    
+    @discord.ui.button(label = "meds", style = discord.ButtonStyle.primary)
+    async def meds(self, button, interaction):
+    
+        user = interaction.user
+        await open_account(user)
+        users = await get_ticket_data()
+
+        if users[str(user.id)]["petmed"] == 0:
+            await interaction.response.send_message(f"you dont have any meds for {name} but some with /shop buy")
+            
+        elif users[str(user.id)]["petmed"] > 0:
+            users[str(user.id)]["petmed"] -= 1
+            if users[str(user.id)]["pet_sickness"] == 1:
+                users[str(user.id)]["pet_sickness"] = 0
+                await interaction.response.send_message(f"{name} is no longer sick")
+
+            elif users[str(user.id)]["pet_sickness"] == 0:
+                users[str(user.id)]["pet_health"] - 5
+                await interaction.response.send_message(f"{name} wasnt sick but now he looks worce for wear")
+        
+    @discord.ui.button(label = "play", style= discord.ButtonStyle.primary)
+    async def play(self, button, interaction):
+
+        user = interaction.user
+        await open_account(user)
+        users = await get_ticket_data()
+        fun = random.randint(1,10)
+        
+        await interaction.response.send_message(f"you played with {name} he fun went up by{fun} (this will be upgraded later)")
+        users[str(user.id)]["pet_fun"] += fun
+        if users[str(user.id)]["pet_fun"] > 10:
+            users[str(user.id)]["pet_fun"] = 10
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f, indent=4)
+            
+    @discord.ui.button(label = "clean", style = discord.ButtonStyle.primary)
+    async def clean(self, button, interaction):
+        
+        user = interaction.user
+        await open_account(user)
+        users = await get_ticket_data()
+            
+        await interaction.response.send_message(f"you gave {name} a bath")
+        users[str(user.id)]["pet_clean"] = 10
+        
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f, indent=4)
+
+
 @pets.command(description = "sets your pet")
 async def pick(ctx, *, message = None):
     await ctx.response.defer()
@@ -1969,85 +2151,6 @@ async def name(ctx,message = None):
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
         
-            
-@pets.command(description = "feed your pet")
-async def feed(ctx):
-    await ctx.response.defer()
-    
-    await open_account(ctx.author)
-    user = ctx.author
-    users = await get_ticket_data()
-    
-    name = users[str(user.id)]["pet name"]
- 
-    if users[str(user.id)]["petfood"] == 0:
-        await ctx.followup.send("you dont have any pet food buy some with !shop and !buy")
-            
-    elif users[str(user.id)]["petfood"] > 0:
-        users[str(user.id)]["petfood"] -= 1
-        users[str(user.id)]["pet_hunger"] += 5
-        if users[str(user.id)]["pet_hunger"] > 10:
-            users[str(user.id)]["pet_hunger"] = 10
-        await ctx.followup.send(f"you feed {name} munches away happerly")
-        
-    with open("ticketbank.json","w") as f:
-        json.dump(users,f, indent=4)
-        
-@pets.command(description = "give your pet medicen")
-async def meds(ctx):
-    await ctx.response.defer()
-
-    await open_account(ctx.author)
-    user = ctx.author
-    users = await get_ticket_data()
-
-    if users[str(user.id)]["petmed"] == 0:
-        await ctx.followup.send(f"you dont have any meds for {name} but some with !shop and !buy")
-            
-    elif users[str(user.id)]["petmed"] > 0:
-        users[str(user.id)]["petmed"] -= 1
-        if users[str(user.id)]["pet_sickness"] == 1:
-            users[str(user.id)]["pet_sickness"] = 0
-            await ctx.followup.send(f"{name} is no longer sick")
-
-        elif users[str(user.id)]["pet_sickness"] == 0:
-            users[str(user.id)]["pet_health"] - 5
-            await ctx.followup.send(f"{name} wasnt sick but now he looks worce for wear")
-
-    with open("ticketbank.json","w") as f:
-        json.dump(users,f, indent=4)
-        
-@pets.command(description = "play with your pet")     
-async def play(ctx):
-    await ctx.response.defer()
-    
-    await open_account(ctx.author)
-    user = ctx.author
-    users = await get_ticket_data()
-    fun = random.randint(1,10)
-        
-    await ctx.followup.send(f"you played with {name} he fun went up by{fun} (this will be upgraded later)")
-    users[str(user.id)]["pet_fun"] += fun
-    if users[str(user.id)]["pet_fun"] > 10:
-        users[str(user.id)]["pet_fun"] = 10
-        
-    with open("ticketbank.json","w") as f:
-        json.dump(users,f, indent=4)
-        
-@pets.command(description = "clean your pet")
-async def clean(ctx):
-    await ctx.response.defer()
-
-    await open_account(ctx.author)
-    user = ctx.author
-    users = await get_ticket_data()
-            
-    await ctx.followup.send(f"you gave {name} a bath")
-    users[str(user.id)]["pet_clean"] = 10
-        
-    with open("ticketbank.json","w") as f:
-        json.dump(users,f, indent=4)
-        
 @oimate.slash_command(name ="testt", description = "this is a commarnd to check hidden pet stats")
 async def testt(ctx):
     await ctx.response.defer()
@@ -2104,9 +2207,9 @@ async def check(ctx):
     face = face.resize((38,39))
     
     
-    if ticket[str(user.id)]["snowman_cursed"] > 0: # check to see if the user has effects or not befor sitting in the chair
+    if users[str(user.id)]["snowman_cursed"] > 0: # check to see if the user has effects or not befor sitting in the chair
         you = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/snowman_curse.png")
-    elif ticket[str(user.id)]["splat"] > 0:
+    elif users[str(user.id)]["splat"] > 0:
         banana = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/banana.png")
         you.paste(banana, (0,0), banana)
     else:
@@ -2217,9 +2320,25 @@ async def check(ctx):
         home.paste(monkey, (0,0), monkey)
 
         home.save("/home/pi/Desktop/monkey bot discord/img/pet/monkey_home.png", "PNG")
+        
+        if users[str(user.id)]["pet name"] == "":
+        
+            em=discord.Embed(title = "pet")
+            
+        elif users[str(user.id)]["pet name"] != "":
+            
+            pname = users[str(user.id)]["pet name"]
+            em=discord.Embed(title = f"{pname}")
+            
+            
+        file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/monkey_home.png")
+        em.set_author(name = (ctx.author.name))
+        em.set_image(url="attachment://monkey_home.png")
+        em.add_field(name = f"your have {food} 🥫 left", value = f"you have {med} 💊 left", inline = True)
+        await ctx.followup.send(file = file, embed=em, view = petview())
 
-        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/monkey_home.png"))
-        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
+#        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/monkey_home.png"))
+#        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}", view=petview())
         os.remove("/home/pi/Desktop/monkey bot discord/img/pet/monkey_home.png") 
     
     elif users[str(user.id)]["active_pet"] == "snowman":
@@ -2302,9 +2421,25 @@ async def check(ctx):
         home.paste(snowman,(0,0),snowman)
         
         home.save("/home/pi/Desktop/monkey bot discord/img/pet/snowman_home.png", "PNG")
+        
+        if users[str(user.id)]["pet name"] == "":
+        
+            em=discord.Embed(title = "pet")
+            
+        elif users[str(user.id)]["pet name"] != "":
+            
+            pname = users[str(user.id)]["pet name"]
+            em=discord.Embed(title = f"{pname}")
+            
+            
+        file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/snowman_home.png")
+        em.set_author(name = (ctx.author.name))
+        em.set_image(url="attachment://snowman_home.png")
+        em.add_field(name = f"your have {food} 🥫 left", value = f"you have {med} 💊 left", inline = True)
+        await ctx.followup.send(file = file, embed=em, view = petview())
     
-        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/snowman_home.png"))
-        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
+#        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/snowman_home.png"))
+#        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
         os.remove("/home/pi/Desktop/monkey bot discord/img/pet/snowman_home.png")  
     
     elif users[str(user.id)]["active_pet"] == "fish":
@@ -2384,15 +2519,40 @@ async def check(ctx):
         
         
         home.save("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png", "PNG")
+        
+        if users[str(user.id)]["pet name"] == "":
+        
+            em=discord.Embed(title = "pet")
+            
+        elif users[str(user.id)]["pet name"] != "":
+            
+            pname = users[str(user.id)]["pet name"]
+            em=discord.Embed(title = f"{pname}")
+            
+            
+        file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png")
+        em.set_author(name = (ctx.author.name))
+        em.set_image(url="attachment://fish_home.png")
+        em.add_field(name = f"your have {food} 🥫 left", value = f"you have {med} 💊 left", inline = True)
+        await ctx.followup.send(file = file, embed=em, view = petview())
     
-        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png"))
-        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
+#        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png"))
+#        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
         os.remove("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png")  
         
     elif users[str(user.id)]["active_pet"] == "":
-        home.save("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png", "PNG")
-        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png"))
-        await ctx.send(f"you dont have a active in your pet pocket ther is {pet_monkey} 🐒 | {pet_snowman} ⛄ | {pet_fish} 🐟 \n more pets coming soon:tm:")
+        
+        home.save("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png")
+        
+        file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png")
+        em=discord.Embed(title = "no pet")
+        em.set_author(name = (ctx.author.name))
+        em.set_image(url="attachment://you_home.png")
+        em.add_field(name = f"you dont have a active in your pet pocket ther is {pet_monkey} 🐒 | {pet_snowman} ⛄ | {pet_fish} 🐟", value = "if u dont have a pet try shaking the banana tree or go fishing", inline = True)
+        await ctx.followup.send(file = file, embed=em)
+        
+#        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png"))
+#        await ctx.send(f"you dont have a active in your pet pocket ther is {pet_monkey} 🐒 | {pet_snowman} ⛄ | {pet_fish} 🐟 \n more pets coming soon:tm:")
         os.remove("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png")
         
     os.remove("/home/pi/Desktop/monkey bot discord/img/pet/face.png")
