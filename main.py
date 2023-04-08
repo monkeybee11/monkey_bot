@@ -2214,8 +2214,6 @@ async def testt(ctx):
 async def check(ctx):
     await ctx.response.defer()
     
-    global t1,t2,t3,b1,b2,b3
-    
     await open_account(ctx.author)
     users = await get_ticket_data()
     user = ctx.author
