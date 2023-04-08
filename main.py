@@ -2,7 +2,7 @@
 ## if you are reading this on github and your not monkey 99.9% of the comments are for me 4 weeks later from typing the code so sry if theres to much comments for you XD ##
 ############################################################################################################################################################################
 from datetime import time , timezone, datetime as clock
-import discord, asyncio, os, json, random, requests, python_weather, openai, better_profanity
+import discord, asyncio, os, json, random, requests, python_weather
 from discord.ui import Button , View
 from discord.ext import commands, tasks
 from pynput.keyboard import Key, Controller
@@ -17,9 +17,7 @@ os.chdir("/home/pi/Desktop/monkey bot discord")
 load_dotenv()
 
 token = getenv("monkey_bot")
-openai.api_key = getenv('OPENAI_API_KEY')
 
-canTalk = False
 
 # to do list
 # come up with more games
@@ -37,6 +35,9 @@ t3 = ""
 b1 = ""
 b2 = ""
 b3 = ""
+f1 = ""
+f2 = ""
+f3 = ""
 
 # these are veriables im using for banana game
 # the targets they get set to the user and target for banana game so
@@ -82,78 +83,6 @@ async def on_application_command_error(ctx, error):
 #if this block of code is empty im not testing anything
 #this is just so im able to find it in like 4 weeks time
 # and me proberly forgotten how to use python :P
-
-@talk.command(description = "start talking to monkeybot")
-async def start(ctx):
-    global canTalk
-    
-    canTalk = True
-    
-    await ctx.response.defer()
-    
-    #turn on profanity filter
-    better_profanity.load_censor_words()
-    
-    #chat GPT3 stuff
-    brain = "text-davinci-002" = # one of GPT3 model engins
-    prompt = "huh who what errr IM UP IM UP monkeybot is ready"
-    gpt3 = openai.Model(engine = brain)
-    
-    #start using GPT3
-    while canTalk == True:
-        try:
-            await check_api_calls()
-            
-            # Check if the current month is the same as the last API call month
-            current_month = datetime.datetime.now().month
-            if api_calls['last_month'] != current_month:
-                # Reset the API call count
-                api_calls['last_month'] = current_month
-                api_calls['count'] = 0
-
-            # Increment the API call count
-            api_calls['count'] += 1
-            
-            if api_calls['count'] <= 80000:
-            
-                #wait for someone to say something
-                message = await oimate.wait_for("message", check=lambda m: m.channel == ctx.channel and m.author != bot.user)
-                #generate a responce
-                response = gpt3.generate(prompt= message.content, max_tokens=1024, n=1, stop=None, temperature=0.5, )[0]["text"].strip()
-            
-                # check if he said a bad word
-                if better_profanity.check(response):
-                    await message.channel.send("***washes mouth out with soap***")
-            
-                else:
-                
-                    await message.channel.send(response)
-            
-            elif api_calls['count'] >= 80000:
-                
-                await message.channel.send("sorry my api calls are used up for this mounth")
-        
-        except Exception as e:
-            print(f"Error:{e}")
-            await ctx.folloup.send(f"Error: {e}")
-            
-@talk.command(description = "stop monkeybot form talking back")
-async def stop(ctx):
-    global canTalk
-    
-    await ctx.response.defer()
-    
-    canTalk = False
-    
-    await ctx.follorup.send("ok back to bed")
-    
-    
-asyc def check_api_calls():
-    with open("api_calls.json", "r") as f:
-        api_calls = json.load(f)
-    
-    
-
 
 ###########################################
 ##         your pocket                   ##
@@ -225,6 +154,8 @@ async def open_account(user):
         users[str(user.id)]["fun_tick"] = 10
         users[str(user.id)]["clean_tick"] = 10
         users[str(user.id)]["pet name"] = ""
+        
+        users[str(user.id)]["size"] = 0
 
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
@@ -343,12 +274,13 @@ async def choco_loop():
 @tasks.loop(hours=1)
 async def trophy_check():
     
-    global t1, t2, t3 ,b1 ,b2 ,b3
+    global t1, t2, t3 ,b1 ,b2 ,b3, f1, f2, f3
     with open("ticketbank.json","r") as f:
         users = json.load(f)
         
         ticket_check = sorted(users.items(), key=lambda x: x[1]["ticket"], reverse=True)
         banana_check = sorted(users.items(), key=lambda x: x[1]["banana"], reverse=True)
+        fish_check = sorted(users.items(), key=lambda x: x[1]["size"], reverse=True)
         
         t1 = int(ticket_check[0][0])
         t2 = int(ticket_check[1][0])
@@ -356,6 +288,9 @@ async def trophy_check():
         b1 = int(banana_check[0][0])
         b2 = int(banana_check[1][0])
         b3 = int(banana_check[2][0])
+        f1 = int(fish_check[0][0])
+        f2 = int(fish_check[1][0])
+        f3 = int(fish_check[2][0])
         
         
             
@@ -927,12 +862,13 @@ async def ten(ctx,score = None):
     
     ticket = ["ticket", "tickets"]
     banana = ["banana", "bananas"]
+    fish = ["fish", "fishs"]
     
 
         
-    if score in banana or score in ticket:
+    if score in banana or score in ticket or score in fish:
     
-        global b1,b2,b3,t1,t2,t3
+        global b1,b2,b3,t1,t2,t3,f1,f2,f3
     
         users = await get_ticket_data()
         
@@ -940,10 +876,13 @@ async def ten(ctx,score = None):
             score = "ticket"
         elif score in banana:
             score = "banana"
+        elif score in fish:
+            score = "size"
 
     
         # reverse sort by ticket number in user dictionary ty sebi
         users_sorted = sorted(users.items(), key=lambda x: x[1][score], reverse=True)
+        print(score)
         
         if score in banana:
     
@@ -951,6 +890,7 @@ async def ten(ctx,score = None):
             b2 = int(users_sorted[1][0])
             b3 = int(users_sorted[2][0])
             emojii = "<:mnkyThrow:704518598764527687>"
+            start = "top 10 banana holders"
         
         elif score in ticket:
             
@@ -958,8 +898,17 @@ async def ten(ctx,score = None):
             t2 = int(users_sorted[1][0])
             t3 = int(users_sorted[2][0])
             emojii = "<:DanTix:919966342797463552>"
+            start = "top 10 ticket holders"
+            
+        elif score in "size":
+            
+            f1 = int(users_sorted[0][0])
+            f2 = int(users_sorted[1][0])
+            f3 = int(users_sorted[2][0])
+            emojii = ".oz"
+            start = "top ten fishermen"
 
-        em = discord.Embed(title=f"top 10 {score} holders")
+        em = discord.Embed(title=f"{start}")
         placement = 0
         user_name = 0
         user_banana = 0
@@ -1008,16 +957,16 @@ async def scoop(ctx):
     users = await get_ticket_data()
     user = ctx.author
 
-    if check_weather in snow and snowRANDOM == 1:
-    #if snowRANDOM == 1:
+    if check_weather in snow and snowRANDOM == 1:  #### disable this around christmas time
+    #if snowRANDOM == 1:  #### enabled this around christmas time
 
         users[str(user.id)]["snowball"] += 1
         snow_get = users[str(user.id)]["snowball"]
             
         await ctx.followup.send(f"{user.name} gathered a snowball \n you now have {snow_get}")
 
-    elif check_weather in snow and snowRANDOM == 2:
-    #elif snowRANDOM == 2:
+    elif check_weather in snow and snowRANDOM == 2:  ###disable this around christmas time
+    #elif snowRANDOM == 2:  ### enable this around chrimas time
 
         stash = random.randint(1,5)
         pet_event = random.randint(1,100)
@@ -1037,8 +986,8 @@ async def scoop(ctx):
             
             await ctx.followup.send(f"you found a pet snowman at the back of the hidden stash YAY COOL PET ....get it ....snow....cool....ill leave now \n {ctx.author.name} has {pet_amount} :snowman:")
             
-    elif check_weather in snow and snowRANDOM == 3:
-    #elif snowRANDOM == 3:
+    elif check_weather in snow and snowRANDOM == 3:   ###disable this around christmas time
+    #elif snowRANDOM == 3:    ###enable this around christmas time
 
         await ctx.followup.send(f"{user.name} was a bout to scoop up some snow when they heard some one yelling ***next time dont wear yellow tinted goggles***")
         
@@ -1201,6 +1150,8 @@ class REV(discord.ui.View):
 @oimate.event 
 async def on_message(message):
     
+    global canTalk
+    
     await open_account(message.author)
     users = await get_ticket_data()
     user = message.author
@@ -1224,7 +1175,7 @@ async def on_message(message):
         json.dump(users,f, indent=4)
         
         
-    event = random.randint(1,100)
+    event = random.randint(1,150)
     if event == 1 and message.guild.id != 672546027672436749: #not checking if message came from choco factory they woud have a hissyfit
         channel = oimate.get_channel(951151130153451560) #send message to my testing channel for now change this to carnival games later :) (look in to maby using threads)
         
@@ -1239,8 +1190,10 @@ async def on_message(message):
         await channel.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_closed.png"),view =REV(timeout=(2*60*60)))
         
         os.remove("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_closed.png")
-            
         
+        
+    
+
     await oimate.process_commands(message)
                     
     
@@ -1977,6 +1930,8 @@ async def fishing(ctx):
 
     fishsize = round(random.uniform(0.8,1500),2) #cm
     fishweight = random.randint(8,42624) # OZ
+    
+    score = users[str(user.id)]["size"]
 
     if cast == 60:
         
@@ -1999,6 +1954,12 @@ async def fishing(ctx):
         fishbed.set_thumbnail(url="https://www.emoji.co.uk/files/twitter-emojis/activity-twitter/10839-fishing-pole-and-fish.png")
         fishbed.add_field(name =f"{ctx.author.name}has fished up a {named_fish}", value = f"its {fishsize}cm and  weighs {fishweight} OZ", inline = True)
         await ctx.send(embed = fishbed)
+        
+        if fishweight > users[str(user.id)]["size"]:
+            users[str(user.id)]["size"] = fishweight
+            
+            with open("ticketbank.json" ,"w") as f:
+                json.dump(users,f, indent=4)
         
         fish[str(user.id)]["fish name"].append(named_fish)
         
@@ -2255,7 +2216,6 @@ async def check(ctx):
     
     global t1,t2,t3,b1,b2,b3
     
-    
     await open_account(ctx.author)
     users = await get_ticket_data()
     user = ctx.author
@@ -2312,6 +2272,15 @@ async def check(ctx):
     elif ctx.author.id == b3:
         b = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/banana3.png")
         home.paste(b,(0,0),b)
+    if ctx.author.id == f1:
+        fish_trophy = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/fish3.png")
+        home.paste(fish_trophy, (109, 26), fish_trophy)
+    elif ctx.author.id == f2:
+        fish_trophy = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/fish2.png")
+        home.paste(fish_trophy, (109, 26), fish_trophy)
+    elif ctx.author.id == f3:
+        fish_trophy = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/fish1.png")
+        home.paste(fish_trophy, (109, 26), fish_trophy)
         
     if users[str(user.id)]["active_pet"] == "monkey":
         
@@ -2414,6 +2383,7 @@ async def check(ctx):
 
 #        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/monkey_home.png"))
 #        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}", view=petview())
+        await asyncio.sleep(2*60*60)
         os.remove("/home/pi/Desktop/monkey bot discord/img/pet/monkey_home.png") 
     
     elif users[str(user.id)]["active_pet"] == "snowman":
@@ -2515,6 +2485,7 @@ async def check(ctx):
     
 #        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/snowman_home.png"))
 #        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
+        await asyncio.sleep(2*60*60)
         os.remove("/home/pi/Desktop/monkey bot discord/img/pet/snowman_home.png")  
     
     elif users[str(user.id)]["active_pet"] == "fish":
@@ -2613,6 +2584,7 @@ async def check(ctx):
     
 #        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png"))
 #        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
+        await asyncio.sleep(2*60*60)
         os.remove("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png")  
         
     elif users[str(user.id)]["active_pet"] == "":
@@ -2628,6 +2600,7 @@ async def check(ctx):
         
 #        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png"))
 #        await ctx.send(f"you dont have a active in your pet pocket ther is {pet_monkey} 🐒 | {pet_snowman} ⛄ | {pet_fish} 🐟 \n more pets coming soon:tm:")
+        await asyncio.sleep(2*60*60)
         os.remove("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png")
         
     os.remove("/home/pi/Desktop/monkey bot discord/img/pet/face.png")

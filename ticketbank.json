@@ -1,32 +1,33 @@
 {
     "113051316225368064": {
-        "ticket": 105,
-        "banana": 9,
+        "ticket": 168,
+        "banana": 14,
         "snowball": 43,
         "ccracker": 0,
         "snowman_cursed": 0,
         "splat": 0,
         "name": "monkeybee11",
         "active_pet": "monkey",
-        "clean_tick": 3,
-        "fish": 15,
-        "fun_tick": 8,
+        "clean_tick": 1,
+        "fish": 16,
+        "fun_tick": 5,
         "health_tick": 10,
-        "hunger_tick": 2,
+        "hunger_tick": 10,
         "monkey": 1,
-        "pet_clean": 9,
+        "pet_clean": 10,
         "pet_freeze": 0,
-        "pet_fun": 9,
+        "pet_fun": 10,
         "pet_health": 10,
-        "pet_hunger": 6,
+        "pet_hunger": 10,
         "pet_sickness": 0,
-        "petfood": 1,
+        "petfood": 3,
         "petmed": 1,
         "snowman": 0,
         "pet_run": 10,
         "pet name": "chimp",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 28870
     },
     "119791596681166848": {
         "ticket": 116,
@@ -54,7 +55,8 @@
         "snowman": 0,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "122654163443253248": {
         "ticket": 0,
@@ -82,7 +84,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "123225235565576194": {
         "ticket": 0,
@@ -110,7 +113,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "145967344663920640": {
         "ticket": 0,
@@ -138,7 +142,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "155149108183695360": {
         "ticket": 0,
@@ -166,7 +171,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "159985870458322944": {
         "ticket": 0,
@@ -194,7 +200,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "172002275412279296": {
         "ticket": 0,
@@ -222,7 +229,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "188390368990068736": {
         "ticket": 0,
@@ -250,7 +258,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "189609572930027530": {
         "ticket": 0,
@@ -278,7 +287,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "193472614826639361": {
         "ticket": 0,
@@ -306,7 +316,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "194856011855560704": {
         "ticket": 0,
@@ -334,7 +345,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "204243184321036288": {
         "ticket": 0,
@@ -362,7 +374,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "204255221017214977": {
         "ticket": 0,
@@ -390,7 +403,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "210232841726853121": {
         "ticket": 1,
@@ -418,7 +432,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "223494649275351041": {
         "ticket": 0,
@@ -446,7 +461,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "237194159826403329": {
         "ticket": 0,
@@ -474,7 +490,8 @@
         "snowman": 0,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "247170379376885761": {
         "ticket": 8,
@@ -502,7 +519,8 @@
         "snowman": 0,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "248118818679947264": {
         "ticket": 0,
@@ -530,7 +548,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "248812333910982656": {
         "ticket": 0,
@@ -558,7 +577,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "259432586806296578": {
         "ticket": 0,
@@ -586,7 +606,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "265105169115643904": {
         "ticket": 13,
@@ -614,7 +635,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "266276312577081347": {
         "ticket": 0,
@@ -642,7 +664,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "267358202574798848": {
         "ticket": 0,
@@ -670,7 +693,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "270362847459016704": {
         "ticket": 0,
@@ -698,7 +722,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "276898982188548117": {
         "ticket": 0,
@@ -726,7 +751,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "288749797161304074": {
         "ticket": 0,
@@ -754,7 +780,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "292953664492929025": {
         "ticket": 0,
@@ -782,7 +809,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "293757414182748160": {
         "ticket": 0,
@@ -810,7 +838,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "298535319891083264": {
         "ticket": 0,
@@ -838,7 +867,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "301935589207572480": {
         "ticket": 0,
@@ -866,7 +896,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "312625880532779010": {
         "ticket": 0,
@@ -894,7 +925,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "313755255596908546": {
         "ticket": 0,
@@ -922,7 +954,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "326084708536680448": {
         "ticket": 0,
@@ -950,7 +983,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "326610755061415937": {
         "ticket": 0,
@@ -958,7 +992,7 @@
         "snowball": 0,
         "ccracker": 0,
         "snowman_cursed": 0,
-        "splat": 1,
+        "splat": 0,
         "name": "",
         "active_pet": "",
         "clean_tick": 10,
@@ -978,7 +1012,8 @@
         "snowman": 0,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "332577307690532875": {
         "ticket": 0,
@@ -1006,7 +1041,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "356157927545110539": {
         "ticket": 0,
@@ -1034,7 +1070,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "372598447380889602": {
         "ticket": 0,
@@ -1062,7 +1099,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "373852837974638594": {
         "ticket": 0,
@@ -1090,7 +1128,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "395343090979962891": {
         "ticket": 0,
@@ -1118,7 +1157,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "403701087393284108": {
         "ticket": 0,
@@ -1146,7 +1186,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "417644838872285244": {
         "ticket": 0,
@@ -1174,7 +1215,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "418506082126921738": {
         "ticket": 0,
@@ -1202,7 +1244,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "431118756073439250": {
         "ticket": 1,
@@ -1230,7 +1273,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "510016054391734273": {
         "ticket": 0,
@@ -1258,7 +1302,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "527912385621524531": {
         "ticket": 0,
@@ -1286,7 +1331,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "534415154960400422": {
         "ticket": 0,
@@ -1314,7 +1360,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "557646284652019722": {
         "ticket": 0,
@@ -1342,7 +1389,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "596691269502369824": {
         "ticket": 0,
@@ -1370,7 +1418,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "638767099313127434": {
         "ticket": 0,
@@ -1398,7 +1447,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "672571682656878592": {
         "ticket": 0,
@@ -1426,7 +1476,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "677507114389733386": {
         "ticket": 0,
@@ -1454,7 +1505,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "687022924992872481": {
         "ticket": 0,
@@ -1482,7 +1534,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "703920222066966529": {
         "ticket": 0,
@@ -1510,7 +1563,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "713586207119900693": {
         "ticket": 0,
@@ -1538,7 +1592,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "719806770133991434": {
         "ticket": 0,
@@ -1566,7 +1621,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "733747298487631874": {
         "ticket": 0,
@@ -1594,7 +1650,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "739533175826677860": {
         "ticket": 0,
@@ -1622,7 +1679,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "749949654153560156": {
         "ticket": 0,
@@ -1650,7 +1708,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "777153702347407380": {
         "ticket": 0,
@@ -1678,7 +1737,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "778626108270051368": {
         "ticket": 0,
@@ -1706,7 +1766,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "788126107173912636": {
         "ticket": 6,
@@ -1734,7 +1795,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "846907195018706974": {
         "ticket": 0,
@@ -1762,7 +1824,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "888413581815717938": {
         "ticket": 0,
@@ -1790,7 +1853,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "897240104265990174": {
         "ticket": 0,
@@ -1818,7 +1882,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "897240154668933192": {
         "ticket": 0,
@@ -1846,7 +1911,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "910611247546908723": {
         "ticket": 0,
@@ -1874,7 +1940,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "929918116195086407": {
         "ticket": 0,
@@ -1902,7 +1969,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "936852541755523082": {
         "ticket": 0,
@@ -1930,7 +1998,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "951930623105318952": {
         "ticket": 0,
@@ -1958,7 +2027,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "357623961485312000": {
         "ticket": 0,
@@ -1986,7 +2056,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "777151820899811349": {
         "ticket": 0,
@@ -2014,7 +2085,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "656621136808902656": {
         "ticket": 0,
@@ -2042,7 +2114,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "843927008253968404": {
         "ticket": 0,
@@ -2070,7 +2143,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "959266341569851533": {
         "ticket": 0,
@@ -2098,7 +2172,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "959278532385730570": {
         "ticket": 0,
@@ -2126,7 +2201,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "959278533560127489": {
         "ticket": 0,
@@ -2154,7 +2230,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "959284085623226439": {
         "ticket": 0,
@@ -2182,7 +2259,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "95638032232751104": {
         "ticket": 0,
@@ -2210,7 +2288,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "739936819721797642": {
         "ticket": 0,
@@ -2238,7 +2317,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "557628352828014614": {
         "ticket": 0,
@@ -2266,7 +2346,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "939954661228699735": {
         "ticket": 0,
@@ -2294,7 +2375,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "849672491386273802": {
         "ticket": 0,
@@ -2322,7 +2404,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "863967363765370901": {
         "ticket": 0,
@@ -2350,7 +2433,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "959648267099070486": {
         "ticket": 0,
@@ -2378,7 +2462,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "519288685473169423": {
         "ticket": 0,
@@ -2406,7 +2491,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "804406672986341406": {
         "ticket": 0,
@@ -2434,7 +2520,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "414925323197612032": {
         "ticket": 0,
@@ -2462,7 +2549,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "777150195535314945": {
         "ticket": 0,
@@ -2490,7 +2578,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "268199018104881169": {
         "ticket": 0,
@@ -2518,7 +2607,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "907709452508086372": {
         "ticket": 0,
@@ -2546,7 +2636,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "112682500052049920": {
         "ticket": 0,
@@ -2574,7 +2665,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "844318227742982145": {
         "ticket": 0,
@@ -2602,7 +2694,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "751040045019824249": {
         "ticket": 0,
@@ -2630,7 +2723,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "346734296200904704": {
         "ticket": 1,
@@ -2658,7 +2752,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "485448289064321024": {
         "ticket": 0,
@@ -2686,7 +2781,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "740182419210108990": {
         "ticket": 0,
@@ -2714,7 +2810,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "372116496979329028": {
         "ticket": 0,
@@ -2742,7 +2839,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "971383561598959676": {
         "ticket": 0,
@@ -2770,7 +2868,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "660943171047653376": {
         "ticket": 0,
@@ -2798,7 +2897,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "176299196205236224": {
         "ticket": 0,
@@ -2826,7 +2926,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "932911342636134400": {
         "ticket": 0,
@@ -2854,7 +2955,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "618457568309805087": {
         "ticket": 0,
@@ -2882,7 +2984,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "973679984470290462": {
         "ticket": 0,
@@ -2910,7 +3013,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "424723262702878720": {
         "ticket": 0,
@@ -2938,7 +3042,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "873277822435749909": {
         "ticket": 0,
@@ -2966,7 +3071,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "299234615644913664": {
         "ticket": 0,
@@ -2994,7 +3100,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "962237973296988210": {
         "ticket": 0,
@@ -3022,7 +3129,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "275761591947886592": {
         "ticket": 0,
@@ -3050,7 +3158,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "112755318806568960": {
         "ticket": 0,
@@ -3078,7 +3187,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "963625308550996048": {
         "ticket": 0,
@@ -3106,7 +3216,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "758781427097141308": {
         "ticket": 0,
@@ -3134,7 +3245,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "976018254923444284": {
         "ticket": 0,
@@ -3162,7 +3274,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "220402459468759042": {
         "ticket": 0,
@@ -3190,7 +3303,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "725221789529014467": {
         "ticket": 0,
@@ -3218,7 +3332,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "688202466315206661": {
         "ticket": 0,
@@ -3246,7 +3361,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "975938372260474920": {
         "ticket": 0,
@@ -3274,7 +3390,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "692981398927048734": {
         "ticket": 0,
@@ -3302,7 +3419,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "922595972494811226": {
         "ticket": 0,
@@ -3330,7 +3448,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "796675554308259872": {
         "ticket": 0,
@@ -3358,7 +3477,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "976074263935205416": {
         "ticket": 0,
@@ -3386,7 +3506,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "963172411077976204": {
         "ticket": 0,
@@ -3414,7 +3535,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "649057335167418368": {
         "ticket": 0,
@@ -3442,7 +3564,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "701731464818982962": {
         "ticket": 0,
@@ -3470,7 +3593,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "294882584201003009": {
         "ticket": 0,
@@ -3498,7 +3622,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "697009529769951239": {
         "ticket": 0,
@@ -3526,7 +3651,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "361488133176688641": {
         "ticket": 0,
@@ -3554,7 +3680,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "305518777129500682": {
         "ticket": 0,
@@ -3582,7 +3709,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "983760533004099654": {
         "ticket": 0,
@@ -3610,7 +3738,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "170847814648201216": {
         "ticket": 0,
@@ -3638,7 +3767,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "261397666989080576": {
         "ticket": 0,
@@ -3666,7 +3796,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "983771615806500934": {
         "ticket": 0,
@@ -3694,7 +3825,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "496132305425924116": {
         "ticket": 0,
@@ -3722,7 +3854,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "296385922797273106": {
         "ticket": 0,
@@ -3750,7 +3883,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "103656512899022848": {
         "ticket": 0,
@@ -3778,7 +3912,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "485117853939269635": {
         "ticket": 0,
@@ -3806,7 +3941,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "104792151757484032": {
         "ticket": 0,
@@ -3834,7 +3970,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "882830800712781834": {
         "ticket": 0,
@@ -3862,7 +3999,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "395474487803510786": {
         "ticket": 0,
@@ -3890,7 +4028,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "697339874725986304": {
         "ticket": 0,
@@ -3918,7 +4057,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "985619177953984552": {
         "ticket": 0,
@@ -3946,7 +4086,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "992034080994635846": {
         "ticket": 0,
@@ -3974,7 +4115,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "765651171750576129": {
         "ticket": 0,
@@ -4002,7 +4144,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "733960365121208392": {
         "ticket": 0,
@@ -4030,7 +4173,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "811456408562040862": {
         "ticket": 0,
@@ -4058,7 +4202,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "697140964824842291": {
         "ticket": 0,
@@ -4086,7 +4231,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "101801214018064384": {
         "ticket": 0,
@@ -4114,7 +4260,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "987332706507587634": {
         "ticket": 0,
@@ -4142,7 +4289,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "264935433006219264": {
         "ticket": 0,
@@ -4170,7 +4318,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "753492931465183251": {
         "ticket": 0,
@@ -4198,7 +4347,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "1003715432395571271": {
         "ticket": 0,
@@ -4226,7 +4376,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "439871544051892224": {
         "ticket": 0,
@@ -4254,7 +4405,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "997185587880665240": {
         "ticket": 0,
@@ -4282,7 +4434,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "269871846025854977": {
         "ticket": 0,
@@ -4310,7 +4463,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "416391291002421268": {
         "ticket": 0,
@@ -4338,7 +4492,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "1007500141843980368": {
         "ticket": 0,
@@ -4366,7 +4521,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "1006117513328869447": {
         "ticket": 0,
@@ -4394,7 +4550,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "832731781231804447": {
         "ticket": 0,
@@ -4422,7 +4579,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "707502572583387187": {
         "ticket": 0,
@@ -4450,7 +4608,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "810018816448528385": {
         "ticket": 15,
@@ -4478,7 +4637,8 @@
         "clean_tick": 3,
         "pet name": "Bahko",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "150776031383519232": {
         "ticket": 0,
@@ -4506,7 +4666,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "315858668316786688": {
         "ticket": 0,
@@ -4534,7 +4695,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "845711313329717319": {
         "ticket": 0,
@@ -4562,7 +4724,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "951214865702334534": {
         "ticket": 0,
@@ -4590,7 +4753,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "471091072546766849": {
         "ticket": 0,
@@ -4618,7 +4782,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "680832384362479651": {
         "ticket": 0,
@@ -4646,7 +4811,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "581848886356869120": {
         "ticket": 0,
@@ -4674,7 +4840,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "1003043338494160906": {
         "ticket": 0,
@@ -4702,7 +4869,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "1015493055949852754": {
         "ticket": 0,
@@ -4730,7 +4898,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "691961209896828938": {
         "ticket": 0,
@@ -4758,7 +4927,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "481962028408242186": {
         "ticket": 0,
@@ -4786,7 +4956,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "148662440442331137": {
         "ticket": 0,
@@ -4814,7 +4985,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "198854822806421505": {
         "ticket": 0,
@@ -4842,7 +5014,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "929575205431554090": {
         "ticket": 0,
@@ -4870,7 +5043,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "345006723507159041": {
         "ticket": 0,
@@ -4898,7 +5072,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "372597661930618901": {
         "ticket": 0,
@@ -4926,7 +5101,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "1025777448178155531": {
         "ticket": 0,
@@ -4954,7 +5130,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "788729343878234133": {
         "ticket": 0,
@@ -4982,7 +5159,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "276858398568611841": {
         "ticket": 0,
@@ -5010,7 +5188,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "88540652144443392": {
         "ticket": 0,
@@ -5038,7 +5217,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "1027638660255989781": {
         "ticket": 0,
@@ -5066,7 +5246,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "608811624983429132": {
         "ticket": 0,
@@ -5094,7 +5275,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "176218923904139265": {
         "ticket": 0,
@@ -5122,7 +5304,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "852039638141894706": {
         "ticket": 0,
@@ -5150,11 +5333,12 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "965989998690189372": {
         "ticket": 4,
-        "banana": 0,
+        "banana": 10,
         "snowball": 5,
         "ccracker": 0,
         "snowman_cursed": 0,
@@ -5178,7 +5362,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "579585958190514206": {
         "ticket": 0,
@@ -5206,7 +5391,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "504276179390300180": {
         "ticket": 0,
@@ -5234,7 +5420,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "885963801562869790": {
         "ticket": 0,
@@ -5262,7 +5449,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "288118759284277248": {
         "ticket": 0,
@@ -5290,7 +5478,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "318823898571341836": {
         "ticket": 0,
@@ -5318,7 +5507,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "292467670207692811": {
         "ticket": 0,
@@ -5346,7 +5536,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "905827203793698897": {
         "ticket": 0,
@@ -5374,7 +5565,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "505364222994284554": {
         "ticket": 0,
@@ -5402,7 +5594,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "973340442819190814": {
         "ticket": 0,
@@ -5430,7 +5623,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "136982941879238657": {
         "ticket": 0,
@@ -5458,7 +5652,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "492521779550486558": {
         "ticket": 0,
@@ -5486,7 +5681,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "723272160105463819": {
         "ticket": 0,
@@ -5514,7 +5710,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "706956886418784266": {
         "ticket": 0,
@@ -5542,7 +5739,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "308387143363985409": {
         "ticket": 0,
@@ -5570,7 +5768,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "514539695263186945": {
         "ticket": 0,
@@ -5598,7 +5797,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "799209643715985419": {
         "ticket": 0,
@@ -5626,7 +5826,8 @@
         "clean_tick": 10,
         "pet name": "",
         "snow_immune": 0,
-        "banana_immune": 0
+        "banana_immune": 0,
+        "size": 0
     },
     "774505207681646632": {
         "ticket": 0,
@@ -5654,7 +5855,8 @@
         "hunger_tick": 10,
         "fun_tick": 10,
         "clean_tick": 10,
-        "pet name": ""
+        "pet name": "",
+        "size": 0
     },
     "879059619547340800": {
         "ticket": 0,
@@ -5682,7 +5884,8 @@
         "hunger_tick": 10,
         "fun_tick": 10,
         "clean_tick": 10,
-        "pet name": ""
+        "pet name": "",
+        "size": 0
     },
     "197534605174243329": {
         "ticket": 0,
@@ -5710,7 +5913,8 @@
         "hunger_tick": 10,
         "fun_tick": 10,
         "clean_tick": 10,
-        "pet name": ""
+        "pet name": "",
+        "size": 0
     },
     "824786988082397216": {
         "ticket": 0,
@@ -5738,6 +5942,36 @@
         "hunger_tick": 10,
         "fun_tick": 10,
         "clean_tick": 10,
-        "pet name": ""
+        "pet name": "",
+        "size": 0
+    },
+    "1092550866931814454": {
+        "ticket": 0,
+        "banana": 0,
+        "snowball": 0,
+        "ccracker": 0,
+        "snowman_cursed": 0,
+        "splat": 0,
+        "name": "",
+        "snow_immune": 0,
+        "banana_immune": 0,
+        "fish": 0,
+        "monkey": 0,
+        "snowman": 0,
+        "petfood": 0,
+        "petmed": 0,
+        "active_pet": "",
+        "pet_hunger": 10,
+        "pet_clean": 10,
+        "pet_health": 10,
+        "pet_fun": 10,
+        "pet_sickness": 0,
+        "pet_freeze": 0,
+        "health_tick": 10,
+        "hunger_tick": 10,
+        "fun_tick": 10,
+        "clean_tick": 10,
+        "pet name": "",
+        "size": 0
     }
 }
