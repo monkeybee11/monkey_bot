@@ -864,9 +864,11 @@ async def ten(ctx,score = None):
     banana = ["banana", "bananas"]
     fish = ["fish", "fishs"]
     
+    list_of_score = [*ticket, *banana, *fish]
+    
 
         
-    if score in banana or score in ticket or score in fish:
+    if score in list_of_score:
     
         global b1,b2,b3,t1,t2,t3,f1,f2,f3
     
@@ -882,7 +884,6 @@ async def ten(ctx,score = None):
     
         # reverse sort by ticket number in user dictionary ty sebi
         users_sorted = sorted(users.items(), key=lambda x: x[1][score], reverse=True)
-        print(score)
         
         if score in banana:
     
@@ -2212,7 +2213,7 @@ async def testt(ctx):
     
 @pets.command(description = "checks on your pet")
 async def check(ctx):
-    await ctx.response.defer()
+    await ctx.response.defer()# still dont know what this dose
     
     await open_account(ctx.author)
     users = await get_ticket_data()
@@ -2235,7 +2236,7 @@ async def check(ctx):
 
     home.paste(char, (0,0), char) #puts a char in the living room
     
-    await ctx.author.display_avatar.save("/home/pi/Desktop/monkey bot discord/img/pet/face.png")
+    await ctx.author.display_avatar.save("/home/pi/Desktop/monkey bot discord/img/pet/face.png") #gets users PFP and saves it as a .png
     face = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/face.png")
     face = face.resize((38,39))
     
@@ -2252,97 +2253,98 @@ async def check(ctx):
         
     home.paste(you, (0,0), you)
     
-    if ctx.author.id == t1:
-        t = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/ticket1.png")
-        home.paste(t,(0,0), t)
-    elif ctx.author.id == t2:
-        t = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/ticket2.png")
-        home.paste(t,(0,0), t)
-    elif ctx.author.id == t3:
-        t = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/ticket3.png")
-        home.paste(t,(0,0), t)
-    if ctx.author.id == b1:
-        b = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/banana1.png")
-        home.paste(b,(0,0),b)
-    elif ctx.author.id == b2:
-        b = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/banana2.png")
-        home.paste(b,(0,0),b)
-    elif ctx.author.id == b3:
-        b = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/banana3.png")
-        home.paste(b,(0,0),b)
-    if ctx.author.id == f1:
-        fish_trophy = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/fish3.png")
-        home.paste(fish_trophy, (109, 26), fish_trophy)
-    elif ctx.author.id == f2:
-        fish_trophy = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/fish2.png")
-        home.paste(fish_trophy, (109, 26), fish_trophy)
-    elif ctx.author.id == f3:
-        fish_trophy = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/top10/fish1.png")
-        home.paste(fish_trophy, (109, 26), fish_trophy)
+########################################################################################
+# put trophys on the wall                                                              #
+                                                                                       #
+    ticket = {t1: "/home/pi/Desktop/monkey bot discord/img/pet/top10/ticket1.png",     #
+              t2: "/home/pi/Desktop/monkey bot discord/img/pet/top10/ticket2.png",     #
+              t3: "/home/pi/Desktop/monkey bot discord/img/pet/top10/ticket3.png"}     #
+                                                                                       #
+    banana = {b1: "/home/pi/Desktop/monkey bot discord/img/pet/top10/banana1.png",     #
+              b2: "/home/pi/Desktop/monkey bot discord/img/pet/top10/banana2.png",     #
+              b3: "/home/pi/Desktop/monkey bot discord/img/pet/top10/banana3.png"}     #
+                                                                                       #
+    fish = {f1: "/home/pi/Desktop/monkey bot discord/img/pet/top10/fish3.png",         #
+            f2: "/home/pi/Desktop/monkey bot discord/img/pet/top10/fish2.png",         #
+            f3: "/home/pi/Desktop/monkey bot discord/img/pet/top10/fish1.png"}         #
+                                                                                       #
+    if ctx.author.id in ticket:                                                        #
+        ticket_trophy = Image.open(ticket[ctx.author.id])                              #
+        home.paste(ticket_trophy,(0,0), ticket_trophy)                                 #
+    if ctx.author.id in banana:                                                        #
+        banana_trophy = Image.open(banana[ctx.author.id])                              #
+        home.paste(banana_trophy,(0,0),banana_trophy)                                  #
+    if ctx.author.id in fish:                                                          #
+        fish_trophy = Image.open(fish[ctx.author.id])                                  #
+        home.paste(fish_trophy, (109, 26), fish_trophy)                                #
+########################################################################################
+
+        
+    draw.text((353, 12), "HUNGER", font = font)
+    if users[str(user.id)]["pet_hunger"] > 8:
+        draw.text((351,45),"🍏 🍏 🍏 🍏 🍏",font = sont)
+    elif users[str(user.id)]["pet_hunger"] == 7 or users[str(user.id)]["pet_hunger"] == 8:
+        draw.text((351,45),"🍏 🍏 🍏 🍏",font = sont)
+    elif users[str(user.id)]["pet_hunger"] == 6 or users[str(user.id)]["pet_hunger"] == 5:
+        draw.text((351,45),"🍏 🍏 🍏",font = sont)
+    elif users[str(user.id)]["pet_hunger"] == 3 or users[str(user.id)]["pet_hunger"] == 4:
+        draw.text((351,45),"🍏 🍏",font = sont)
+    elif users[str(user.id)]["pet_hunger"] == 2 or users[str(user.id)]["pet_hunger"] == 1:
+        draw.text((351,45),"🍏",font = sont)
+    else:
+        draw.text((351,45),"empty",font = font)
+            
+    draw.text((356, 81),"HYGIEN", font=font)
+    if users[str(user.id)]["pet_clean"] >8:
+        draw.text((351,115),"💩 💩 💩 💩 💩",font=sont)
+    elif users[str(user.id)]["pet_clean"] == 8 or users[str(user.id)]["pet_clean"] == 7:
+        draw.text((351,115),"💩 💩 💩 💩",font=sont)
+    elif users[str(user.id)]["pet_clean"] == 5 or users[str(user.id)]["pet_clean"] == 6:
+        draw.text((351,115),"💩 💩 💩",font=sont)
+    elif users[str(user.id)]["pet_clean"] == 4 or users[str(user.id)]["pet_clean"] == 3:
+        draw.text((351,115),"💩 💩",font=sont)
+    elif users[str(user.id)]["pet_clean"] == 2 or users[str(user.id)]["pet_clean"] == 1:
+        draw.text((351,115),"💩",font=sont)
+    else:
+        draw.text((352,115),"empty",font = font)
+        
+    draw.text((354,145),"FUN",font=font)
+    if users[str(user.id)]["active_pet"] == "fish":
+        draw.text((351,175),"N/A  (fish)", font = font)
+    elif users[str(user.id)]["pet_fun"] > 8:
+        draw.text((351,175),"☻ ☻ ☻ ☻ ☻", font = sont)
+    elif users[str(user.id)]["pet_fun"] == 8 or users[str(user.id)]["pet_fun"] == 7:
+        draw.text((351,175),"☻ ☻ ☻ ☻", font = sont)
+    elif users[str(user.id)]["pet_fun"] == 6 or users[str(user.id)]["pet_fun"] == 5:
+        draw.text((351,175),"☻ ☻ ☻", font = sont)
+    elif users[str(user.id)]["pet_fun"] == 4 or users[str(user.id)]["pet_fun"] == 3:
+        draw.text((351,175),"☻ ☻", font = sont)
+    elif users[str(user.id)]["pet_fun"] == 2 or users[str(user.id)]["pet_fun"] == 1:
+        draw.text((351,175),"☻", font = sont)
+    else:
+        draw.text((351,175),"BORED", font = font)
+        
+    draw.text((335,200),"SICKNESS",font=font,size =20)
+    if users[str(user.id)]["pet_sickness"] == 0:
+        draw.text((351,230),"Healthy", font=font)
+    else:
+        draw.text((351,230),"Sick", font=font)
+        
+    draw.text((335,260), "health",font = font)
+    if users[str(user.id)]["pet_health"] > 8:
+        draw.text((351,290),"💙 💙 💙 💙 💙",font = sont,fill = "red")
+    elif users[str(user.id)]["pet_health"] == 8 or users[str(user.id)]["pet_health"] == 7:
+        draw.text((351,290),"💙 💙 💙 💙",font = sont, fill = "red")
+    elif users[str(user.id)]["bet_health"] == 6 or users[str(user.id)]["pet_health"] == 5:
+        draw.text((351,290),"💙 💙 💙", font = sont, fill= "red")
+    elif users[str(user.id)]["pet_health"] == 4 or users[str(user.id)]["pet_health"] == 3:
+        draw.text((351,290),"💙 💙",font = sont, fill="red")
+    elif users[str(user.id)]["pet_health"] == 2 or users[str(user.id)]["pet_health"] == 1:
+        draw.text((351,290),"💙",font = sont, fill = "red")
+    else:
+        draw.text((351,290),"DEAD", font = sont, fill = "red")
         
     if users[str(user.id)]["active_pet"] == "monkey":
-        
-        draw.text((353, 12), "HUNGER", font = font)
-        if users[str(user.id)]["pet_hunger"] > 8:
-            draw.text((351,45),"🍏 🍏 🍏 🍏 🍏",font = sont)
-        elif users[str(user.id)]["pet_hunger"] == 7 or users[str(user.id)]["pet_hunger"] == 8:
-            draw.text((351,45),"🍏 🍏 🍏 🍏",font = sont)
-        elif users[str(user.id)]["pet_hunger"] == 6 or users[str(user.id)]["pet_hunger"] == 5:
-            draw.text((351,45),"🍏 🍏 🍏",font = sont)
-        elif users[str(user.id)]["pet_hunger"] == 3 or users[str(user.id)]["pet_hunger"] == 4:
-            draw.text((351,45),"🍏 🍏",font = sont)
-        elif users[str(user.id)]["pet_hunger"] == 2 or users[str(user.id)]["pet_hunger"] == 1:
-            draw.text((351,45),"🍏",font = sont)
-        else:
-            draw.text((351,45),"empty",font = font)
-            
-        draw.text((356, 81),"HYGIEN", font=font)
-        if users[str(user.id)]["pet_clean"] >8:
-            draw.text((351,115),"💩 💩 💩 💩 💩",font=sont)
-        elif users[str(user.id)]["pet_clean"] == 8 or users[str(user.id)]["pet_clean"] == 7:
-            draw.text((351,115),"💩 💩 💩 💩",font=sont)
-        elif users[str(user.id)]["pet_clean"] == 5 or users[str(user.id)]["pet_clean"] == 6:
-            draw.text((351,115),"💩 💩 💩",font=sont)
-        elif users[str(user.id)]["pet_clean"] == 4 or users[str(user.id)]["pet_clean"] == 3:
-            draw.text((351,115),"💩 💩",font=sont)
-        elif users[str(user.id)]["pet_clean"] == 2 or users[str(user.id)]["pet_clean"] == 1:
-            draw.text((351,115),"💩",font=sont)
-        else:
-            draw.text((352,115),"empty",font = font)
-            
-        draw.text((354,145),"FUN",font=font)
-        if users[str(user.id)]["pet_fun"] > 8:
-            draw.text((351,175),"☻ ☻ ☻ ☻ ☻", font = sont)
-        elif users[str(user.id)]["pet_fun"] == 8 or users[str(user.id)]["pet_fun"] == 7:
-            draw.text((351,175),"☻ ☻ ☻ ☻", font = sont)
-        elif users[str(user.id)]["pet_fun"] == 6 or users[str(user.id)]["pet_fun"] == 5:
-            draw.text((351,175),"☻ ☻ ☻", font = sont)
-        elif users[str(user.id)]["pet_fun"] == 4 or users[str(user.id)]["pet_fun"] == 3:
-            draw.text((351,175),"☻ ☻", font = sont)
-        elif users[str(user.id)]["pet_fun"] == 2 or users[str(user.id)]["pet_fun"] == 1:
-            draw.text((351,175),"☻", font = sont)
-        else:
-            draw.text((351,175),"BORED", font = font)
-            
-        draw.text((335,200),"SICKNESS",font=font,size =20)
-        if users[str(user.id)]["pet_sickness"] == 0:
-            draw.text((351,230),"Healthy", font=font)
-        else:
-            draw.text((351,230),"Sick", font=font)
-            
-        draw.text((335,260), "health",font = font)
-        if users[str(user.id)]["pet_health"] > 8:
-            draw.text((351,290),"💙 💙 💙 💙 💙",font = sont,fill = "red")
-        elif users[str(user.id)]["pet_health"] == 8 or users[str(user.id)]["pet_health"] == 7:
-            draw.text((351,290),"💙 💙 💙 💙",font = sont, fill = "red")
-        elif users[str(user.id)]["bet_health"] == 6 or users[str(user.id)]["pet_health"] == 5:
-            draw.text((351,290),"💙 💙 💙", font = sont, fill= "red")
-        elif users[str(user.id)]["pet_health"] == 4 or users[str(user.id)]["pet_health"] == 3:
-            draw.text((351,290),"💙 💙",font = sont, fill="red")
-        elif users[str(user.id)]["pet_health"] == 2 or users[str(user.id)]["pet_health"] == 1:
-            draw.text((351,290),"💙",font = sont, fill = "red")
-        else:
-            draw.text((351,290),"DEAD", font = sont, fill = "red")
             
         monkey = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/monkey/monkey_normal.png")
             
@@ -2378,76 +2380,10 @@ async def check(ctx):
         em.set_image(url="attachment://monkey_home.png")
         em.add_field(name = f"your have {food} 🥫 left", value = f"you have {med} 💊 left", inline = True)
         await ctx.followup.send(file = file, embed=em, view = petview())
-
-#        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/monkey_home.png"))
-#        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}", view=petview())
-        await asyncio.sleep(2*60*60)
         os.remove("/home/pi/Desktop/monkey bot discord/img/pet/monkey_home.png") 
     
     elif users[str(user.id)]["active_pet"] == "snowman":
 
-        draw.text((353, 12), "HUNGER", font = font)
-        if users[str(user.id)]["pet_hunger"] > 8:
-            draw.text((351,45),"🍏 🍏 🍏 🍏 🍏",font = sont)
-        elif users[str(user.id)]["pet_hunger"] == 7 or users[str(user.id)]["pet_hunger"] == 8:
-            draw.text((351,45),"🍏 🍏 🍏 🍏",font = sont)
-        elif users[str(user.id)]["pet_hunger"] == 6 or users[str(user.id)]["pet_hunger"] == 5:
-            draw.text((351,45),"🍏 🍏 🍏",font = sont)
-        elif users[str(user.id)]["pet_hunger"] == 3 or users[str(user.id)]["pet_hunger"] == 4:
-            draw.text((351,45),"🍏 🍏",font = sont)
-        elif users[str(user.id)]["pet_hunger"] == 2 or users[str(user.id)]["pet_hunger"] == 1:
-            draw.text((351,45),"🍏",font = sont)
-        else:
-            draw.text((351,45),"empty",font = font)
-            
-        draw.text((356, 81),"HYGIEN", font=font)
-        if users[str(user.id)]["pet_clean"] >8:
-            draw.text((351,115),"💩 💩 💩 💩 💩",font=sont)
-        elif users[str(user.id)]["pet_clean"] == 8 or users[str(user.id)]["pet_clean"] == 7:
-            draw.text((351,115),"💩 💩 💩 💩",font=sont)
-        elif users[str(user.id)]["pet_clean"] == 5 or users[str(user.id)]["pet_clean"] == 6:
-            draw.text((351,115),"💩 💩 💩",font=sont)
-        elif users[str(user.id)]["pet_clean"] == 4 or users[str(user.id)]["pet_clean"] == 3:
-            draw.text((351,115),"💩 💩",font=sont)
-        elif users[str(user.id)]["pet_clean"] == 2 or users[str(user.id)]["pet_clean"] == 1:
-            draw.text((351,115),"💩",font=sont)
-        else:
-            draw.text((352,115),"empty",font = font)
-            
-        draw.text((354,145),"FUN",font=font)
-        if users[str(user.id)]["pet_fun"] > 8:
-            draw.text((351,175),"☻ ☻ ☻ ☻ ☻", font = sont)
-        elif users[str(user.id)]["pet_fun"] == 8 or users[str(user.id)]["pet_fun"] == 7:
-            draw.text((351,175),"☻ ☻ ☻ ☻", font = sont)
-        elif users[str(user.id)]["pet_fun"] == 6 or users[str(user.id)]["pet_fun"] == 5:
-            draw.text((351,175),"☻ ☻ ☻", font = sont)
-        elif users[str(user.id)]["pet_fun"] == 4 or users[str(user.id)]["pet_fun"] == 3:
-            draw.text((351,175),"☻ ☻", font = sont)
-        elif users[str(user.id)]["pet_fun"] == 2 or users[str(user.id)]["pet_fun"] == 1:
-            draw.text((351,175),"☻", font = sont)
-        else:
-            draw.text((351,175),"BORED", font = font)
-            
-        draw.text((335,200),"SICKNESS",font=font,size =20)
-        if users[str(user.id)]["pet_sickness"] == 0:
-            draw.text((351,230),"Healthy", font=font)
-        else:
-            draw.text((351,230),"Sick", font=font)
-            
-        draw.text((335,260), "health",font = font)
-        if users[str(user.id)]["pet_health"] > 8:
-            draw.text((351,290),"💙 💙 💙 💙 💙",font = sont,fill = "red")
-        elif users[str(user.id)]["pet_health"] == 8 or users[str(user.id)]["pet_health"] == 7:
-            draw.text((351,290),"💙 💙 💙 💙",font = sont, fill = "red")
-        elif users[str(user.id)]["bet_health"] == 6 or users[str(user.id)]["pet_health"] == 5:
-            draw.text((351,290),"💙 💙 💙", font = sont, fill= "red")
-        elif users[str(user.id)]["pet_health"] == 4 or users[str(user.id)]["pet_health"] == 3:
-            draw.text((351,290),"💙 💙",font = sont, fill="red")
-        elif users[str(user.id)]["pet_health"] == 2 or users[str(user.id)]["pet_health"] == 1:
-            draw.text((351,290),"💙",font = sont, fill = "red")
-        else:
-            draw.text((351,290),"DEAD", font = sont, fill = "red")
-            
         snowman = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/snowman/snowman_normal.png")
         
         if users[str(user.id)]["pet_health"] == 0:
@@ -2480,64 +2416,9 @@ async def check(ctx):
         em.set_image(url="attachment://snowman_home.png")
         em.add_field(name = f"your have {food} 🥫 left", value = f"you have {med} 💊 left", inline = True)
         await ctx.followup.send(file = file, embed=em, view = petview())
-    
-#        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/snowman_home.png"))
-#        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
-        await asyncio.sleep(2*60*60)
         os.remove("/home/pi/Desktop/monkey bot discord/img/pet/snowman_home.png")  
     
     elif users[str(user.id)]["active_pet"] == "fish":
-
-        draw.text((353, 12), "HUNGER", font = font)
-        if users[str(user.id)]["pet_hunger"] > 8:
-            draw.text((351,45),"🍏 🍏 🍏 🍏 🍏",font = sont)
-        elif users[str(user.id)]["pet_hunger"] == 7 or users[str(user.id)]["pet_hunger"] == 8:
-            draw.text((351,45),"🍏 🍏 🍏 🍏",font = sont)
-        elif users[str(user.id)]["pet_hunger"] == 6 or users[str(user.id)]["pet_hunger"] == 5:
-            draw.text((351,45),"🍏 🍏 🍏",font = sont)
-        elif users[str(user.id)]["pet_hunger"] == 3 or users[str(user.id)]["pet_hunger"] == 4:
-            draw.text((351,45),"🍏 🍏",font = sont)
-        elif users[str(user.id)]["pet_hunger"] == 2 or users[str(user.id)]["pet_hunger"] == 1:
-            draw.text((351,45),"🍏",font = sont)
-        else:
-            draw.text((351,45),"empty",font = font)
-            
-        draw.text((356, 81),"HYGIEN", font=font)
-        if users[str(user.id)]["pet_clean"] >8:
-            draw.text((351,115),"💩 💩 💩 💩 💩",font=sont)
-        elif users[str(user.id)]["pet_clean"] == 8 or users[str(user.id)]["pet_clean"] == 7:
-            draw.text((351,115),"💩 💩 💩 💩",font=sont)
-        elif users[str(user.id)]["pet_clean"] == 5 or users[str(user.id)]["pet_clean"] == 6:
-            draw.text((351,115),"💩 💩 💩",font=sont)
-        elif users[str(user.id)]["pet_clean"] == 4 or users[str(user.id)]["pet_clean"] == 3:
-            draw.text((351,115),"💩 💩",font=sont)
-        elif users[str(user.id)]["pet_clean"] == 2 or users[str(user.id)]["pet_clean"] == 1:
-            draw.text((351,115),"💩",font=sont)
-        else:
-            draw.text((352,115),"empty",font = font)
-            
-        draw.text((354,145),"FUN",font=font)
-        draw.text((351,175),"N/A  (fish)", font = font)
-        
-        draw.text((335,215),"SICKNESS",font=font,size =20)
-        if users[str(user.id)]["pet_sickness"] == 0:
-            draw.text((351,245),"Healthy", font=font)
-        else:
-            draw.text((351,237),"Sick", font=font)
-            
-        draw.text((335,270), "health",font = font)
-        if users[str(user.id)]["pet_health"] > 8:
-            draw.text((351,300),"💙 💙 💙 💙 💙",font = sont,fill = "red")
-        elif users[str(user.id)]["pet_health"] == 8 or users[str(user.id)]["pet_health"] == 7:
-            draw.text((351,300),"💙 💙 💙 💙",font = sont, fill = "red")
-        elif users[str(user.id)]["bet_health"] == 6 or users[str(user.id)]["pet_health"] == 5:
-            draw.text((351,300),"💙 💙 💙", font = sont, fill= "red")
-        elif users[str(user.id)]["pet_health"] == 4 or users[str(user.id)]["pet_health"] == 3:
-            draw.text((351,300),"💙 💙",font = sont, fill="red")
-        elif users[str(user.id)]["pet_health"] == 2 or users[str(user.id)]["pet_health"] == 1:
-            draw.text((351,300),"💙",font = sont, fill = "red")
-        else:
-            draw.text((351,300),"DEAD", font = sont, fill = "red")
 
         fishbowl = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/fish/fishbowl.png")
     
@@ -2559,9 +2440,7 @@ async def check(ctx):
         fishbowl.paste(fishwater, (0,0), fishwater)
 
         home.paste(fishbowl, (0, 0), fishbowl)
-        
-        
-        
+
         home.save("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png", "PNG")
         
         if users[str(user.id)]["pet name"] == "":
@@ -2572,17 +2451,12 @@ async def check(ctx):
             
             pname = users[str(user.id)]["pet name"]
             em=discord.Embed(title = f"{pname}")
-            
-            
+                        
         file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png")
         em.set_author(name = (ctx.author.name))
         em.set_image(url="attachment://fish_home.png")
         em.add_field(name = f"your have {food} 🥫 left", value = f"you have {med} 💊 left", inline = True)
         await ctx.followup.send(file = file, embed=em, view = petview())
-    
-#        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png"))
-#        await ctx.send(f"{ctx.author.name} has {food}🥫 in the cupboards | {med} 💊 in the first-aid box | {petname}")
-        await asyncio.sleep(2*60*60)
         os.remove("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png")  
         
     elif users[str(user.id)]["active_pet"] == "":
@@ -2595,10 +2469,7 @@ async def check(ctx):
         em.set_image(url="attachment://you_home.png")
         em.add_field(name = f"you dont have a active in your pet pocket ther is {pet_monkey} 🐒 | {pet_snowman} ⛄ | {pet_fish} 🐟", value = "if u dont have a pet try shaking the banana tree or go fishing", inline = True)
         await ctx.followup.send(file = file, embed=em)
-        
-#        await ctx.followup.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png"))
-#        await ctx.send(f"you dont have a active in your pet pocket ther is {pet_monkey} 🐒 | {pet_snowman} ⛄ | {pet_fish} 🐟 \n more pets coming soon:tm:")
-        await asyncio.sleep(2*60*60)
+
         os.remove("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png")
         
     os.remove("/home/pi/Desktop/monkey bot discord/img/pet/face.png")
