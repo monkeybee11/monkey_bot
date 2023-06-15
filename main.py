@@ -58,6 +58,7 @@ shop = oimate.create_group("shop")
 fish_command = oimate.create_group("fish")
 talk = oimate.create_group("talk")
 weather = oimate.create_group("weather")
+rps = oimate.create_group("rps")
 
 @oimate.event
 async def on_ready(): #this is where the bot brain starts to work
@@ -85,6 +86,188 @@ async def on_application_command_error(ctx, error):
 #if this block of code is empty im not testing anything
 #this is just so im able to find it in like 4 weeks time
 # and me proberly forgotten how to use python :P
+
+#######################################
+##              RPS                  ##
+#######################################
+
+
+class rpsView(discord.ui.View):
+    
+
+    @discord.ui.button(emoji = "<:rock:1118952549093998653>", style= discord.ButtonStyle.primary)
+    async def rock(self, button, interaction):
+        
+        with open("rps.json","r") as f:
+            pick = json.load(f)
+            
+        picked = pick["picked"]
+        pick["picked"] = ""
+        for child in self.children:
+            child.disabled = True
+        
+        if picked == 0:
+            
+            button.style = discord.ButtonStyle.grey
+
+            await interaction.response.edit_message(content="DRAW",view=self)
+            
+            
+        elif picked == 1:
+            
+            pick["lose1"] += 1
+            
+            button.style = discord.ButtonStyle.green
+            button.emoji = "<:rockWIN:1118952552529145946>"
+
+            await interaction.response.edit_message(content="YOU WON",view=self)
+            
+
+            
+        elif picked == 2:
+
+            pick["win1"] += 1
+            
+            button.style = discord.ButtonStyle.red
+            button.emoji = "<:rockLOSE:1118952550419406971>"
+
+            await interaction.response.edit_message(content="YOU LOST",view=self)
+            
+            
+            
+        with open("rps.json","w") as f:
+            json.dump(pick, f, indent=4)
+            
+    @discord.ui.button(emoji = "<:papper:1118952545352683602>", style= discord.ButtonStyle.primary)
+    async def paper(self, button, interaction):
+        
+        with open("rps.json","r") as f:
+            pick = json.load(f)
+            
+        picked = pick["picked"]
+        pick["picked"] = ""
+        for child in self.children:
+            child.disabled = True
+        
+        if picked == 0:
+            pick["lose2"] +=1
+            
+            button.style = discord.ButtonStyle.green
+            button.emoji = "<:none:1118958111403819089>"
+            self.rock.button.style = discord.ButtonStyle.red
+
+            await interaction.response.edit_message(content="YOU WIN",view=self)
+
+            
+        elif picked == 1:
+            
+            button.style = discord.ButtonStyle.gray
+
+            await interaction.response.edit_message(content="DRAW",view=self)
+            
+        elif picked == 2:
+
+            pick["win2"] += 1
+            
+            button.style = discord.ButtonStyle.red
+            button.emoji = "<:papperLOSE:1118952547646980106>"
+
+            await interaction.response.edit_message(content="YOU LOST",view=self)
+            
+        with open("rps.json","w") as f:
+            json.dump(pick, f, indent=4)
+            
+    @discord.ui.button(emoji = "<:sissors:1118952554026508408>", style= discord.ButtonStyle.primary)
+    async def sissors(self, button, interaction):
+        
+        with open("rps.json","r") as f:
+            pick = json.load(f)
+            
+        picked = pick["picked"]
+        pick["picked"] = ""
+        for child in self.children:
+            child.disabled = True
+        
+        if picked == 0:
+            pick["lose3"] +=1
+            
+            button.style = discord.ButtonStyle.green
+            button.emoji = "<:sissorsWIN:1118952557847511051>"
+
+            await interaction.response.edit_message(content="YOU WIN",view=self)
+            
+        elif picked == 1:
+            
+            pick["win3"] +=1
+            
+            button.style = discord.ButtonStyle.red
+            button.emoji = "<:sissorsLOSE:1118952556593430642>"
+
+            await interaction.response.edit_message(content="YOU LOST",view=self)
+            
+        elif picked == 2:
+            
+            button.style = discord.ButtonStyle.gray
+
+            await interaction.response.edit_message(content="DRAW",view=self)
+            
+        with open("rps.json","w") as f:
+            json.dump(pick, f, indent=4)
+            
+            
+            
+    
+@rps.command(description = "play a game of rock papper sissors")
+async def rps(ctx, member:discord.Member):
+
+    await ctx.response.defer()
+    await open_account(ctx.author)
+    await open_account(member)
+    user = ctx.author
+    users = await get_ticket_data()
+    
+    if member.id == 788126107173912636: #monkeybots user id
+        
+        rpslist = ["r","p","s"]
+        
+        choise = random.randint(1,4) #little randomness wont hert even if hes remembering what options won and lost the most
+        
+        with open("rps.json","r") as f:
+            pick = json.load(f)
+            
+        pick["picked"] = ""
+        
+        with open("rps.json","w") as f:
+            json.dump(pick, f, indent=4)
+            
+        win1 = pick["win1"]
+        win2 = pick["win2"]
+        win3 = pick["win3"]
+        lose1 = pick["lose1"]
+        lose2 = pick["lose2"]
+        lose3 = pick["lose3"]
+        
+        r = str(choise + win1 - lose1)
+        p = str(choise + win2 - lose2)
+        s = str(choise + win3 - lose3)
+        
+        play = random.choices(rpslist, weights = [int(r), int(p), int(s)])
+        #print(play)
+        pick["picked"] = rpslist.index(play[0])
+        pick["games"] += 1
+        
+        with open("rps.json", "w") as f:
+            json.dump(pick, f, indent=4)
+        
+        await ctx.followup.send("so you wanna play......ok ready? roooooock pappppper sissssssors.....SHOOT", view=rpsView())
+        
+        #user clicks button picking there move
+    elif member.id != 788126107173912636:
+        
+        await ctx.followup.send("sry this commarnd is still being worked on try picking monkeybot as your target for now")
+        
+        
+
 
 ###########################################
 ##         your pocket                   ##
@@ -158,6 +341,9 @@ async def open_account(user):
         users[str(user.id)]["pet name"] = ""
         
         users[str(user.id)]["size"] = 0
+        
+        #games
+        users[str(user.id)]["rps"] = ""
 
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
@@ -720,7 +906,7 @@ class weather_view(discord.ui.View):
             
 @weather.command(description = "have a look at the choco chimp.co weather ins-ta-toot")
 async def center(ctx, location= None):
-    await ctx.response.defer()
+    #await ctx.response.defer()
     
     global l
 
@@ -728,10 +914,10 @@ async def center(ctx, location= None):
         
         l = location
     
-        await ctx.followup.send("wellcome to the choco chimp.co weather ins-ta-toot",file = discord.File("/home/pi/Desktop/monkey bot discord/img/weather/weather_center.png"), view=weather_view(timeout=30))
+        await ctx.interaction.response.send_message("wellcome to the choco chimp.co weather ins-ta-toot",file = discord.File("/home/pi/Desktop/monkey bot discord/img/weather/weather_center.png"), view=weather_view(timeout=30), ephemeral=True)
         
     elif location == None:
-        await ctx.followup.send("u didt give me a location")
+        await ctx.interaction.response.send_message("u didt give me a location", ephemeral=True)
 
 ############################################
 ##            ticket shop                 ##
@@ -1269,7 +1455,7 @@ async def on_message(message):
         
         
     event = random.randint(1,150)
-    if event == 1 and message.guild.id != 672546027672436749: #not checking if message came from choco factory they woud have a hissyfit
+    if event == 1 and (message.guild.id != 672546027672436749 or message.get_channel != 947297842882551898): #not checking if message came from choco factory they woud have a hissyfit
         channel = oimate.get_channel(951151130153451560) #send message to my testing channel for now change this to carnival games later :) (look in to maby using threads)
         
         background = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/background.png")
@@ -1973,11 +2159,12 @@ async def tank(ctx,member:discord.Member,amount = None ):
 ###########################
 
 class Fish_Vew(discord.ui.View):
-    
+
     async def on_timeout(self):
         for child in self.children:
             child.disabled = True
-            await self.message.edit(content="awww your fish got away", view=self)
+        await self.message.edit(content="awwww your fish got away", view=self)
+
         
     @discord.ui.button(label = "REELIN!!", style= discord.ButtonStyle.primary)
     async def reel(self, button, interaction):
@@ -2070,7 +2257,7 @@ async def fishing(ctx):
     fish_bite = random.randint(1,35)
     fish_timer = 30
     
-    await ctx.followup.send(f"{ctx.author.name} casts their line 🎣 ...") 
+    await ctx.followup.send(f"{ctx.author.name} casts their line 🎣 ...")
     
     for i in range(fish_timer, 0, -1):
         await asyncio.sleep(1)
@@ -2079,9 +2266,9 @@ async def fishing(ctx):
             break
         
     if fish_timer == fish_bite:
-        await ctx.edit(content=f"{user.name}s rod HAS A BITE!!!",view=Fish_Vew(timeout=5))
+        await ctx.send(content=f"{user.name}s rod HAS A BITE!!!",view=Fish_Vew(timeout=5))
     elif fish_timer == 0:
-        await ctx.edit(content=f"{user.name}s rod didt even get a nibble",view=None)
+        await ctx.send(content=f"{user.name}s rod didt even get a nibble",view=None)
 
             
 @fish_command.command(description = "slap someone with the fish u caught")
@@ -2149,6 +2336,7 @@ class petview(discord.ui.View):
         user = interaction.user
         await open_account(user)
         users = await get_ticket_data()
+        name = users[str(user.id)]["pet name"]
 
         if users[str(user.id)]["petmed"] == 0:
             await interaction.response.send_message(f"you dont have any meds for {name} but some with /shop buy")
@@ -2162,6 +2350,9 @@ class petview(discord.ui.View):
             elif users[str(user.id)]["pet_sickness"] == 0:
                 users[str(user.id)]["pet_health"] - 5
                 await interaction.response.send_message(f"{name} wasnt sick but now he looks worce for wear")
+                
+        with open("ticketbank.json","w") as f:
+            json.dump(users,f, indent=4)
         
     @discord.ui.button(label = "play", style= discord.ButtonStyle.primary)
     async def play(self, button, interaction):
@@ -2170,6 +2361,7 @@ class petview(discord.ui.View):
         await open_account(user)
         users = await get_ticket_data()
         fun = random.randint(1,10)
+        name = users[str(user.id)]["pet name"]
         
         await interaction.response.send_message(f"you played with {name} he fun went up by{fun} (this will be upgraded later)")
         users[str(user.id)]["pet_fun"] += fun
@@ -2185,6 +2377,7 @@ class petview(discord.ui.View):
         user = interaction.user
         await open_account(user)
         users = await get_ticket_data()
+        name = users[str(user.id)]["pet name"]
             
         await interaction.response.send_message(f"you gave {name} a bath")
         users[str(user.id)]["pet_clean"] = 10
