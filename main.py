@@ -1,8 +1,8 @@
 ############################################################################################################################################################################
 ## if you are reading this on github and your not monkey 99.9% of the comments are for me 4 weeks later from typing the code so sry if theres to much comments for you XD ##
 ############################################################################################################################################################################
-from datetime import time , timezone, datetime as clock
-import discord, asyncio, os, json, random, requests, python_weather, subprocess
+from datetime import time , timezone, datetime as clock, timedelta
+import discord, asyncio, os, json, random, requests, python_weather, subprocess, csv
 from discord.ui import Button , View
 from discord.ext import commands, tasks
 from pynput.keyboard import Key, Controller
@@ -13,7 +13,7 @@ import datetime
 from io import BytesIO
 
 
-os.chdir("/home/pi/Desktop/monkey bot discord")
+os.chdir("/home/monkeybee11/Desktop/monkey bot discord")
 
 load_dotenv()
 
@@ -59,6 +59,8 @@ fish_command = oimate.create_group("fish")
 talk = oimate.create_group("talk")
 weather = oimate.create_group("weather")
 rps = oimate.create_group("rps")
+do = oimate.create_group("deckedout")
+
 
 @oimate.event
 async def on_ready(): #this is where the bot brain starts to work
@@ -95,7 +97,7 @@ async def on_application_command_error(ctx, error):
 class rpsView(discord.ui.View):
     
 
-    @discord.ui.button(emoji = "<:rock:1118952549093998653>", style= discord.ButtonStyle.primary)
+    @discord.ui.button(emoji = "<:rock:1118952549093998653>", style= discord.ButtonStyle.primary, custom_id="rocky")
     async def rock(self, button, interaction):
         
         with open("rps.json","r") as f:
@@ -109,6 +111,7 @@ class rpsView(discord.ui.View):
         if picked == 0:
             
             button.style = discord.ButtonStyle.grey
+            button.label = "both"
 
             await interaction.response.edit_message(content="DRAW",view=self)
             
@@ -119,6 +122,11 @@ class rpsView(discord.ui.View):
             
             button.style = discord.ButtonStyle.green
             button.emoji = "<:rockWIN:1118952552529145946>"
+            sissorsbutton =[x for x in self.children if x.custom_id=="sissory"][0]
+            sissorsbutton.style = discord.ButtonStyle.red
+            sissorsbutton.emoji = "<:sissorsLOSE:1118952556593430642>"
+            button.label = interaction.user.name
+            sissorsbutton.label = "monkeybot"
 
             await interaction.response.edit_message(content="YOU WON",view=self)
             
@@ -130,6 +138,11 @@ class rpsView(discord.ui.View):
             
             button.style = discord.ButtonStyle.red
             button.emoji = "<:rockLOSE:1118952550419406971>"
+            papperbutton =[x for x in self.children if x.custom_id=="pappery"][0]
+            papperbutton.style = discord.ButtonStyle.green
+            papperbutton.emoji = "<:none:1118958111403819089>"
+            button.label = interaction.user.name
+            papperbutton.label = "monkeybot"
 
             await interaction.response.edit_message(content="YOU LOST",view=self)
             
@@ -138,7 +151,7 @@ class rpsView(discord.ui.View):
         with open("rps.json","w") as f:
             json.dump(pick, f, indent=4)
             
-    @discord.ui.button(emoji = "<:papper:1118952545352683602>", style= discord.ButtonStyle.primary)
+    @discord.ui.button(emoji = "<:papper:1118952545352683602>", style= discord.ButtonStyle.primary, custom_id="pappery")
     async def paper(self, button, interaction):
         
         with open("rps.json","r") as f:
@@ -154,7 +167,11 @@ class rpsView(discord.ui.View):
             
             button.style = discord.ButtonStyle.green
             button.emoji = "<:none:1118958111403819089>"
-            self.rock.button.style = discord.ButtonStyle.red
+            rockbutton =[x for x in self.children if x.custom_id=="rocky"][0]
+            rockbutton.style = discord.ButtonStyle.red
+            rockbutton.emoji = "<:rockLOSE:1118952550419406971>"
+            button.label = interaction.user.name
+            rockbutton.label = "monkeybot"
 
             await interaction.response.edit_message(content="YOU WIN",view=self)
 
@@ -162,6 +179,7 @@ class rpsView(discord.ui.View):
         elif picked == 1:
             
             button.style = discord.ButtonStyle.gray
+            button.label = "both"
 
             await interaction.response.edit_message(content="DRAW",view=self)
             
@@ -171,13 +189,18 @@ class rpsView(discord.ui.View):
             
             button.style = discord.ButtonStyle.red
             button.emoji = "<:papperLOSE:1118952547646980106>"
+            sissorsbutton =[x for x in self.children if x.custom_id=="sissory"][0]
+            sissorsbutton.style = discord.ButtonStyle.green
+            sissorsbutton.emoji = "<:sissorsWIN:1118952557847511051>"
+            button.label = interaction.user.name
+            sissorsbutton.label = "monkeybot"
 
             await interaction.response.edit_message(content="YOU LOST",view=self)
             
         with open("rps.json","w") as f:
             json.dump(pick, f, indent=4)
             
-    @discord.ui.button(emoji = "<:sissors:1118952554026508408>", style= discord.ButtonStyle.primary)
+    @discord.ui.button(emoji = "<:sissors:1118952554026508408>", style= discord.ButtonStyle.primary, custom_id="sissory")
     async def sissors(self, button, interaction):
         
         with open("rps.json","r") as f:
@@ -189,25 +212,38 @@ class rpsView(discord.ui.View):
             child.disabled = True
         
         if picked == 0:
-            pick["lose3"] +=1
-            
-            button.style = discord.ButtonStyle.green
-            button.emoji = "<:sissorsWIN:1118952557847511051>"
 
-            await interaction.response.edit_message(content="YOU WIN",view=self)
-            
-        elif picked == 1:
-            
             pick["win3"] +=1
             
             button.style = discord.ButtonStyle.red
             button.emoji = "<:sissorsLOSE:1118952556593430642>"
+            rockbutton =[x for x in self.children if x.custom_id=="rocky"][0]
+            rockbutton.style = discord.ButtonStyle.green
+            rockbutton.emoji = "<:rockWIN:1118952552529145946>"
+            button.label = interaction.user.name
+            rockbutton.label = "monkeybot"
 
             await interaction.response.edit_message(content="YOU LOST",view=self)
+
+            
+        elif picked == 1:
+
+            pick["lose3"] +=1
+            
+            button.style = discord.ButtonStyle.green
+            button.emoji = "<:sissorsWIN:1118952557847511051>"
+            papperbutton =[x for x in self.children if x.custom_id=="pappery"][0]
+            papperbutton.style = discord.ButtonStyle.red
+            papperbutton.emoji = "<:papperLOSE:1118952547646980106>"
+            button.label = interaction.user.name
+            papperbutton.label = "monkeybot"
+
+            await interaction.response.edit_message(content="YOU WIN",view=self)
             
         elif picked == 2:
             
             button.style = discord.ButtonStyle.gray
+            button.label = "both"
 
             await interaction.response.edit_message(content="DRAW",view=self)
             
@@ -457,7 +493,7 @@ async def pet(ctx):
 async def choco_loop():
     channel = oimate.get_channel(672550204213297174)
     await channel.send('<@&888038726154993714> oi oi paycheck time come and get your<:galixy_cookie:1086380582080086057><:galixy_cookie:1086380582080086057><:galixy_cookie:1086380582080086057>') 
-    
+
 
 @tasks.loop(hours=1)
 async def trophy_check():
@@ -621,8 +657,115 @@ async def d20(ctx):
     await ctx.response.defer()
     
     roll = random.randint(1,20)
-    await ctx.followup.send(file = discord.File(f"/home/pi/Desktop/monkey bot discord/img/dice/gif/D20_{roll}.gif"))
+    await ctx.followup.send(file = discord.File(f"/home/monkeybee11/Desktop/monkey bot discord/img/dice/gif/D20_{roll}.gif"))
+    
+    
+#############################
+##    decked out stuff     ##
+#############################
+
+@do.command(description="monkeybot will help u pick a card")
+async def pick(ctx, card1: str = None, card2: str = None, card3: str = None, card4: str = None):
+    await ctx.response.defer()
+
+    # Create a list of the options
+    options = [card1, card2, card3, card4]
+
+    # Remove any None values from the list
+    options = [option for option in options if option is not None]
+
+    # Randomly select an option
+    picked_option = random.choice(options)
+
+    await ctx.followup.send(f"how about you pick {picked_option}?")
+    
+    
+@do.command(description="check out players deck")
+async def deck(ctx, playername: str = None):
+
+    await ctx.response.defer()
+    
+    if playername == "monkeybee":
+        sheet_id = 1715902524
+    elif playername == "dan":
+        sheet_id = 1971408694
+    elif playername == "kuya":
+        sheet_id = 272789619
+    elif playername == "kiz":
+        sheet_id = 1685723413
         
+    
+    command = f'wget --output-file="logs.csv" "https://docs.google.com/spreadsheets/d/1zCOWZDasd9zMeLcy35R1X3ElnTSSN7OvoMMSY3eGjko/export?format=csv&gid={sheet_id}" -O "downloaded_content.csv"'
+    
+    subprocess.run(command, shell=True)
+    
+    with open("downloaded_content.csv", "r") as csvfile:
+        reader_variable = csv.reader(csvfile, delimiter=",")
+        cells = []
+        for row in reader_variable:
+            cells.append(row)
+       
+    # [up/down][left/right]   
+    embed_common = discord.Embed(title = f"{playername}'s deck (common)", colour = discord.Colour.light_gray())
+    embed_common.add_field( name = f"{cells[3][3]}", value = f"{cells[3][1]}" , inline = True)
+    embed_common.add_field( name = f"{cells[4][3]}", value = f"{cells[4][1]}", inline = True)
+    embed_common.add_field( name = f"{cells[5][3]}" , value = f"{cells[5][1]}", inline = True)
+    embed_common.add_field( name = f"{cells[6][3]}" , value = f"{cells[6][1]}", inline = True)
+    
+    embed_uncommon = discord.Embed(title = f"{playername}'s deck (uncommon)", colour = discord.Colour.green())
+    embed_uncommon.add_field( name = f"{cells[9][3]}" , value = f"{cells[9][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[10][3]}" , value = f"{cells[10][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[11][3]}" , value = f"{cells[11][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[12][3]}" , value = f"{cells[12][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[13][3]}" , value = f"{cells[13][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[14][3]}" , value = f"{cells[14][1]}", inline = True)  
+    embed_uncommon.add_field( name = f"{cells[15][3]}" , value = f"{cells[15][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[16][3]}" , value = f"{cells[16][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[17][3]}" , value = f"{cells[17][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[18][3]}" , value = f"{cells[18][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[19][3]}" , value = f"{cells[19][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[20][3]}" , value = f"{cells[20][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[21][3]}" , value = f"{cells[21][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[22][3]}" , value = f"{cells[22][1]}", inline = True)
+    embed_uncommon.add_field( name = f"{cells[23][3]}" , value = f"{cells[23][1]}", inline = True)
+    
+    embed_rare = discord.Embed(title = f"{playername}'s deck (rare)", colour = discord.Colour.blue())
+    embed_rare.add_field( name = f"{cells[3][13]}" , value = f"{cells[3][11]}", inline = True)
+    embed_rare.add_field( name = f"{cells[4][13]}" , value = f"{cells[4][11]}", inline = True)
+    embed_rare.add_field( name = f"{cells[5][13]}" , value = f"{cells[5][11]}", inline = True)
+    embed_rare.add_field( name = f"{cells[6][13]}" , value = f"{cells[6][11]}", inline = True)
+    embed_rare.add_field( name = f"{cells[7][13]}" , value = f"{cells[7][11]}", inline = True)
+    embed_rare.add_field( name = f"{cells[8][13]}" , value = f"{cells[8][11]}", inline = True)
+    embed_rare.add_field( name = f"{cells[9][13]}" , value = f"{cells[9][11]}", inline = True)
+    embed_rare.add_field( name = f"{cells[10][13]}" , value = f"{cells[10][11]}", inline = True)
+    embed_rare.add_field( name = f"{cells[11][13]}" , value = f"{cells[11][11]}", inline = True)
+    embed_rare.add_field( name = f"{cells[12][13]}" , value = f"{cells[12][11]}", inline = True)
+    embed_rare.add_field( name = f"{cells[13][13]}" , value = f"{cells[13][11]}", inline = True)
+    embed_rare.add_field( name = f"{cells[14][13]}" , value = f"{cells[14][11]}", inline = True)
+    
+    embed_legendary = discord.Embed(title = f"{playername}'s deck (legendary)", colour = discord.Colour.purple())
+    embed_legendary.add_field( name = f"{cells[17][13]}" , value = f"{cells[17][11]}", inline = True)
+    embed_legendary.add_field( name = f"{cells[18][13]}" , value = f"{cells[18][11]}", inline = True)
+    embed_legendary.add_field( name = f"{cells[19][13]}" , value = f"{cells[19][11]}", inline = True)
+    embed_legendary.add_field( name = f"{cells[20][13]}" , value = f"{cells[20][11]}", inline = True)
+    embed_legendary.add_field( name = f"{cells[21][13]}" , value = f"{cells[21][11]}", inline = True)
+    
+    embed_ethereals = discord.Embed(title = f"{playername}'s deck (etheral)", colour = discord.Colour.gold())
+    embed_ethereals.add_field( name = f"{cells[24][13]}" , value = f"{cells[24][11]}", inline = True)
+    embed_ethereals.add_field( name = f"{cells[25][13]}" , value = f"{cells[25][11]}", inline = True)
+    embed_ethereals.add_field( name = f"{cells[26][13]}" , value = f"{cells[26][11]}", inline = True)
+    embed_ethereals.add_field( name = f"{cells[27][13]}" , value = f"{cells[27][11]}", inline = True)
+    
+    await ctx.followup.send(embed = embed_common)
+    await ctx.send(embed = embed_uncommon)
+    await ctx.send(embed = embed_rare)
+    await ctx.send(embed = embed_legendary)
+    await ctx.send(embed = embed_ethereals)
+    await ctx.send(f" {playername} has {cells[1][1]} cards in there deck")
+    
+    os.remove("/home/monkeybee11/Desktop/monkey bot discord/downloaded_content.csv")
+    os.remove("/home/monkeybee11/Desktop/monkey bot discord/logs.csv")
+    
 #############################
 ##     get others wet      ##
 #############################
@@ -817,7 +960,7 @@ class weather_view(discord.ui.View):
         if select.values[0] == "emoji":
             
             
-            client = python_weather.Client(format=python_weather.METRIC)
+            client = python_weather.Client(unit=python_weather.METRIC)
             weather = await client.get(f"{l}")
             weather_check = weather.current.description
 
@@ -863,38 +1006,38 @@ class weather_view(discord.ui.View):
             
             cmd = f"curl wttr.in/{l}.png --output weather.png"
             subprocess.call(cmd, shell=True)
-            weather = Image.open("/home/pi/Desktop/monkey bot discord/weather.png")
-            cencor_bar = Image.open("/home/pi/Desktop/monkey bot discord/img/weather/cencor_bar.png")
+            weather = Image.open("/home/monkeybee11/Desktop/monkey bot discord/weather.png")
+            cencor_bar = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/weather/cencor_bar.png")
             
             weather.paste(cencor_bar, (0,0), cencor_bar)
             
-            weather.save("/home/pi/Desktop/monkey bot discord/weather.png")
+            weather.save("/home/monkeybee11/Desktop/monkey bot discord/weather.png")
             
-            await interaction.response.send_message(file = discord.File("/home/pi/Desktop/monkey bot discord/weather.png"))
+            await interaction.response.send_message(file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/weather.png"))
             
-            os.remove("/home/pi/Desktop/monkey bot discord/weather.png")
+            os.remove("/home/monkeybee11/Desktop/monkey bot discord/weather.png")
             
         elif select.values[0] == "data rich report":
             
             cmd = f"curl v2.wttr.in/{l}.png --output weather.png"
             subprocess.call(cmd, shell=True)
-            weather = Image.open("/home/pi/Desktop/monkey bot discord/weather.png")
-            cencor_bar = Image.open("/home/pi/Desktop/monkey bot discord/img/weather/cencor_bar_1.png")
+            weather = Image.open("/home/monkeybee11/Desktop/monkey bot discord/weather.png")
+            cencor_bar = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/weather/cencor_bar_1.png")
             
             weather.paste(cencor_bar, (0,0), cencor_bar)
             
-            weather.save("/home/pi/Desktop/monkey bot discord/weather.png")
+            weather.save("/home/monkeybee11/Desktop/monkey bot discord/weather.png")
             
-            await interaction.response.send_message(file = discord.File("/home/pi/Desktop/monkey bot discord/weather.png"))
+            await interaction.response.send_message(file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/weather.png"))
             
-            os.remove("/home/pi/Desktop/monkey bot discord/weather.png")
+            os.remove("/home/monkeybee11/Desktop/monkey bot discord/weather.png")
             
         elif select.values[0] == "moon":
             
             cmd = f"curl wttr.in/moon.png --output weather.png"
             subprocess.call(cmd, shell=True)
-            await interaction.response.send_message(file = discord.File("/home/pi/Desktop/monkey bot discord/weather.png"))
-            os.remove("/home/pi/Desktop/monkey bot discord/weather.png")
+            await interaction.response.send_message(file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/weather.png"))
+            os.remove("/home/monkeybee11/Desktop/monkey bot discord/weather.png")
             
         elif select.values[0] == "weather map WIP":
             
@@ -914,7 +1057,7 @@ async def center(ctx, location= None):
         
         l = location
     
-        await ctx.interaction.response.send_message("wellcome to the choco chimp.co weather ins-ta-toot",file = discord.File("/home/pi/Desktop/monkey bot discord/img/weather/weather_center.png"), view=weather_view(timeout=30), ephemeral=True)
+        await ctx.interaction.response.send_message("wellcome to the choco chimp.co weather ins-ta-toot",file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/img/weather/weather_center.png"), view=weather_view(timeout=30), ephemeral=True)
         
     elif location == None:
         await ctx.interaction.response.send_message("u didt give me a location", ephemeral=True)
@@ -1222,30 +1365,21 @@ async def scoop(ctx):
     
     global snow
 
-    client = python_weather.Client(format=python_weather.IMPERIAL)
-
-    #fetch a weather forcast from a city
-    weather = await client.get("Boston")
-    
 
     snowRANDOM = random.randint(1,3)
-
-    check_weather = weather.current.description
     
     await open_account(ctx.author)
     users = await get_ticket_data()
     user = ctx.author
 
-    if check_weather in snow and snowRANDOM == 1:  #### disable this around christmas time
-    #if snowRANDOM == 1:  #### enabled this around christmas time
+    if snowRANDOM == 1:
 
         users[str(user.id)]["snowball"] += 1
         snow_get = users[str(user.id)]["snowball"]
             
         await ctx.followup.send(f"{user.name} gathered a snowball \n you now have {snow_get}")
 
-    elif check_weather in snow and snowRANDOM == 2:  ###disable this around christmas time
-    #elif snowRANDOM == 2:  ### enable this around chrimas time
+    elif snowRANDOM == 2:
 
         stash = random.randint(1,5)
         pet_event = random.randint(1,100)
@@ -1265,19 +1399,13 @@ async def scoop(ctx):
             
             await ctx.followup.send(f"you found a pet snowman at the back of the hidden stash YAY COOL PET ....get it ....snow....cool....ill leave now \n {ctx.author.name} has {pet_amount} :snowman:")
             
-    elif check_weather in snow and snowRANDOM == 3:   ###disable this around christmas time
-    #elif snowRANDOM == 3:    ###enable this around christmas time
+    elif snowRANDOM == 3:
 
         await ctx.followup.send(f"{user.name} was a bout to scoop up some snow when they heard some one yelling ***next time dont wear yellow tinted goggles***")
         
-
-    else:
-        await ctx.followup.send("there is no snow on the ground")
         
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
-
-    await client.close()
 
 
 @snows.command(description = "throws a snowball at someone")
@@ -1367,59 +1495,59 @@ class REV(discord.ui.View):
         
         mimic = random.randint(1,5)
         prize = random.randint(1,50)
-        background = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/background.png")
-        open_chest = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_open.png")
+        background = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/background.png")
+        open_chest = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_open.png")
         
         background.paste(open_chest, (211, 160),open_chest)
         
         if mimic == 1:
             
-            chest_loot = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_loot_1.png")
+            chest_loot = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_loot_1.png")
             background.paste(chest_loot, (241, 160), chest_loot)
-            background.save("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
+            background.save("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
             
             users[str(user.id)]["banana"] += prize
             
-            await interaction.followup.send(f"<@!{user.id}> opened the chest and found a wonderfull amount of {prize} <:mnkyThrow:704518598764527687> ",file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
+            await interaction.followup.send(f"<@!{user.id}> opened the chest and found a wonderfull amount of {prize} <:mnkyThrow:704518598764527687> ",file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
             
         elif mimic == 2:
             
-            chest_loot = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_loot_2.png")
+            chest_loot = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_loot_2.png")
             background.paste(chest_loot, (241, 160),chest_loot)
-            background.save("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
+            background.save("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
             
             users[str(user.id)]["splat"] += 10
             
-            await interaction.followup.send(f"<@!{user.id}> opened the chest and found a grumpy monkey who threw a banana at your face",file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
+            await interaction.followup.send(f"<@!{user.id}> opened the chest and found a grumpy monkey who threw a banana at your face",file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
             
         elif mimic == 3:
             
-            chest_loot = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_loot_3.png")
+            chest_loot = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_loot_3.png")
             background.paste(chest_loot, (241, 160),chest_loot)
-            background.save("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
+            background.save("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
             
             users[str(user.id)]["snowman_cursed"] += 10
             
-            await interaction.followup.send(f"<@!{user.id}> opened the chest and found a evil snowman you are now cursed",file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
+            await interaction.followup.send(f"<@!{user.id}> opened the chest and found a evil snowman you are now cursed",file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
             
         elif mimic == 4:
             
-            chest_loot = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_loot_4.png")
+            chest_loot = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_loot_4.png")
             background.paste(chest_loot, (241, 160),chest_loot)
-            background.save("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
+            background.save("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
             
             users[str(user.id)]["ticket"] += prize
             
-            await interaction.followup.send(f"<@!{user.id}> opened the chest and found a hand full of <:DanTix:919966342797463552> you got {prize} of them",file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
+            await interaction.followup.send(f"<@!{user.id}> opened the chest and found a hand full of <:DanTix:919966342797463552> you got {prize} of them",file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
             
         elif mimic == 5:
             
-            background.save("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
+            background.save("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
             
-            await interaction.followup.send("you opened the chest but all you found was some dust",file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
+            await interaction.followup.send("you opened the chest but all you found was some dust",file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png"))
 
             
-        os.remove("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
+        os.remove("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_opened.png")
         
         with open("ticketbank.json","w") as f:
             json.dump(users,f, indent=4)
@@ -1452,23 +1580,28 @@ async def on_message(message):
             
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
+  
+    if user.id == 112755318806568960:
+        pizza = random.randint(0,20)
+        if pizza == 20:
+            await message.add_reaction("<:DanPineapplePizza:529042928257990657>")
         
         
     event = random.randint(1,150)
     if event == 1 and (message.guild.id != 672546027672436749 or message.get_channel != 947297842882551898): #not checking if message came from choco factory they woud have a hissyfit
         channel = oimate.get_channel(951151130153451560) #send message to my testing channel for now change this to carnival games later :) (look in to maby using threads)
         
-        background = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/background.png")
-        chest = Image.open("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_close.png")
+        background = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/background.png")
+        chest = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_close.png")
         
         background.paste(chest,(242,175),chest)
         
-        background.save("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_closed.png")
+        background.save("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_closed.png")
         
         await channel.send(f"<@!{user.id}> HAS TRIGGERED A RANDOM EVENT!!!!!!")
-        await channel.send(file = discord.File("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_closed.png"),view =REV(timeout=(2*60*60)))
+        await channel.send(file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_closed.png"),view =REV(timeout=(2*60*60)))
         
-        os.remove("/home/pi/Desktop/monkey bot discord/img/randomEVENT/chest_closed.png")
+        os.remove("/home/monkeybee11/Desktop/monkey bot discord/img/randomEVENT/chest_closed.png")
         
         
     
@@ -1489,10 +1622,6 @@ async def shake(ctx):
     await open_account(ctx.author)
     users = await get_ticket_data()
     user = ctx.author
-    
-    client = python_weather.Client(format=python_weather.METRIC)
-    weather = await client.get("Boston")
-    weather_check = weather.current.description
 
     tree_chance = ["1_banana", "bad_shake", "2_banana", "pet"] #we make a list of the random options
     randomList = random.choices( tree_chance, weights=(50, 50, 50, 1), k=1) # weighted the random chances so some options happen more then others , k=howmeny options form the list we want
@@ -1521,48 +1650,10 @@ async def shake(ctx):
         f"{ctx.author.name} shook the banana tree and a disco ball fell down and went SMASH",
         f"{ctx.author.name} shook the banana tree and angered a monkey you now have monkey poop on your head and no banans",
         f"{ctx.author.name} gave the banana tree a good few shakes but nothing droped down",
-        f"{ctx.author.name} shoot the banana tree and a coconut droped in there head OWCH.....how did that get in a banana tree anyway?",
+        f"{ctx.author.name} shook the banana tree and a coconut droped in there head OWCH.....how did that get in a banana tree anyway?",
         f"{ctx.author.name} gave the banana tree a good shake but a empty 1969 LEGO satun V rocket box fell on your head",
+        f"{ctx.author.name} shook the banana tree and a strange contraption with a poped bloon fell out the tree.....the dice seems to of landed on {random.randint(1,20)}"
         ]
-        
-        muddy = [
-        f" the rain at the jungleparty has made the ground muddy {ctx.author.name} sliiped in the mud befor getting to a tree",
-        f" with all the rain in the jungle party latly the tree was to slippery and {ctx.author.name} coudnt get a grip",
-        f" {ctx.author.name} saw a really nice rain puddle and got distracting jumping in it",
-        f" {ctx.author.name} shock the tree but all that did was make the rain water it was holding drop on your head",
-        ]
-        
-        if weather_check in rainy:
-            
-            uhoh.extend(muddy)
-
-        ohno = len(uhoh)
-        quack = random.randrange(ohno)
-        RUN = uhoh[quack]
-
-        if quack == 1:
-
-
-            users[str(user.id)]["banana"] -= 1
-            if users[str(user.id)]["banana"] < 0:
-                users[str(user.id)]["banana"] = 0
-
-            with open("ticketbank.json","w") as f:
-                json.dump(users,f, indent=4)
-
-        elif quack == 3:
-            
-            users[str(user.id)]["banana"] = 0
-
-            with open("ticketbank.json","w") as f:
-                json.dump(users,f, indent=4)
-                
-        banana_amount = users[str(user.id)]["banana"]
-        shakebed=discord.Embed(title= "BANANA GAME", colour = discord.Colour.gold())
-        shakebed.set_author(name = (ctx.author.name))
-        shakebed.set_thumbnail(url="https://cdn.discordapp.com/emojis/729464173783810130.webp?size=96&quality=lossless")
-        shakebed.add_field(name =f"{RUN}" , value =f"you now have {banana_amount} <:mnkyThrow:704518598764527687>", inline = True)
-        await ctx.followup.send(embed=shakebed)
 
     elif randomList == ["2_banana"]:
         
@@ -1601,8 +1692,6 @@ async def shake(ctx):
         
     with open("ticketbank.json","w") as f:
         json.dump(users,f, indent=4)
-        
-    await client.close()
 
 #######################
 ## catch throw block ##
@@ -1904,22 +1993,11 @@ async def target(ctx):
     users = await get_ticket_data()
     user = ctx.author
     ticket_amt = users[str(user.id)]["ticket"]
-    client = python_weather.Client(format=python_weather.METRIC)
-    weather = await client.get("Boston")
-    weather_check = weather.current.description
     
     target_chance = ["1", "5", "0", "-1", "lilly"] #we make a list of the random options
     randomList = random.choices( target_chance, weights=(48, 2, 25, 25, 1), k=1) # weighted the random chances so some options happen more then others , k=howmeny options form the list we want
-    
-    if weather_check in rainy:
 
-        await ctx.followup.send("the carni is shutdown becase of rain come back later")
-        
-    elif weather_check in ninja_cloud:
-        
-        await ctx.followup.send("what in tarnations its thicker then pea soup out there how do u exspect to hit the target in this weather?")
-
-    elif randomList == ["1"]: # 1 ticket
+    if randomList == ["1"]: # 1 ticket
 
         users[str(user.id)]["ticket"] += 1
 
@@ -1991,7 +2069,6 @@ async def target(ctx):
         em.add_field(name = "<:DanWater1:919977398127165440><:DanWater2:919977398357868564><:DanWater3:919977398118776864><:DanWater4:919977398013919274><:DanCat:704518407822901339>", value = "WO WO WOOOOOOO now you just gona soaked lilly ill be taking 10 tickets to dry her fur")
         em.add_field(name="you now have" , value = f" {new_amt} <:DanTix:919966342797463552>",inline = False)
         await ctx.followup.send(embed = em)
-    await client.close()
     
 #####################################
 ## temp command for webgame scores ##
@@ -2035,10 +2112,6 @@ async def score(ctx,amount = None ):
 async def tank(ctx,member:discord.Member,amount = None ):
     await ctx.response.defer()
     
-    client = python_weather.Client(format=python_weather.METRIC)
-    weather = await client.get("Boston")
-    weather_check = weather.current.description
-    
     dunk_aim = random.randint(1,100)
     
     await open_account(ctx.author)
@@ -2056,14 +2129,6 @@ async def tank(ctx,member:discord.Member,amount = None ):
     elif amount > users[str(user.id)]["ticket"] or amount > users[str(mem.id)]["ticket"]:
         
         await ctx.followup.send("you cant bet more then you or your friend own")
-        
-    elif weather_check in rainy:
-        
-        await ctx.followup.send("sorry partner with the rain going on its not as fun if you and your friend are allready wet")
-        
-    elif weather_check in snow:
-        
-        await ctx.followup.send("sorry partner the dunktank is frozen solid")
         
     elif amount >= 2 and dunk_aim >= 55 and weather_check in ninja_cloud:
         
@@ -2086,27 +2151,6 @@ async def tank(ctx,member:discord.Member,amount = None ):
         await ctx.send(embed = dunkbed)
         
         await ctx.send("https://tenor.com/view/fell-into-the-water-mark-chernesky-konas2002-fall-dunk-tank-gif-17968100")
-        
-    elif amount >= 2 and dunk_aim <= 54 and weather_check in ninja_cloud:
-        
-        users[str(mem.id)]["ticket"] += amount
-        users[str(user.id)]["ticket"] -= amount
-        
-        with open("ticketbank.json","w") as f:
-            json.dump(users,f, indent=4)
-            
-        ubal = users[str(user.id)]["ticket"]
-        mbal = users[str(mem.id)]["ticket"]
-        
-        await ctx.followup.send(f"<@!{member.id}> sat in the dunk tank \n{amount} <:DanTix:919966342797463552> are put on the line")
-        
-        dunkbed = discord.Embed(title= "DUNK TANK",colour = discord.Colour.purple())
-        dunkbed.set_author(name = (ctx.author.name))
-        dunkbed.set_thumbnail(url ="https://cdn.discordapp.com/emojis/887167642417373246.webp?size=96&quality=lossless")
-        dunkbed.add_field(name =f"{ctx.author.name} threw a ball but missed the <:Target:887076837392527400>", value = f"you now have {ubal}", inline = True)
-        dunkbed.add_field(name =f"{member.name} won the bet and is dry", value = f"they now have {mbal}",inline = True)
-        await ctx.send(embed = dunkbed)
-
 
     elif amount >= 2 and dunk_aim >= 50:
         
@@ -2150,8 +2194,6 @@ async def tank(ctx,member:discord.Member,amount = None ):
         dunkbed.add_field(name =f"{ctx.author.name} threw a ball but missed the <:Target:887076837392527400>", value = f"you now have {ubal}", inline = True)
         dunkbed.add_field(name =f"{member.name} won the bet and is dry", value = f"they now have {mbal}",inline = True)
         await ctx.send(embed = dunkbed)
-        
-    await client.close()
         
 
 ###########################
@@ -2318,14 +2360,14 @@ class petview(discord.ui.View):
         name = users[str(user.id)]["pet name"]
  
         if users[str(user.id)]["petfood"] == 0:
-            await interaction.response.send_message("you dont have any pet food buy some with !shop and !buy")
+            await interaction.response.send_message("you dont have any pet food buy some with !shop and !buy", ephemeral=True)
             
         elif users[str(user.id)]["petfood"] > 0:
             users[str(user.id)]["petfood"] -= 1
             users[str(user.id)]["pet_hunger"] += 5
             if users[str(user.id)]["pet_hunger"] > 10:
                 users[str(user.id)]["pet_hunger"] = 10
-            await interaction.response.send_message(f"you feed {name} munches away happerly")
+            await interaction.response.send_message(f"you feed {name} munches away happerly", ephemeral=True)
         
         with open("ticketbank.json","w") as f:
             json.dump(users,f, indent=4)
@@ -2339,17 +2381,17 @@ class petview(discord.ui.View):
         name = users[str(user.id)]["pet name"]
 
         if users[str(user.id)]["petmed"] == 0:
-            await interaction.response.send_message(f"you dont have any meds for {name} but some with /shop buy")
+            await interaction.response.send_message(f"you dont have any meds for {name} but some with /shop buy", ephemeral=True)
             
         elif users[str(user.id)]["petmed"] > 0:
             users[str(user.id)]["petmed"] -= 1
             if users[str(user.id)]["pet_sickness"] == 1:
                 users[str(user.id)]["pet_sickness"] = 0
-                await interaction.response.send_message(f"{name} is no longer sick")
+                await interaction.response.send_message(f"{name} is no longer sick", ephemeral=True)
 
             elif users[str(user.id)]["pet_sickness"] == 0:
                 users[str(user.id)]["pet_health"] - 5
-                await interaction.response.send_message(f"{name} wasnt sick but now he looks worce for wear")
+                await interaction.response.send_message(f"{name} wasnt sick but now he looks worce for wear", ephemeral=True)
                 
         with open("ticketbank.json","w") as f:
             json.dump(users,f, indent=4)
@@ -2363,7 +2405,7 @@ class petview(discord.ui.View):
         fun = random.randint(1,10)
         name = users[str(user.id)]["pet name"]
         
-        await interaction.response.send_message(f"you played with {name} he fun went up by{fun} (this will be upgraded later)")
+        await interaction.response.send_message(f"you played with {name} he fun went up by{fun} (this will be upgraded later)", ephemeral=True)
         users[str(user.id)]["pet_fun"] += fun
         if users[str(user.id)]["pet_fun"] > 10:
             users[str(user.id)]["pet_fun"] = 10
@@ -2379,7 +2421,7 @@ class petview(discord.ui.View):
         users = await get_ticket_data()
         name = users[str(user.id)]["pet name"]
             
-        await interaction.response.send_message(f"you gave {name} a bath")
+        await interaction.response.send_message(f"you gave {name} a bath", ephemeral=True)
         users[str(user.id)]["pet_clean"] = 10
         
         with open("ticketbank.json","w") as f:
@@ -2503,9 +2545,9 @@ async def check(ctx):
     pet_fish = users[str(user.id)]["fish"]
     pet_name = users[str(user.id)]["pet name"]
     
-    home = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/pet_home_empty.png")
-    char = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/char.png")
-    you = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/you.png")
+    home = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/pet_home_empty.png")
+    char = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/char.png")
+    you = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/you.png")
     
     if users[str(user.id)]["pet name"] == "":   #
         em=discord.Embed(title = "pet")         # sets the pets name for the
@@ -2516,26 +2558,26 @@ async def check(ctx):
     
 ###################################################################################
 ###### set font style                                                             #
-    font = ImageFont.truetype(font ="/home/pi/.fonts/ZakirahsCasual.ttf",size=30) #
-    sont = ImageFont.truetype(font ="/home/pi/.fonts/Symbola.ttf",size = 20)      #
+    font = ImageFont.truetype(font ="/home/monkeybee11/.fonts/ZakirahsCasual.ttf",size=30) #
+    sont = ImageFont.truetype(font ="/home/monkeybee11/.fonts/Symbola.ttf",size = 20)      #
 ###################################################################################
 
     home.paste(char, (0,0), char) #puts a char in the living room
     
-    await ctx.author.display_avatar.save("/home/pi/Desktop/monkey bot discord/img/pet/face.png") #gets users PFP and saves it as  face.png
-    face = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/face.png")
+    await ctx.author.display_avatar.save("/home/monkeybee11/Desktop/monkey bot discord/img/pet/face.png") #gets users PFP and saves it as  face.png
+    face = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/face.png")
     face = face.resize((38,39))
     
 ##############################################################################################################################
 #### check to see if the user has effects or not befor sitting in the chair                                                  #
                                                                                                                              #
     if users[str(user.id)]["snowman_cursed"] > 0:                                                                            #
-        you = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/snowman_curse.png")                                    #
+        you = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/snowman_curse.png")                                    #
     elif users[str(user.id)]["splat"] > 0:                                                                                   #
-        banana = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/banana.png")                                        #
+        banana = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/banana.png")                                        #
         you.paste(banana, (0,0), banana)                                                                                     #
     else:                                                                                                                    #
-        you = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/you.png")                                              #
+        you = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/you.png")                                              #
 ##############################################################################################################################
 
     home.paste(face, (253, 99))#
@@ -2545,17 +2587,17 @@ async def check(ctx):
 ########################################################################################
 # put trophys on the wall                                                              #
                                                                                        #
-    ticket = {t1: "/home/pi/Desktop/monkey bot discord/img/pet/top10/ticket1.png",     #
-              t2: "/home/pi/Desktop/monkey bot discord/img/pet/top10/ticket2.png",     #
-              t3: "/home/pi/Desktop/monkey bot discord/img/pet/top10/ticket3.png"}     #
+    ticket = {t1: "/home/monkeybee11/Desktop/monkey bot discord/img/pet/top10/ticket1.png",     #
+              t2: "/home/monkeybee11/Desktop/monkey bot discord/img/pet/top10/ticket2.png",     #
+              t3: "/home/monkeybee11/Desktop/monkey bot discord/img/pet/top10/ticket3.png"}     #
                                                                                        #
-    banana = {b1: "/home/pi/Desktop/monkey bot discord/img/pet/top10/banana1.png",     #
-              b2: "/home/pi/Desktop/monkey bot discord/img/pet/top10/banana2.png",     #
-              b3: "/home/pi/Desktop/monkey bot discord/img/pet/top10/banana3.png"}     #
+    banana = {b1: "/home/monkeybee11/Desktop/monkey bot discord/img/pet/top10/banana1.png",     #
+              b2: "/home/monkeybee11/Desktop/monkey bot discord/img/pet/top10/banana2.png",     #
+              b3: "/home/monkeybee11/Desktop/monkey bot discord/img/pet/top10/banana3.png"}     #
                                                                                        #
-    fish = {f1: "/home/pi/Desktop/monkey bot discord/img/pet/top10/fish3.png",         #
-            f2: "/home/pi/Desktop/monkey bot discord/img/pet/top10/fish2.png",         #
-            f3: "/home/pi/Desktop/monkey bot discord/img/pet/top10/fish1.png"}         #
+    fish = {f1: "/home/monkeybee11/Desktop/monkey bot discord/img/pet/top10/fish3.png",         #
+            f2: "/home/monkeybee11/Desktop/monkey bot discord/img/pet/top10/fish2.png",         #
+            f3: "/home/monkeybee11/Desktop/monkey bot discord/img/pet/top10/fish1.png"}         #
                                                                                        #
     if ctx.author.id in ticket:                                                        #
         ticket_trophy = Image.open(ticket[ctx.author.id])                              #
@@ -2641,74 +2683,74 @@ async def check(ctx):
 
 #########################################################################################################
 ### set how the monkey is feeling and what monkey image to use                                          #
-        monkey = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/monkey/monkey_normal.png")     #
+        monkey = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/monkey/monkey_normal.png")     #
                                                                                                         #
         if users[str(user.id)]["pet_health"] == 0:                                                      #
-            monkey = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/monkey/monkey_dead.png")   #
+            monkey = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/monkey/monkey_dead.png")   #
         elif users[str(user.id)]["pet_fun"] <= 6 :                                                      #
-            monkey = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/monkey/monkey_bored.png")  #
+            monkey = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/monkey/monkey_bored.png")  #
         elif users[str(user.id)]["pet_hunger"] <= 6 :                                                   #
-            monkey = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/monkey/monkey_hungry.png") #
+            monkey = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/monkey/monkey_hungry.png") #
         elif users[str(user.id)]["pet_sickness"] == 1:                                                  #
-            monkey = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/monkey/monkey_sick.png")   #
+            monkey = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/monkey/monkey_sick.png")   #
 #########################################################################################################
 
         if users[str(user.id)]["pet_clean"] < 6:
-            mess = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/monkey/monkey_dirty.png")
+            mess = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/monkey/monkey_dirty.png")
             home.paste(mess, (0,0), mess)
         home.paste(monkey, (0,0), monkey)
-        home.save("/home/pi/Desktop/monkey bot discord/img/pet/monkey_home.png", "PNG")
+        home.save("/home/monkeybee11/Desktop/monkey bot discord/img/pet/monkey_home.png", "PNG")
            
-        file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/monkey_home.png")
+        file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/img/pet/monkey_home.png")
         em.set_author(name = (ctx.author.name))
         em.set_image(url="attachment://monkey_home.png")
         em.add_field(name = f"your have {food} 🥫 left", value = f"you have {med} 💊 left", inline = True)
         await ctx.followup.send(file = file, embed=em, view = petview())
-        os.remove("/home/pi/Desktop/monkey bot discord/img/pet/monkey_home.png") 
+        os.remove("/home/monkeybee11/Desktop/monkey bot discord/img/pet/monkey_home.png") 
 
     
     elif users[str(user.id)]["active_pet"] == "snowman": #commants are in the monkey if statment
 
-        snowman = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/snowman/snowman_normal.png")
+        snowman = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/snowman/snowman_normal.png")
         
         if users[str(user.id)]["pet_health"] == 0:
-            snowman = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/snowman/snowman_dead.png")
+            snowman = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/snowman/snowman_dead.png")
         elif users[str(user.id)]["pet_health"] >=1 and users[str(user.id)]["pet_sickness"] == 1:
-            snowman = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/snowman/snowman_sick.png")
+            snowman = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/snowman/snowman_sick.png")
         elif users[str(user.id)]["pet_clean"] <= 6:
-            snowman = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/snowman/snowman_dirty.png")
+            snowman = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/snowman/snowman_dirty.png")
         elif users[str(user.id)]["pet_hunger"] <=6:
-            snowman = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/snowman/snowman_hungery.png")
+            snowman = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/snowman/snowman_hungery.png")
         elif users[str(user.id)]["pet_fun"] <= 6:
-            snowman = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/snowman/snowman_bored.png")
+            snowman = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/snowman/snowman_bored.png")
             
         home.paste(snowman,(0,0),snowman)
         
-        home.save("/home/pi/Desktop/monkey bot discord/img/pet/snowman_home.png", "PNG")
+        home.save("/home/monkeybee11/Desktop/monkey bot discord/img/pet/snowman_home.png", "PNG")
           
-        file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/snowman_home.png")
+        file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/img/pet/snowman_home.png")
         em.set_author(name = (ctx.author.name))
         em.set_image(url="attachment://snowman_home.png")
         em.add_field(name = f"your have {food} 🥫 left", value = f"you have {med} 💊 left", inline = True)
         await ctx.followup.send(file = file, embed=em, view = petview())
-        os.remove("/home/pi/Desktop/monkey bot discord/img/pet/snowman_home.png")  
+        os.remove("/home/monkeybee11/Desktop/monkey bot discord/img/pet/snowman_home.png")  
     
     elif users[str(user.id)]["active_pet"] == "fish": #commants are in the monkey if statment
 
-        fishbowl = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/fish/fishbowl.png")
+        fishbowl = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/fish/fishbowl.png")
     
         if users[str(user.id)]["pet_health"] == 0:
-            fish = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/fish/fish_dead.png")
+            fish = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/fish/fish_dead.png")
     
         elif users[str(user.id)]["pet_health"] >= 1 and users[str(user.id)]["pet_sickness"] == 1:
-            fish = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/fish/fish_sick.png")
+            fish = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/fish/fish_sick.png")
         else:
-            fish = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/fish/fish_happy.png")
+            fish = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/fish/fish_happy.png")
         
         if users[str(user.id)]["pet_clean"] <= 6:
-            fishwater = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/fish/dirty_water.png")
+            fishwater = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/fish/dirty_water.png")
         else:
-            fishwater = Image.open("/home/pi/Desktop/monkey bot discord/img/pet/fish/clean_water.png")
+            fishwater = Image.open("/home/monkeybee11/Desktop/monkey bot discord/img/pet/fish/clean_water.png")
     
         fishwater.paste(fish, (0,0), fish)
 
@@ -2716,29 +2758,29 @@ async def check(ctx):
 
         home.paste(fishbowl, (0, 0), fishbowl)
 
-        home.save("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png", "PNG")
+        home.save("/home/monkeybee11/Desktop/monkey bot discord/img/pet/fish_home.png", "PNG")
                
-        file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png")
+        file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/img/pet/fish_home.png")
         em.set_author(name = (ctx.author.name))
         em.set_image(url="attachment://fish_home.png")
         em.add_field(name = f"your have {food} 🥫 left", value = f"you have {med} 💊 left", inline = True)
         await ctx.followup.send(file = file, embed=em, view = petview())
-        os.remove("/home/pi/Desktop/monkey bot discord/img/pet/fish_home.png")  
+        os.remove("/home/monkeybee11/Desktop/monkey bot discord/img/pet/fish_home.png")  
         
     elif users[str(user.id)]["active_pet"] == "":
         
-        home.save("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png")
+        home.save("/home/monkeybee11/Desktop/monkey bot discord/img/pet/you_home.png")
         
-        file = discord.File("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png")
+        file = discord.File("/home/monkeybee11/Desktop/monkey bot discord/img/pet/you_home.png")
         em=discord.Embed(title = "no pet")
         em.set_author(name = (ctx.author.name))
         em.set_image(url="attachment://you_home.png")
         em.add_field(name = f"you dont have a active in your pet pocket ther is {pet_monkey} 🐒 | {pet_snowman} ⛄ | {pet_fish} 🐟", value = "if u dont have a pet try shaking the banana tree or go fishing", inline = True)
         await ctx.followup.send(file = file, embed=em)
 
-        os.remove("/home/pi/Desktop/monkey bot discord/img/pet/you_home.png")
+        os.remove("/home/monkeybee11/Desktop/monkey bot discord/img/pet/you_home.png")
         
-    os.remove("/home/pi/Desktop/monkey bot discord/img/pet/face.png")
+    os.remove("/home/monkeybee11/Desktop/monkey bot discord/img/pet/face.png")
      
      
      
